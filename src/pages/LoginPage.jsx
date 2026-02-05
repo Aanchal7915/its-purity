@@ -25,7 +25,7 @@ const LoginPage = () => {
         setLoading(true);
         setError('');
         try {
-            const { data } = await axios.post('http://localhost:5002/api/auth/login', { email, password });
+            const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, { email, password });
             localStorage.setItem('userInfo', JSON.stringify(data));
 
             if (data.role === 'admin') {

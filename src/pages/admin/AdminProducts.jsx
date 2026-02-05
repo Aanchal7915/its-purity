@@ -11,7 +11,7 @@ const AdminProducts = () => {
     }, []);
 
     const fetchProducts = async () => {
-        const { data } = await axios.get('http://localhost:5002/api/products');
+        const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products`);
         setProducts(data);
     };
 
@@ -23,7 +23,7 @@ const AdminProducts = () => {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            await axios.delete(`http://localhost:5002/api/products/${id}`, config);
+            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`, config);
             fetchProducts();
         }
     };

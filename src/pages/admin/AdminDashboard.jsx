@@ -22,7 +22,7 @@ const AdminDashboard = () => {
                 const config = {
                     headers: { Authorization: `Bearer ${userInfo.token}` },
                 };
-                const { data: analyticsData } = await axios.get('http://localhost:5002/api/analytics', config);
+                const { data: analyticsData } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/analytics`, config);
                 setData(analyticsData);
             } catch (error) {
                 console.error(error);

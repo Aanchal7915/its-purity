@@ -15,7 +15,7 @@ const FeaturedProducts = () => {
 
     const fetchFeaturedProducts = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5002/api/products?isFeatured=true');
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products?isFeatured=true`);
             setProducts(data);
             setLoading(false);
         } catch (error) {
@@ -34,11 +34,11 @@ const FeaturedProducts = () => {
                     },
                 };
                 const product = products.find(p => p._id === id);
-                await axios.put(`http://localhost:5002/api/products/${id}`, { ...product, isFeatured: false }, config);
+                await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`, { ...product, isFeatured: false }, config);
                 fetchFeaturedProducts();
             } catch (error) {
                 console.error(error);
-                alert('Error removing product');
+                alert(`Error removing product`);
             }
         }
     };

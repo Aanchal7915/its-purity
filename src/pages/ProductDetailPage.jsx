@@ -24,7 +24,7 @@ const ProductDetailPage = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const { data } = await axios.get(`http://localhost:5002/api/products/${id}`);
+                const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`);
                 setProduct(data);
                 setMainImage(data.images[0]);
                 if (data.variants && data.variants.length > 0) {
@@ -33,7 +33,7 @@ const ProductDetailPage = () => {
                     setSelectedSize({ unitCount: data.unitCount, unitName: data.unitName });
                 }
 
-                const { data: related } = await axios.get('http://localhost:5002/api/products?limit=6');
+                const { data: related } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products?limit=6`);
                 setRelatedProducts(related.filter(p => p._id !== id).slice(0, 4));
             } catch (error) {
                 console.error(error);
@@ -74,7 +74,7 @@ const ProductDetailPage = () => {
         }
         try {
             const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-            await axios.post('http://localhost:5002/api/users/wishlist', { productId: product._id }, config);
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/wishlist`, { productId: product._id }, config);
             setIsLiked(true);
 
             const stored = JSON.parse(localStorage.getItem('wishlistIds')) || [];

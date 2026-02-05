@@ -20,7 +20,7 @@ const ForgotPasswordPage = () => {
         setLoading(true);
         setError('');
         try {
-            const { data } = await axios.post('http://localhost:5002/api/auth/forgot-password', { email });
+            const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/forgot-password`, { email });
             setMessage(data.message);
             setStep(2);
         } catch (err) {
@@ -36,7 +36,7 @@ const ForgotPasswordPage = () => {
         setLoading(true);
         setError('');
         try {
-            await axios.post('http://localhost:5002/api/auth/verify-otp', { email, otp });
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/verify-otp`, { email, otp });
             setStep(3);
         } catch (err) {
             setError(err.response?.data?.message || 'Invalid or expired OTP');
@@ -55,7 +55,7 @@ const ForgotPasswordPage = () => {
         setLoading(true);
         setError('');
         try {
-            await axios.post('http://localhost:5002/api/auth/reset-password', { email, otp, password });
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/reset-password`, { email, otp, password });
             setStep(4);
             setTimeout(() => navigate('/login'), 3000);
         } catch (err) {

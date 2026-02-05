@@ -36,7 +36,7 @@ const HomePage = () => {
         }
 
         localStorage.setItem('cartItems', JSON.stringify(newItems));
-        alert(`${product.name} added to cart!`);
+        alert('${product.name} added to cart!');
         window.dispatchEvent(new Event('cartUpdate'));
     };
 
@@ -52,7 +52,7 @@ const HomePage = () => {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            const { data } = await axios.post('http://localhost:5002/api/users/wishlist', { productId }, config);
+            const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/wishlist`, { productId }, config);
 
             const stored = JSON.parse(localStorage.getItem('wishlistIds')) || [];
             if (data.action === 'added') {
@@ -75,19 +75,19 @@ const HomePage = () => {
         const fetchProducts = async () => {
             try {
                 // Fetch Best Sellers
-                const { data: bestSellersData } = await axios.get('http://localhost:5002/api/products?isBestSeller=true');
+                const { data: bestSellersData } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products?isBestSeller=true`);
                 setBestSellers(bestSellersData.slice(0, 8));
 
                 // Fetch New Launches
-                const { data: newLaunchesData } = await axios.get('http://localhost:5002/api/products?isNewLaunch=true');
+                const { data: newLaunchesData } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products?isNewLaunch=true`);
                 setNewLaunches(newLaunchesData.slice(0, 8));
 
                 // Fetch Super Savers
-                const { data: superSaversData } = await axios.get('http://localhost:5002/api/products?isSuperSaver=true');
+                const { data: superSaversData } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products?isSuperSaver=true`);
                 setSuperSavers(superSaversData.slice(0, 8));
 
                 // Fetch Featured Products
-                const { data: featuredData } = await axios.get('http://localhost:5002/api/products?isFeatured=true');
+                const { data: featuredData } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products?isFeatured=true`);
                 setFeaturedProducts(featuredData.slice(0, 8));
             } catch (err) {
                 console.log("Error fetching products", err);
@@ -95,16 +95,16 @@ const HomePage = () => {
 
             // Fetch Categories
             try {
-                const { data: cats } = await axios.get('http://localhost:5002/api/categories');
+                const { data: cats } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/categories`);
                 setAudienceCats(cats.filter(c => c.type === 'audience'));
                 setFormCats(cats.filter(c => c.type === 'form'));
             } catch (err) {
-                console.log("Error fetching categories", err);
+                console.log(`Error fetching categories`, err);
             }
 
             // Fetch Reels
             try {
-                const { data: reelsData } = await axios.get('http://localhost:5002/api/reels');
+                const { data: reelsData } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/reels`);
                 setReels(reelsData.slice(0, 8));
             } catch (err) {
                 console.log("No reels found or API error", err);

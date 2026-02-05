@@ -73,21 +73,21 @@ const ReelCard = ({ reel }) => {
       });
     }
     localStorage.setItem("cartItems", JSON.stringify(cartItems));
-    alert("Added to Cart!");
+    alert('Added to Cart!');
     window.dispatchEvent(new Event('cartUpdate'));
   };
 
   const addToWishlist = async (e) => {
     e.stopPropagation();
     try {
-      const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+      const userInfo = JSON.parse(localStorage.getItem('userInfo'));
       if (!userInfo) {
-        alert("Login to wishlist");
+        alert('Login to wishlist');
         return;
       }
       const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
       await axios.post(
-        "http://localhost:5002/api/users/wishlist",
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/wishlist`,
         { productId: reel.product?._id },
         config
       );
@@ -98,17 +98,17 @@ const ReelCard = ({ reel }) => {
         localStorage.setItem('wishlistIds', JSON.stringify([...stored, reel.product._id]));
       }
 
-      alert("Wishlisted!");
+      alert('Wishlisted!');
     } catch (error) {
       console.error(error);
-      alert("Wishlist failed");
+      alert('Wishlist failed');
     }
   };
 
   const shareReel = (e) => {
     e.stopPropagation();
     navigator.clipboard.writeText(reel?.videoUrl || window.location.href);
-    alert("Link copied!");
+    alert('Link copied!');
   };
 
   const showYouTube = isYouTubeUrl(reel?.videoUrl) && embedUrl;
@@ -119,7 +119,7 @@ const ReelCard = ({ reel }) => {
       <div className="relative flex-1 bg-black overflow-hidden cursor-pointer" onClick={togglePlay}>
         {showYouTube ? (
           <iframe
-            key={`${videoId}-${isPlaying}-${isMuted}`}
+            key={videoId + "-" + isPlaying + "-" + isMuted}
             src={embedUrl}
             className="w-full h-full object-cover"
             title="YouTube Reel"

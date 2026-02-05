@@ -22,7 +22,7 @@ const Navbar = () => {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const { data } = await axios.get('http://localhost:5002/api/categories');
+                const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/categories`);
                 setCategories(data);
             } catch (error) {
                 console.error('Error fetching categories:', error);
@@ -33,7 +33,7 @@ const Navbar = () => {
             if (userInfo && userInfo.token) {
                 try {
                     const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-                    const { data } = await axios.get('http://localhost:5002/api/users/profile', config);
+                    const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/profile`, config);
                     const ids = (data.wishlist || []).filter(p => p !== null).map(p => p._id);
                     localStorage.setItem('wishlistIds', JSON.stringify(ids));
                 } catch (error) {

@@ -50,7 +50,7 @@ const AdminProductEdit = () => {
 
     const fetchCategories = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5002/api/categories');
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/categories`);
             setCategories(data);
         } catch (error) {
             console.error(error);
@@ -59,7 +59,7 @@ const AdminProductEdit = () => {
 
     const fetchProduct = async () => {
         try {
-            const { data } = await axios.get(`http://localhost:5002/api/products/${id}`);
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`);
             setName(data.name);
             setSlug(data.slug);
             setPrice(data.price);
@@ -124,9 +124,9 @@ const AdminProductEdit = () => {
 
         try {
             if (isEditMode) {
-                await axios.put(`http://localhost:5002/api/products/${id}`, productData, config);
+                await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`, productData, config);
             } else {
-                await axios.post('http://localhost:5002/api/products', productData, config);
+                await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/products`, productData, config);
             }
             navigate('/admin/products');
         } catch (error) {
@@ -161,8 +161,8 @@ const AdminProductEdit = () => {
                 const config = {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 };
-                const { data } = await axios.post('http://localhost:5002/api/upload', formData, config);
-                const fullUrl = `http://localhost:5002${data}`;
+                const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload`, formData, config);
+                const fullUrl = `${import.meta.env.VITE_API_BASE_URL}${data}`;
                 setImages([...images, fullUrl]);
             } catch (error) {
                 console.error(error);
@@ -176,8 +176,8 @@ const AdminProductEdit = () => {
                 const config = {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 };
-                const { data } = await axios.post('http://localhost:5002/api/upload/multiple', formData, config);
-                const fullUrls = data.map(path => `http://localhost:5002${path}`);
+                const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload/multiple`, formData, config);
+                const fullUrls = data.map(path => `${import.meta.env.VITE_API_BASE_URL}${path}`);
                 setImages([...images, ...fullUrls]);
             } catch (error) {
                 console.error(error);

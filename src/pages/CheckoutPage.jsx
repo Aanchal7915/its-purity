@@ -48,7 +48,7 @@ const CheckoutPage = () => {
                 userNotes: userNotes
             };
 
-            await axios.post('http://localhost:5002/api/orders', orderData, config);
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/orders`, orderData, config);
 
             localStorage.removeItem('cartItems');
             alert('Order Placed Successfully!');
@@ -56,7 +56,7 @@ const CheckoutPage = () => {
         } catch (error) {
             console.error(error);
             const errorMsg = error.response?.data?.message || error.message || 'Order failed';
-            alert(`Order Failed: ${errorMsg}`);
+            alert('Order Failed: ${errorMsg}');
         } finally {
             setLoading(false);
         }

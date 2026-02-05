@@ -14,7 +14,7 @@ const WishlistPage = () => {
             const config = {
                 headers: { Authorization: `Bearer ${user.token}` }
             };
-            const { data } = await axios.get('http://localhost:5002/api/users/profile', config);
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/profile`, config);
             const items = (data.wishlist || []).filter(p => p !== null);
             setWishlist(items);
 
@@ -32,7 +32,7 @@ const WishlistPage = () => {
             const config = {
                 headers: { Authorization: `Bearer ${user.token}` }
             };
-            await axios.delete(`http://localhost:5002/api/users/wishlist/${productId}`, config);
+            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/users/wishlist/${productId}`, config);
             const updatedWishlist = wishlist.filter(p => p._id !== productId);
             setWishlist(updatedWishlist);
 

@@ -23,7 +23,7 @@ const ProductListPage = () => {
 
     const fetchCategories = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5002/api/categories');
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/categories`);
             setCategories(data);
         } catch (error) {
             console.error(error);
@@ -45,7 +45,7 @@ const ProductListPage = () => {
             if (filters.productType) queryParams.append('form', filters.productType);
             if (filters.sort) queryParams.append('sort', filters.sort);
 
-            const { data } = await axios.get(`http://localhost:5002/api/products?${queryParams.toString()}`);
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products?${queryParams.toString()}`);
             setProducts(data);
         } catch (error) {
             console.error(error);
@@ -104,7 +104,7 @@ const ProductListPage = () => {
                     Authorization: `Bearer ${user.token}`,
                 },
             };
-            const { data } = await axios.post('http://localhost:5002/api/users/wishlist', { productId }, config);
+            const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/users/wishlist`, { productId }, config);
 
             const stored = JSON.parse(localStorage.getItem('wishlistIds')) || [];
             if (data.action === 'added') {
@@ -144,7 +144,7 @@ const ProductListPage = () => {
 
         localStorage.setItem('cartItems', JSON.stringify(newItems));
         window.dispatchEvent(new Event('cartUpdate'));
-        alert(`${product.name} added to cart!`);
+        alert('${product.name} added to cart!');
     };
 
     const updateFilterParam = (key, value) => {

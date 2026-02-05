@@ -24,7 +24,7 @@ const AdminOrders = () => {
         const config = {
             headers: { Authorization: `Bearer ${userInfo.token}` },
         };
-        const { data } = await axios.get('http://localhost:5002/api/orders', config);
+        const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/orders`, config);
         setOrders(data);
     };
 
@@ -37,7 +37,7 @@ const AdminOrders = () => {
             const config = {
                 headers: { Authorization: `Bearer ${userInfo.token}` },
             };
-            await axios.put(`http://localhost:5002/api/orders/${id}/status`, { status }, config);
+            await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/orders/${id}/status`, { status }, config);
             fetchOrders();
         } catch (error) {
             console.error(error);
@@ -61,7 +61,7 @@ const AdminOrders = () => {
             const order = orders.find(o => o._id === id);
             if (!order) return;
 
-            await axios.put(`http://localhost:5002/api/orders/${id}/status`, {
+            await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/orders/${id}/status`, {
                 status: order.status,
                 adminNotes: adminNotesInput
             }, config);

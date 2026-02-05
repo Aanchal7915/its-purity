@@ -15,7 +15,7 @@ const AdminUsers = () => {
                         Authorization: `Bearer ${userInfo.token}`,
                     },
                 };
-                const { data } = await axios.get('http://localhost:5002/api/users', config);
+                const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users`, config);
                 setUsers(data);
             } catch (error) {
                 console.error(error);

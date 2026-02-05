@@ -16,7 +16,7 @@ const AdminCategoryPage = () => {
 
     const fetchCategories = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5002/api/categories');
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/categories`);
             setCategories(data);
         } catch (error) {
             console.error('Error fetching categories:', error);
@@ -37,7 +37,7 @@ const AdminCategoryPage = () => {
                     Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}`
                 }
             };
-            await axios.post('http://localhost:5002/api/categories', {
+            await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/categories`, {
                 name: catName,
                 description: catDesc,
                 type: catType || 'general',
@@ -65,7 +65,7 @@ const AdminCategoryPage = () => {
                         Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}`
                     }
                 };
-                await axios.delete(`http://localhost:5002/api/categories/${id}`, config);
+                await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/categories/${id}`, config);
                 fetchCategories();
             } catch (error) {
                 alert(error.response?.data?.message || error.message);

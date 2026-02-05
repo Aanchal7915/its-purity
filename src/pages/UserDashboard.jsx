@@ -28,7 +28,7 @@ const UserDashboard = () => {
                 };
 
                 // Fetch Profile (includes wishlist)
-                const { data: profileData } = await axios.get('http://localhost:5002/api/users/profile', config);
+                const { data: profileData } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/users/profile`, config);
                 setUser(profileData);
                 setWishlist(profileData.wishlist || []);
 
@@ -37,7 +37,7 @@ const UserDashboard = () => {
                 localStorage.setItem('wishlistIds', JSON.stringify(ids));
 
                 // Fetch Orders
-                const { data: ordersData } = await axios.get('http://localhost:5002/api/orders/myorders', config);
+                const { data: ordersData } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/orders/myorders`, config);
                 setOrders(ordersData);
 
             } catch (error) {
@@ -69,7 +69,7 @@ const UserDashboard = () => {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            await axios.put('http://localhost:5002/api/users/profile', user, config);
+            await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/users/profile`, user, config);
             alert('Profile Updated Successfully');
         } catch (error) {
             console.error(error);
@@ -84,7 +84,7 @@ const UserDashboard = () => {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            await axios.delete(`http://localhost:5002/api/users/wishlist/${productId}`, config);
+            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/users/wishlist/${productId}`, config);
             const updatedWishlist = wishlist.filter(item => item._id !== productId);
             setWishlist(updatedWishlist);
 

@@ -20,7 +20,7 @@ const AdminReels = () => {
 
     const fetchReels = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5002/api/reels');
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/reels`);
             setReels(data);
         } catch (error) {
             console.error('Error fetching reels:', error);
@@ -31,7 +31,7 @@ const AdminReels = () => {
 
     const fetchProducts = async () => {
         try {
-            const { data } = await axios.get('http://localhost:5002/api/products');
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products`);
             setProducts(data);
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -50,10 +50,10 @@ const AdminReels = () => {
             };
 
             if (editingId) {
-                await axios.put(`http://localhost:5002/api/reels/${editingId}`, formData, config);
+                await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/reels/${editingId}`, formData, config);
                 alert('Reel updated successfully!');
             } else {
-                await axios.post('http://localhost:5002/api/reels', formData, config);
+                await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/reels` , formData, config);
                 alert('Reel created successfully!');
             }
 
@@ -91,8 +91,8 @@ const AdminReels = () => {
                     Authorization: `Bearer ${userInfo.token}`
                 }
             };
-            await axios.delete(`http://localhost:5002/api/reels/${id}`, config);
-            alert('Reel deleted successfully!');
+            await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/reels/${id}`, config);
+            alert(`Reel deleted successfully!`);
             fetchReels();
         } catch (error) {
             console.error('Error deleting reel:', error);

@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 const dir = 'src';
-const oldUrl = 'http://localhost:5000';
-const newUrl = 'http://localhost:5002';
+const oldUrl = 'import.meta.env.VITE_API_BASE_URL';
+const newUrl = 'import.meta.env.VITE_API_BASE_URL';
 
 function walk(directory) {
     if (!fs.existsSync(directory)) return;

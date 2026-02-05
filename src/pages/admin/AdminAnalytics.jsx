@@ -62,7 +62,7 @@ const AdminAnalytics = () => {
                 headers: { Authorization: `Bearer ${userInfo.token}` },
                 params: range ? { startDate: range.start, endDate: range.end } : {}
             };
-            const { data } = await axios.get('http://localhost:5002/api/analytics', config);
+            const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/analytics`, config);
             setData(data);
         } catch (error) {
             console.error(error);
