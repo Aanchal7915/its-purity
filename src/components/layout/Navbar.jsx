@@ -273,7 +273,7 @@ const Navbar = () => {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="md:hidden bg-white border-b border-gray-100 overflow-hidden"
+                        className="md:hidden bg-white border-b border-gray-100 overflow-y-auto max-h-[80vh]"
                     >
                         <div className="px-4 py-6 space-y-4 flex flex-col">
                             <Link to="/" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Home</Link>
@@ -291,7 +291,7 @@ const Navbar = () => {
                                             initial={{ height: 0, opacity: 0 }}
                                             animate={{ height: 'auto', opacity: 1 }}
                                             exit={{ height: 0, opacity: 0 }}
-                                            className="space-y-2 overflow-hidden"
+                                            className="space-y-2 overflow-y-auto max-h-[50vh]"
                                         >
                                             <Link to="/products" className="text-sm text-gray-500 hover:text-purevit-primary block" onClick={() => setIsOpen(false)}>Shop All</Link>
                                             <Link to="/customized-solution" className="text-sm text-gray-500 hover:text-purevit-primary font-bold flex items-center gap-2" onClick={() => setIsOpen(false)}>

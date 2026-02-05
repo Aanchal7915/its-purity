@@ -215,7 +215,7 @@ const ProductListPage = () => {
                         {/* Mobile Overlay */}
                         <div className="absolute inset-0 bg-purevit-dark/60 backdrop-blur-sm lg:hidden" onClick={() => setShowFilters(false)} />
 
-                        <div className="relative h-full lg:h-auto w-[85%] lg:w-full bg-white lg:bg-transparent rounded-r-[3rem] lg:rounded-none p-5 lg:p-0 shadow-2xl lg:shadow-none overflow-y-auto z-10">
+                        <div className="relative h-full lg:h-auto w-[85%] lg:w-full bg-white lg:bg-transparent rounded-r-[3rem] lg:rounded-none p-5 lg:p-0 shadow-2xl lg:shadow-none overflow-y-auto scroll-smooth z-10">
                             <div className="lg:hidden flex items-center justify-between mb-5">
                                 <h2 className="text-2xl font-serif text-purevit-dark">Refine</h2>
                                 <button onClick={() => setShowFilters(false)} className="w-8 h-8 rounded-full bg-purevit-secondary/50 flex items-center justify-center text-gray-400 hover:bg-purevit-dark hover:text-white transition-colors relative z-20">
