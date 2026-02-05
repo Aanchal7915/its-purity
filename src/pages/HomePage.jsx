@@ -190,15 +190,15 @@ const HomePage = () => {
             </section>
 
             {/* Shop by Audience */}
-            <section className="py-16 md:py-24 bg-white">
+            <section className="py-12 md:py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 md:px-8">
-                    <div className="text-center mb-12">
+                    <div className="text-center mb-8">
                         <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The Collections</span>
                         <h2 className="text-3xl md:text-5xl font-serif text-purevit-dark font-medium">Shop by Category</h2>
                         <div className="h-px w-24 bg-purevit-primary mx-auto mt-6 opacity-30"></div>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
                         {(audienceCats.length > 0 ? audienceCats : [
                             { name: 'Women', _id: 'women', image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80' },
                             { name: 'Men', _id: 'men', image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80' },
@@ -226,12 +226,13 @@ const HomePage = () => {
 
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
                         {formCats.length > 0 ? formCats.map((cat, idx) => (
-                            <Link key={cat._id} to={`/products?productType=${cat._id}`} className="group relative">
-                                <div className="aspect-[4/5] md:aspect-[16/10] rounded-[2rem] overflow-hidden shadow-xl border border-white/5">
-                                    <img src={cat.image || `https://images.unsplash.com/photo-1594489428504-5c0c480a3202?auto=format&fit=crop&q=80&sig=${idx}`} alt={cat.name} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-                                    <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8">
-                                        <h3 className="text-lg md:text-3xl font-serif text-white">{cat.name}</h3>
+                            <Link key={cat._id} to={`/products?productType=${cat._id}`} className="group">
+                                <div className="bg-white rounded-[2rem] overflow-hidden shadow-xl border border-purevit-primary/10">
+                                    <div className="aspect-[1/1] md:aspect-[16/10] overflow-hidden bg-white">
+                                        <img src={cat.image || `https://images.unsplash.com/photo-1594489428504-5c0c480a3202?auto=format&fit=crop&q=80&sig=${idx}`} alt={cat.name} className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-105" />
+                                    </div>
+                                    <div className="px-4 py-3 border-t border-purevit-primary/10">
+                                        <h3 className="text-[11px] md:text-base font-semibold text-purevit-dark">{cat.name}</h3>
                                     </div>
                                 </div>
                             </Link>
