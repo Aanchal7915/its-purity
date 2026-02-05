@@ -215,46 +215,46 @@ const ProductListPage = () => {
                         {/* Mobile Overlay */}
                         <div className="absolute inset-0 bg-purevit-dark/60 backdrop-blur-sm lg:hidden" onClick={() => setShowFilters(false)} />
 
-                        <div className="relative h-full lg:h-auto w-[85%] lg:w-full bg-white lg:bg-transparent rounded-r-[3rem] lg:rounded-none p-10 lg:p-0 shadow-2xl lg:shadow-none overflow-y-auto">
-                            <div className="lg:hidden flex items-center justify-between mb-10">
-                                <h2 className="text-3xl font-serif text-purevit-dark">Refine</h2>
-                                <button onClick={() => setShowFilters(false)} className="w-10 h-10 rounded-full bg-purevit-secondary/50 flex items-center justify-center text-gray-400">
-                                    <X size={20} />
+                        <div className="relative h-full lg:h-auto w-[85%] lg:w-full bg-white lg:bg-transparent rounded-r-[3rem] lg:rounded-none p-5 lg:p-0 shadow-2xl lg:shadow-none overflow-y-auto z-10">
+                            <div className="lg:hidden flex items-center justify-between mb-5">
+                                <h2 className="text-2xl font-serif text-purevit-dark">Refine</h2>
+                                <button onClick={() => setShowFilters(false)} className="w-8 h-8 rounded-full bg-purevit-secondary/50 flex items-center justify-center text-gray-400 hover:bg-purevit-dark hover:text-white transition-colors relative z-20">
+                                    <X size={18} />
                                 </button>
                             </div>
 
-                            <div className="space-y-5 relative">
+                            <div className="space-y-3 lg:space-y-5 relative">
                                 <div className="absolute top-0 right-0 w-40 h-40 bg-orange-100/40 blur-[80px] rounded-full -mr-20 -mt-20"></div>
                                 <div className="absolute bottom-0 left-0 w-40 h-40 bg-green-50/60 blur-[60px] rounded-full -ml-20 -mb-20"></div>
 
                                 {/* Search Section */}
-                                <div className="bg-white rounded-2xl p-5 shadow-lg border border-orange-200/30 relative z-10">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-orange-600 ml-1 mb-3 block flex items-center gap-2">
-                                        <div className="w-1 h-3 bg-orange-500 rounded-full"></div>
+                                <div className="bg-white rounded-2xl p-3 lg:p-5 shadow-lg border border-orange-200/30 relative z-10">
+                                    <label className="text-[8px] lg:text-[10px] font-black uppercase tracking-widest text-orange-600 ml-1 mb-2 block flex items-center gap-2">
+                                        <div className="w-1 h-2 lg:h-3 bg-orange-500 rounded-full"></div>
                                         Search Formulation
                                     </label>
                                     <div className="relative group">
-                                        <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-green-600/50 group-focus-within:text-green-600 transition-colors" size={18} />
+                                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-green-600/50 group-focus-within:text-green-600 transition-colors" size={14} />
                                         <input
                                             type="text"
                                             placeholder="Search products..."
                                             value={filters.keyword}
                                             onChange={(e) => setFilters({ ...filters, keyword: e.target.value })}
-                                            className="w-full pl-10 pr-4 py-3 bg-gradient-to-br from-orange-50/50 to-amber-50/40 border border-orange-200/40 rounded-2xl focus:bg-white focus:border-green-500 focus:shadow-lg transition-all outline-none font-medium text-purevit-dark text-xs hover:border-orange-300/50"
+                                            className="w-full pl-8 pr-3 py-2 lg:py-3 bg-gradient-to-br from-orange-50/50 to-amber-50/40 border border-orange-200/40 rounded-2xl focus:bg-white focus:border-green-500 focus:shadow-lg transition-all outline-none font-medium text-purevit-dark text-[10px] lg:text-xs hover:border-orange-300/50"
                                         />
                                     </div>
                                 </div>
 
                                 {/* Audience Focus Section */}
-                                <div className="bg-white rounded-2xl p-5 shadow-lg border border-orange-200/30 relative z-10">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-orange-600 ml-1 mb-3 block flex items-center gap-2">
-                                        <div className="w-1 h-3 bg-orange-500 rounded-full"></div>
+                                <div className="bg-white rounded-2xl p-3 lg:p-5 shadow-lg border border-orange-200/30 relative z-10">
+                                    <label className="text-[8px] lg:text-[10px] font-black uppercase tracking-widest text-orange-600 ml-1 mb-2 block flex items-center gap-2">
+                                        <div className="w-1 h-2 lg:h-3 bg-orange-500 rounded-full"></div>
                                         Audience Focus
                                     </label>
-                                    <div className="grid grid-cols-2 gap-3">
+                                    <div className="grid grid-cols-2 gap-2 lg:gap-3">
                                         <button
                                             onClick={() => updateFilterParam('audience', '')}
-                                            className={`px-3 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${!filters.audience ? 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30 scale-105' : 'bg-gradient-to-br from-orange-50 to-amber-50 text-gray-500 hover:text-orange-700 hover:from-orange-100 hover:to-amber-100 hover:shadow-md'}`}
+                                            className={`px-2 py-1.5 lg:py-2 rounded-xl text-[8px] lg:text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${!filters.audience ? 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30 scale-105' : 'bg-gradient-to-br from-orange-50 to-amber-50 text-gray-500 hover:text-orange-700 hover:from-orange-100 hover:to-amber-100 hover:shadow-md'}`}
                                         >
                                             All Focus
                                         </button>
@@ -262,7 +262,7 @@ const ProductListPage = () => {
                                             <button
                                                 key={aud._id}
                                                 onClick={() => updateFilterParam('audience', aud._id)}
-                                                className={`px-2 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${filters.audience === aud._id ? 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30 scale-105' : 'bg-gradient-to-br from-orange-50 to-amber-50 text-gray-500 hover:text-orange-700 hover:from-orange-100 hover:to-amber-100 hover:shadow-md'}`}
+                                                className={`px-2 py-1.5 lg:py-2 rounded-xl text-[8px] lg:text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${filters.audience === aud._id ? 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30 scale-105' : 'bg-gradient-to-br from-orange-50 to-amber-50 text-gray-500 hover:text-orange-700 hover:from-orange-100 hover:to-amber-100 hover:shadow-md'}`}
                                             >
                                                 {aud.name}
                                             </button>
@@ -271,15 +271,15 @@ const ProductListPage = () => {
                                 </div>
 
                                 {/* Dosage Form Section */}
-                                <div className="bg-white rounded-2xl p-5 shadow-lg border border-orange-200/30 relative z-10">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-orange-600 ml-1 mb-3 block flex items-center gap-2">
-                                        <div className="w-1 h-3 bg-orange-500 rounded-full"></div>
+                                <div className="bg-white rounded-2xl p-3 lg:p-5 shadow-lg border border-orange-200/30 relative z-10">
+                                    <label className="text-[8px] lg:text-[10px] font-black uppercase tracking-widest text-orange-600 ml-1 mb-2 block flex items-center gap-2">
+                                        <div className="w-1 h-2 lg:h-3 bg-orange-500 rounded-full"></div>
                                         Dosage Form
                                     </label>
-                                    <div className="grid grid-cols-2 gap-3">
+                                    <div className="grid grid-cols-2 gap-2 lg:gap-3">
                                         <button
                                             onClick={() => updateFilterParam('productType', '')}
-                                            className={`px-3 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${!filters.productType ? 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30 scale-105' : 'bg-gradient-to-br from-orange-50 to-amber-50 text-gray-500 hover:text-orange-700 hover:from-orange-100 hover:to-amber-100 hover:shadow-md'}`}
+                                            className={`px-2 py-1.5 lg:py-2 rounded-xl text-[8px] lg:text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${!filters.productType ? 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30 scale-105' : 'bg-gradient-to-br from-orange-50 to-amber-50 text-gray-500 hover:text-orange-700 hover:from-orange-100 hover:to-amber-100 hover:shadow-md'}`}
                                         >
                                             All Types
                                         </button>
@@ -287,7 +287,7 @@ const ProductListPage = () => {
                                             <button
                                                 key={pt._id}
                                                 onClick={() => updateFilterParam('productType', pt._id)}
-                                                className={`px-2 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${filters.productType === pt._id ? 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30 scale-105' : 'bg-gradient-to-br from-orange-50 to-amber-50 text-gray-500 hover:text-orange-700 hover:from-orange-100 hover:to-amber-100 hover:shadow-md'}`}
+                                                className={`px-2 py-1.5 lg:py-2 rounded-xl text-[8px] lg:text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${filters.productType === pt._id ? 'bg-gradient-to-br from-green-600 to-green-700 text-white shadow-lg shadow-green-500/30 scale-105' : 'bg-gradient-to-br from-orange-50 to-amber-50 text-gray-500 hover:text-orange-700 hover:from-orange-100 hover:to-amber-100 hover:shadow-md'}`}
                                             >
                                                 {pt.name}
                                             </button>
@@ -296,25 +296,25 @@ const ProductListPage = () => {
                                 </div>
 
                                 {/* Price Bracket Section */}
-                                <div className="bg-white rounded-2xl p-5 shadow-lg border border-orange-200/30 relative z-10">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-orange-600 ml-1 mb-3 block flex items-center gap-2">
-                                        <div className="w-1 h-3 bg-orange-500 rounded-full"></div>
+                                <div className="bg-white rounded-2xl p-3 lg:p-5 shadow-lg border border-orange-200/30 relative z-10">
+                                    <label className="text-[8px] lg:text-[10px] font-black uppercase tracking-widest text-orange-600 ml-1 mb-2 block flex items-center gap-2">
+                                        <div className="w-1 h-2 lg:h-3 bg-orange-500 rounded-full"></div>
                                         Price Bracket
                                     </label>
-                                    <div className="flex gap-3">
+                                    <div className="flex gap-2 lg:gap-3">
                                         <input
                                             type="number"
                                             placeholder="₹ Min"
                                             value={filters.minPrice}
                                             onChange={(e) => setFilters({ ...filters, minPrice: e.target.value })}
-                                            className="w-full px-4 py-3 bg-gradient-to-br from-orange-50/50 to-amber-50/40 border border-orange-200/40 rounded-xl outline-none font-outfit font-bold text-sm text-purevit-dark focus:bg-white focus:border-green-500 focus:shadow-lg transition-all hover:border-orange-300/50"
+                                            className="w-full px-3 py-2 lg:py-3 bg-gradient-to-br from-orange-50/50 to-amber-50/40 border border-orange-200/40 rounded-xl outline-none font-outfit font-bold text-[10px] lg:text-sm text-purevit-dark focus:bg-white focus:border-green-500 focus:shadow-lg transition-all hover:border-orange-300/50"
                                         />
                                         <input
                                             type="number"
                                             placeholder="₹ Max"
                                             value={filters.maxPrice}
                                             onChange={(e) => setFilters({ ...filters, maxPrice: e.target.value })}
-                                            className="w-full px-4 py-3 bg-gradient-to-br from-orange-50/50 to-amber-50/40 border border-orange-200/40 rounded-xl outline-none font-outfit font-bold text-sm text-purevit-dark focus:bg-white focus:border-green-500 focus:shadow-lg transition-all hover:border-orange-300/50"
+                                            className="w-full px-3 py-2 lg:py-3 bg-gradient-to-br from-orange-50/50 to-amber-50/40 border border-orange-200/40 rounded-xl outline-none font-outfit font-bold text-[10px] lg:text-sm text-purevit-dark focus:bg-white focus:border-green-500 focus:shadow-lg transition-all hover:border-orange-300/50"
                                         />
                                     </div>
                                 </div>
