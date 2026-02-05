@@ -80,12 +80,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
     const handleWishlistClick = (e) => {
         e.preventDefault();
         onAddToWishlist(product._id);
-        setIsWishlisted(true);
-
-        const stored = JSON.parse(localStorage.getItem('wishlistIds')) || [];
-        if (!stored.includes(product._id)) {
-            localStorage.setItem('wishlistIds', JSON.stringify([...stored, product._id]));
-        }
+        setIsWishlisted(!isWishlisted);
     };
 
     // ... handleShare logic remains ...

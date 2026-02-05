@@ -163,18 +163,18 @@ const HeroCarousel = () => {
                     }}
                     className="absolute inset-0 w-full h-full"
                 >
-                    <div className="relative w-full h-full flex items-center pt-16 pb-60 md:pt-24 md:pb-32">
+                    <div className="relative w-full h-full flex items-center pt-28 pb-60 md:pt-24 md:pb-32">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                                 {/* Text Content */}
-                                <div className="lg:col-span-7 space-y-6 md:space-y-8 z-10 text-center lg:text-left pt-3 md:pt-0">
+                                <div className="lg:col-span-7 space-y-2 md:space-y-8 z-10 text-center lg:text-left pt-3 md:pt-0">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.2 }}
                                         className="flex items-center gap-3 justify-center lg:justify-start"
                                     >
-                                        <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.4em] text-purevit-primary">
+                                        <span className="text-[7px] md:text-xs font-black uppercase tracking-[0.4em] text-purevit-primary">
                                             {slides[current].subtitle}
                                         </span>
                                         <div className="h-px w-12 bg-gray-200"></div>
@@ -220,7 +220,7 @@ const HeroCarousel = () => {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.6 }}
-                                        className="flex flex-row w-full md:w-auto gap-3 md:gap-6 justify-center lg:justify-start pt-6"
+                                        className="flex flex-row w-full md:w-auto gap-3 md:gap-6 justify-center lg:justify-start "
                                     >
                                         <Link to="/products" className="flex-1 md:flex-none text-center px-4 py-3 md:px-10 md:py-5 bg-purevit-dark hover:bg-black text-white font-bold rounded-md transition-all text-[10px] md:text-xs tracking-widest uppercase shadow-xl whitespace-nowrap">
                                             Shop Collection

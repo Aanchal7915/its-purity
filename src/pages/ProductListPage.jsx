@@ -104,14 +104,19 @@ const ProductListPage = () => {
                     Authorization: `Bearer ${user.token}`,
                 },
             };
-            await axios.post('http://localhost:5002/api/users/wishlist', { productId }, config);
+            const { data } = await axios.post('http://localhost:5002/api/users/wishlist', { productId }, config);
 
             const stored = JSON.parse(localStorage.getItem('wishlistIds')) || [];
-            if (!stored.includes(productId)) {
-                localStorage.setItem('wishlistIds', JSON.stringify([...stored, productId]));
+            if (data.action === 'added') {
+                if (!stored.includes(productId)) {
+                    localStorage.setItem('wishlistIds', JSON.stringify([...stored, productId]));
+                }
+                alert('Added to wishlist!');
+            } else if (data.action === 'removed') {
+                const newStored = stored.filter(id => id !== productId);
+                localStorage.setItem('wishlistIds', JSON.stringify(newStored));
+                alert('Removed from wishlist!');
             }
-
-            alert('Added to wishlist!');
         } catch (error) {
             console.error(error);
             alert('Error adding to wishlist');

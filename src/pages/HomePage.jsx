@@ -43,7 +43,7 @@ const HomePage = () => {
     const handleAddToWishlist = async (productId) => {
         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
         if (!userInfo) {
-            alert('Please login to add to wishlist');
+            alert('Please login to manage wishlist');
             return;
         }
         try {
@@ -52,11 +52,22 @@ const HomePage = () => {
                     Authorization: `Bearer ${userInfo.token}`,
                 },
             };
-            await axios.post('http://localhost:5002/api/users/wishlist', { productId }, config);
-            alert('Item added to wishlist!');
+            const { data } = await axios.post('http://localhost:5002/api/users/wishlist', { productId }, config);
+
+            const stored = JSON.parse(localStorage.getItem('wishlistIds')) || [];
+            if (data.action === 'added') {
+                if (!stored.includes(productId)) {
+                    localStorage.setItem('wishlistIds', JSON.stringify([...stored, productId]));
+                }
+                alert('Item added to wishlist!');
+            } else if (data.action === 'removed') {
+                const newStored = stored.filter(id => id !== productId);
+                localStorage.setItem('wishlistIds', JSON.stringify(newStored));
+                alert('Item removed from wishlist!');
+            }
         } catch (error) {
             console.error(error);
-            alert(error.response?.data?.message || 'Error adding to wishlist');
+            alert(error.response?.data?.message || 'Error updating wishlist');
         }
     };
 
