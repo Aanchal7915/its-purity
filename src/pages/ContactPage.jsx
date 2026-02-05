@@ -59,7 +59,7 @@ const ContactPage = () => {
             <div className="max-w-7xl mx-auto relative z-10">
 
                 {/* Header Section */}
-                <div className="text-center mb-10 md:mb-20 space-y-4 md:space-y-6">
+                <div className="text-center mb-6 md:mb-20 space-y-4 md:space-y-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -93,22 +93,22 @@ const ContactPage = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 items-start">
 
                     {/* Left Column: Contact Cards */}
-                    <div className="lg:col-span-5 space-y-6">
+                    <div className="lg:col-span-5 space-y-4 md:space-y-6 order-2 lg:order-1">
                         {contactInfo.map((info, idx) => (
                             <motion.div
                                 key={idx}
                                 initial={{ opacity: 0, x: -30 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.3 + (idx * 0.1) }}
-                                className="group bg-white rounded-3xl p-6 flex items-start gap-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
+                                className="group bg-white rounded-xl md:rounded-3xl p-3 md:p-6 flex items-start gap-3 md:gap-6 shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300"
                             >
-                                <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${info.bg} ${info.color}`}>
-                                    {info.icon}
+                                <div className={`w-10 h-10 md:w-14 md:h-14 rounded-lg md:rounded-2xl flex items-center justify-center shrink-0 ${info.bg} ${info.color}`}>
+                                    {React.cloneElement(info.icon, { size: 18 })}
                                 </div>
                                 <div>
-                                    <p className="text-xs font-serif italic text-gray-500 mb-1">{info.title}</p>
-                                    <h3 className="text-lg font-sans font-semibold text-gray-800 mb-1">{info.detail}</h3>
-                                    <p className="text-xs text-gray-500 font-medium">{info.sub}</p>
+                                    <p className="text-[9px] md:text-xs font-serif italic text-gray-500 mb-0.5 md:mb-1">{info.title}</p>
+                                    <h3 className="text-[13px] md:text-lg font-sans font-semibold text-gray-800 mb-0.5 md:mb-1">{info.detail}</h3>
+                                    <p className="text-[9px] md:text-xs text-gray-500 font-medium">{info.sub}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -118,18 +118,18 @@ const ContactPage = () => {
                             initial={{ opacity: 0, x: -30 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.6 }}
-                            className="bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-lg"
+                            className="bg-white rounded-2xl md:rounded-3xl p-5 md:p-8 border border-gray-100 shadow-lg"
                         >
-                            <h3 className="text-xl font-serif text-gray-800 mb-6 italic">Join the Community</h3>
-                            <div className="flex gap-4">
-                                <a href="#" className="w-12 h-12 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all duration-300 shadow-sm border border-pink-100">
-                                    <Instagram size={24} />
+                            <h3 className="text-lg md:text-xl font-serif text-gray-800 mb-4 md:mb-6 italic">Join the Community</h3>
+                            <div className="flex gap-3 md:gap-4">
+                                <a href="#" className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-all duration-300 shadow-sm border border-pink-100">
+                                    <Instagram size={20} />
                                 </a>
-                                <a href="#" className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm border border-blue-100">
-                                    <Facebook size={24} />
+                                <a href="#" className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-300 shadow-sm border border-blue-100">
+                                    <Facebook size={20} />
                                 </a>
-                                <a href="#" className="w-12 h-12 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center hover:bg-blue-700 hover:text-white transition-all duration-300 shadow-sm border border-blue-100">
-                                    <Linkedin size={24} />
+                                <a href="#" className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center hover:bg-blue-700 hover:text-white transition-all duration-300 shadow-sm border border-blue-100">
+                                    <Linkedin size={20} />
                                 </a>
                             </div>
                         </motion.div>
@@ -140,71 +140,71 @@ const ContactPage = () => {
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.4 }}
-                        className="lg:col-span-7 bg-white rounded-[2rem] md:rounded-[2.5rem] p-5 md:p-12 shadow-xl border border-gray-100"
+                        className="lg:col-span-7 bg-white rounded-2xl md:rounded-[2.5rem] p-5 md:p-12 shadow-xl border border-gray-100 order-1 lg:order-2"
                     >
                         <div className="relative z-10">
-                            <div className="flex items-center gap-3 mb-8">
+                            <div className="flex items-center gap-2 md:gap-3 mb-6 md:mb-8">
                                 <div className="w-1.5 h-1.5 bg-purevit-primary rounded-full"></div>
-                                <h2 className="text-2xl font-serif text-gray-800">Send an Inquiry</h2>
+                                <h2 className="text-xl md:text-2xl font-serif text-gray-800">Send an Inquiry</h2>
                             </div>
 
-                            <form onSubmit={handleSubmit} className="space-y-5">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                                    <div className="space-y-1.5">
-                                        <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1">Full Name</label>
+                            <form onSubmit={handleSubmit} className="space-y-4 md:space-y-5">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+                                    <div className="space-y-1">
+                                        <label className="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1">Full Name</label>
                                         <input
                                             type="text"
                                             required
                                             placeholder="eg. Aria Vance"
                                             value={formData.name}
                                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                            className="w-full px-5 py-3.5 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-purevit-primary/50 focus:shadow-sm transition-all outline-none font-medium placeholder:text-gray-300 text-sm"
+                                            className="w-full px-4 md:px-5 py-2.5 md:py-3.5 bg-gray-50 border border-transparent rounded-lg md:rounded-xl focus:bg-white focus:border-purevit-primary/50 focus:shadow-sm transition-all outline-none font-medium placeholder:text-gray-300 text-xs md:text-sm"
                                         />
                                     </div>
-                                    <div className="space-y-1.5">
-                                        <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1">Email Address</label>
+                                    <div className="space-y-1">
+                                        <label className="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1">Email Address</label>
                                         <input
                                             type="email"
                                             required
                                             placeholder="aria@rituals.com"
                                             value={formData.email}
                                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                            className="w-full px-5 py-3.5 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-purevit-primary/50 focus:shadow-sm transition-all outline-none font-medium placeholder:text-gray-300 text-sm"
+                                            className="w-full px-4 md:px-5 py-2.5 md:py-3.5 bg-gray-50 border border-transparent rounded-lg md:rounded-xl focus:bg-white focus:border-purevit-primary/50 focus:shadow-sm transition-all outline-none font-medium placeholder:text-gray-300 text-xs md:text-sm"
                                         />
                                     </div>
                                 </div>
 
-                                <div className="space-y-1.5">
-                                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1">Subject</label>
+                                <div className="space-y-1">
+                                    <label className="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1">Subject</label>
                                     <input
                                         type="text"
                                         required
                                         placeholder="How can we help?"
                                         value={formData.subject}
                                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                                        className="w-full px-5 py-3.5 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-purevit-primary/50 focus:shadow-sm transition-all outline-none font-medium placeholder:text-gray-300 text-sm"
+                                        className="w-full px-4 md:px-5 py-2.5 md:py-3.5 bg-gray-50 border border-transparent rounded-lg md:rounded-xl focus:bg-white focus:border-purevit-primary/50 focus:shadow-sm transition-all outline-none font-medium placeholder:text-gray-300 text-xs md:text-sm"
                                     />
                                 </div>
 
-                                <div className="space-y-1.5">
-                                    <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1">Message</label>
+                                <div className="space-y-1">
+                                    <label className="text-[9px] md:text-[10px] font-bold uppercase tracking-wider text-gray-400 ml-1">Message</label>
                                     <textarea
-                                        rows="4"
+                                        rows="3"
                                         required
                                         placeholder="Write your message here..."
                                         value={formData.message}
                                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                                        className="w-full px-5 py-4 bg-gray-50 border border-transparent rounded-xl focus:bg-white focus:border-purevit-primary/50 focus:shadow-sm transition-all outline-none font-medium placeholder:text-gray-300 resize-none text-sm"
+                                        className="w-full px-4 md:px-5 py-3 bg-gray-50 border border-transparent rounded-lg md:rounded-xl focus:bg-white focus:border-purevit-primary/50 focus:shadow-sm transition-all outline-none font-medium placeholder:text-gray-300 resize-none text-xs md:text-sm"
                                     ></textarea>
                                 </div>
 
                                 <button
                                     type="submit"
                                     disabled={status === 'sending'}
-                                    className="w-full py-4 bg-purevit-primary text-black rounded-xl font-bold uppercase tracking-widest text-[10px] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-70 flex items-center justify-center gap-2"
+                                    className="w-full py-3 md:py-4 bg-purevit-primary text-black rounded-lg md:rounded-xl font-bold uppercase tracking-widest text-[9px] md:text-[10px] hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 disabled:opacity-70 flex items-center justify-center gap-2"
                                 >
                                     {status === 'sending' ? 'Sending...' : status === 'success' ? 'Message Sent' : 'Send Message'}
-                                    <Send size={14} />
+                                    <Send size={12} className="md:w-3.5 md:h-3.5" />
                                 </button>
                             </form>
                         </div>
@@ -216,7 +216,7 @@ const ContactPage = () => {
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mt-12 md:mt-24 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-xl h-[300px] md:h-[450px] relative border-4 border-white"
+                    className="mt-8 md:mt-24 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-xl h-[300px] md:h-[450px] relative border-4 border-white"
                 >
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14030.730302820067!2d77.0683!3d28.4503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1901df4c4149%3A0xe675ca8241517789!2sSector%2044%2C%20Gurugram%2C%20Haryana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
@@ -228,22 +228,22 @@ const ContactPage = () => {
                         referrerPolicy="no-referrer-when-downgrade"
                         className="transition-all duration-1000"
                     ></iframe>
-                    <div className="absolute bottom-4 md:bottom-8 left-4 md:left-8 bg-white/95 backdrop-blur-sm p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-lg border border-gray-100 max-w-[240px] md:max-w-xs space-y-2 md:space-y-3">
-                        <div className="w-10 h-10 bg-purevit-primary/10 rounded-full flex items-center justify-center text-purevit-primary">
-                            <MapPin size={20} />
+                    <div className="absolute bottom-2 md:bottom-8 right-2 md:right-auto md:left-8 bg-white/95 backdrop-blur-sm p-2 md:p-6 rounded-xl md:rounded-3xl shadow-lg border border-gray-100 max-w-[150px] md:max-w-xs space-y-1 md:space-y-3">
+                        <div className="w-7 h-7 md:w-10 md:h-10 bg-purevit-primary/10 rounded-full flex items-center justify-center text-purevit-primary">
+                            <MapPin size={14} className="md:w-5 md:h-5" />
                         </div>
                         <div>
-                            <h4 className="text-lg font-serif text-gray-900 italic">PureVit HQ</h4>
-                            <p className="text-xs text-gray-500 font-medium mt-1 leading-relaxed">Dynamic House, Sector 44, Gurugram. Our heart of innovation.</p>
+                            <h4 className="text-[12px] md:text-lg font-serif text-gray-900 italic">PureVit HQ</h4>
+                            <p className="text-[8px] md:text-xs text-gray-500 font-medium mt-0.5 md:mt-1 leading-tight">Dynamic House, Sector 44, Gurugram.</p>
                         </div>
-                        <button className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-purevit-primary hover:gap-3 transition-all">
-                            Get Directions <ChevronRight size={14} />
+                        <button className="flex items-center gap-1 text-[7px] md:text-[10px] font-black uppercase tracking-widest text-purevit-primary hover:gap-3 transition-all">
+                            Directions <ChevronRight size={10} />
                         </button>
                     </div>
                 </motion.div>
 
                 {/* FAQS Link / Trust Footer */}
-                <div className="mt-12 md:mt-24 pt-8 md:pt-10 border-t border-purevit-primary/10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
+                <div className="mt-8 md:mt-24 pt-8 md:pt-10 border-t border-purevit-primary/10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-purevit-primary shadow-sm">
                             <Globe size={24} />
