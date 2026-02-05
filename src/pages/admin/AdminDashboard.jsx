@@ -46,20 +46,20 @@ const AdminDashboard = () => {
     const { stats, orders, lowStock, bestSellers, statusBreakdown, salesData, recentOrders } = data;
 
     return (
-        <div className="p-4 md:p-8 bg-[#FAF9F6] min-h-screen space-y-8 pb-12">
+        <div className="p-3 md:p-8 bg-[#FAF9F6] min-h-screen space-y-4 md:space-y-8 pb-12">
             {/* Header */}
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                    <h1 className="text-4xl font-serif font-bold text-purevit-dark">Business Command Center</h1>
-                    <p className="text-gray-500 mt-1">Real-time snapshot of your store's health and performance.</p>
+                    <h1 className="text-2xl md:text-4xl font-serif font-bold text-purevit-dark leading-tight">Business Command Center</h1>
+                    <p className="text-xs md:text-gray-500 mt-1">Real-time snapshot of your store's performance.</p>
                 </div>
                 <div className="flex items-center gap-3">
 
-                    <div className="bg-white border border-purevit-primary/10 rounded-2xl px-4 py-2 shadow-sm">
-                        <span className="text-xs font-black uppercase tracking-widest text-gray-400 block leading-none mb-1">Status</span>
+                    <div className="bg-white border border-purevit-primary/10 rounded-xl md:rounded-2xl px-3 py-1.5 md:px-4 md:py-2 shadow-sm">
+                        <span className="text-[8px] md:text-xs font-black uppercase tracking-widest text-gray-400 block leading-none mb-1">Status</span>
                         <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.4)]"></div>
-                            <span className="text-sm font-bold text-purevit-dark">Live Updates</span>
+                            <div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            <span className="text-xs md:text-sm font-bold text-purevit-dark">Live Updates</span>
                         </div>
                     </div>
                 </div>
@@ -105,19 +105,19 @@ const AdminDashboard = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
                 {/* Sales Chart - Column Span 2 */}
-                <div className="lg:col-span-2 space-y-8">
-                    <div className="bg-white p-8 rounded-[2.5rem] border border-purevit-primary/10 shadow-sm relative overflow-hidden group">
-                        <div className="flex items-center justify-between mb-8">
+                <div className="lg:col-span-2 space-y-6 md:space-y-8">
+                    <div className="bg-white p-4 md:p-8 rounded-2xl md:rounded-[2.5rem] border border-purevit-primary/10 shadow-sm relative overflow-hidden group">
+                        <div className="flex items-center justify-between mb-6 md:mb-8">
                             <div>
-                                <h3 className="text-2xl font-serif font-bold text-purevit-dark">Revenue Insights</h3>
-                                <p className="text-sm text-gray-500 mt-1">Daily sales performance over the last 30 days</p>
+                                <h3 className="text-lg md:text-2xl font-serif font-bold text-purevit-dark">Revenue Insights</h3>
+                                <p className="text-[10px] md:text-sm text-gray-500 mt-1">Daily sales performance</p>
                             </div>
                             <select className="bg-purevit-secondary/50 border border-purevit-primary/10 rounded-xl px-3 py-2 text-xs font-bold text-purevit-dark outline-none focus:border-purevit-primary">
                                 <option>Last 30 Days</option>
                                 <option>Last 7 Days</option>
                             </select>
                         </div>
-                        <div className="h-[350px] w-full">
+                        <div className="h-[250px] md:h-[350px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart data={salesData}>
                                     <defs>
@@ -149,7 +149,7 @@ const AdminDashboard = () => {
                     </div>
 
                     {/* Order Summary Widgets */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                         <StatusWidget label="Pending" count={orders.pending} icon={<Clock className="text-amber-500" />} />
                         <StatusWidget label="Shipped" count={orders.shipped} icon={<Truck className="text-blue-500" />} />
                         <StatusWidget label="Delivered" count={orders.delivered} icon={<CheckCircle className="text-emerald-500" />} />
@@ -159,8 +159,8 @@ const AdminDashboard = () => {
                 {/* Sidebar - Column 1 */}
                 <div className="space-y-8">
                     {/* Status Breakdown Circle */}
-                    <div className="bg-white p-8 rounded-[2.5rem] border border-purevit-primary/10 shadow-sm">
-                        <h3 className="text-xl font-bold text-purevit-dark mb-6">Order Mix</h3>
+                    <div className="bg-white p-4 md:p-8 rounded-2xl md:rounded-[2.5rem] border border-purevit-primary/10 shadow-sm">
+                        <h3 className="text-lg md:text-xl font-bold text-purevit-dark mb-4 md:mb-6">Order Mix</h3>
                         <div className="h-64">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -184,10 +184,10 @@ const AdminDashboard = () => {
                     </div>
 
                     {/* Inventory Watch */}
-                    <div className="bg-white p-8 rounded-[2.5rem] border border-purevit-primary/10 shadow-sm">
-                        <div className="flex items-center justify-between mb-6">
-                            <h3 className="text-xl font-bold text-purevit-dark">Low Stock Alert</h3>
-                            <AlertTriangle className="text-red-500" size={20} />
+                    <div className="bg-white p-4 md:p-8 rounded-2xl md:rounded-[2.5rem] border border-purevit-primary/10 shadow-sm">
+                        <div className="flex items-center justify-between mb-4 md:mb-6">
+                            <h3 className="text-lg md:text-xl font-bold text-purevit-dark">Low Stock</h3>
+                            <AlertTriangle className="text-red-500" size={18} />
                         </div>
                         <div className="space-y-4">
                             {lowStock.length === 0 ? (
@@ -211,9 +211,9 @@ const AdminDashboard = () => {
             {/* Bottom Row - Activity & Best Sellers */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Recent Activity */}
-                <div className="bg-white rounded-[2.5rem] border border-purevit-primary/10 shadow-sm overflow-hidden flex flex-col">
-                    <div className="p-8 pb-4 border-b border-purevit-primary/10 flex items-center justify-between">
-                        <h3 className="text-xl font-bold text-purevit-dark">Recent Notifications</h3>
+                <div className="bg-white rounded-2xl md:rounded-[2.5rem] border border-purevit-primary/10 shadow-sm overflow-hidden flex flex-col">
+                    <div className="p-4 md:p-8 pb-3 md:pb-4 border-b border-purevit-primary/10 flex items-center justify-between">
+                        <h3 className="text-lg md:text-xl font-bold text-purevit-dark">Recent Notifications</h3>
                         <Activity size={20} className="text-purevit-primary" />
                     </div>
                     <div className="flex-1 overflow-auto max-h-[400px]">
@@ -235,9 +235,9 @@ const AdminDashboard = () => {
                 </div>
 
                 {/* Best Sellers */}
-                <div className="bg-white rounded-[2.5rem] border border-purevit-primary/10 shadow-sm overflow-hidden">
-                    <div className="p-8 pb-4 border-b border-purevit-primary/10 flex items-center justify-between">
-                        <h3 className="text-xl font-bold text-purevit-dark">Top Performers</h3>
+                <div className="bg-white rounded-2xl md:rounded-[2.5rem] border border-purevit-primary/10 shadow-sm overflow-hidden">
+                    <div className="p-4 md:p-8 pb-3 md:pb-4 border-b border-purevit-primary/10 flex items-center justify-between">
+                        <h3 className="text-lg md:text-xl font-bold text-purevit-dark">Top Performers</h3>
                         <Star size={20} className="text-amber-500 fill-amber-500" />
                     </div>
                     <div className="p-4 space-y-4">
@@ -276,19 +276,19 @@ const StatCard = ({ title, value, change, isUp, icon, color }) => {
         purple: 'bg-purple-500/10 text-purple-600'
     };
     return (
-        <div className="bg-white p-6 rounded-[2.2rem] border border-purevit-primary/10 shadow-sm relative overflow-hidden group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-            <div className="flex items-center justify-between mb-4 relative z-10">
-                <div className={`p-3 rounded-2xl ${colorClasses[color]}`}>
-                    {icon}
+        <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-[2.2rem] border border-purevit-primary/10 shadow-sm relative overflow-hidden group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div className="flex items-center justify-between mb-3 md:mb-4 relative z-10">
+                <div className={`p-2.5 md:p-3 rounded-xl md:rounded-2xl ${colorClasses[color]}`}>
+                    {React.cloneElement(icon, { size: 20, className: "md:w-6 md:h-6" })}
                 </div>
-                <div className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-black ${isUp ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'}`}>
-                    {isUp ? <ArrowUpRight size={12} /> : <ArrowDownRight size={12} />}
+                <div className={`flex items-center gap-1 px-2 py-0.5 md:px-2.5 md:py-1 rounded-full text-[8px] md:text-[10px] font-black ${isUp ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600'}`}>
+                    {isUp ? <ArrowUpRight size={10} className="md:w-3 md:h-3" /> : <ArrowDownRight size={10} className="md:w-3 md:h-3" />}
                     {change}
                 </div>
             </div>
             <div className="relative z-10">
-                <p className="text-xs font-black uppercase tracking-widest text-gray-400 mb-1">{title}</p>
-                <p className="text-3xl font-sans font-bold text-purevit-dark tracking-tight">{value}</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">{title}</p>
+                <p className="text-xl md:text-3xl font-sans font-bold text-purevit-dark tracking-tight">{value}</p>
             </div>
             {/* Background Accent */}
             <div className={`absolute -right-4 -bottom-4 w-24 h-24 rounded-full opacity-5 group-hover:scale-150 transition-transform duration-700 ${colorClasses[color].split(' ')[0]}`}></div>
@@ -297,14 +297,14 @@ const StatCard = ({ title, value, change, isUp, icon, color }) => {
 };
 
 const StatusWidget = ({ label, count, icon }) => (
-    <div className="bg-white p-6 rounded-[2rem] border border-purevit-primary/10 shadow-sm flex items-center justify-between group hover:border-purevit-primary/30 transition-colors">
-        <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-purevit-secondary/50 flex items-center justify-center group-hover:scale-110 transition-transform">
-                {icon}
+    <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-[2rem] border border-purevit-primary/10 shadow-sm flex items-center justify-between group hover:border-purevit-primary/30 transition-colors">
+        <div className="flex items-center gap-3 md:gap-4">
+            <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-purevit-secondary/50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                {React.cloneElement(icon, { className: "w-5 h-5 md:w-6 md:h-6" })}
             </div>
             <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">{label}</p>
-                <p className="text-xl font-bold text-purevit-dark">{count}</p>
+                <p className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-gray-400">{label}</p>
+                <p className="text-lg md:text-xl font-bold text-purevit-dark">{count}</p>
             </div>
         </div>
         <div className="w-8 h-8 rounded-full bg-purevit-secondary/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">

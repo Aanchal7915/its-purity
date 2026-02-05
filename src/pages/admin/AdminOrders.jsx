@@ -138,49 +138,49 @@ const AdminOrders = () => {
     ];
 
     return (
-        <div className="space-y-6">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                <h2 className="text-3xl font-serif font-bold text-purevit-dark">Orders Management</h2>
-                <div className="flex items-center gap-3">
-                    <div className="text-xs font-black uppercase tracking-widest text-gray-400">
-                        {filteredOrders.length} {filteredOrders.length === 1 ? 'Order' : 'Orders'} Found
+        <div className="space-y-4 md:space-y-6 pb-10">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 md:gap-4">
+                <h2 className="text-2xl md:text-3xl font-serif font-bold text-purevit-dark">Orders Management</h2>
+                <div className="flex items-center justify-between md:justify-end gap-3 w-full md:w-auto">
+                    <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">
+                        {filteredOrders.length} {filteredOrders.length === 1 ? 'Order' : 'Orders'}
                     </div>
                     <button
                         onClick={handleExport}
-                        className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-xs font-black uppercase tracking-widest rounded-xl hover:bg-green-700 transition-all shadow-md group"
+                        className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-green-600 text-white text-[10px] md:text-xs font-black uppercase tracking-widest rounded-lg md:rounded-xl hover:bg-green-700 transition-all shadow-md group"
                     >
-                        <Download size={14} className="group-hover:translate-y-0.5 transition-transform" /> Export CSV
+                        <Download size={12} className="group-hover:translate-y-0.5 transition-transform md:w-3.5 md:h-3.5" /> Export
                     </button>
                 </div>
             </div>
 
             {/* Filters Section */}
-            <div className="bg-white rounded-[2rem] border border-purevit-primary/10 p-6 shadow-sm overflow-visible">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="bg-white rounded-2xl md:rounded-[2rem] border border-purevit-primary/10 p-4 md:p-6 shadow-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4">
                     {/* Search Field */}
                     <div className="relative group">
-                        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Search Orders</label>
+                        <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1 ml-1">Search</label>
                         <div className="relative">
-                            <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purevit-primary transition-colors" size={16} />
+                            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-purevit-primary transition-colors" size={14} />
                             <input
                                 type="text"
-                                placeholder="ID, Name or Email..."
+                                placeholder="ID, Name..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 bg-purevit-secondary/50 border border-purevit-primary/10 rounded-2xl text-sm outline-none focus:border-purevit-primary transition-all placeholder:text-gray-400"
+                                className="w-full pl-9 pr-3 py-2 md:py-3 bg-purevit-secondary/50 border border-purevit-primary/10 rounded-xl md:rounded-2xl text-xs md:text-sm outline-none focus:border-purevit-primary transition-all placeholder:text-gray-400"
                             />
                         </div>
                     </div>
 
                     {/* Year Filter */}
                     <div>
-                        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Year</label>
+                        <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1 ml-1">Year</label>
                         <div className="relative">
-                            <Filter className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
                             <select
                                 value={filterYear}
                                 onChange={(e) => setFilterYear(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 bg-purevit-secondary/50 border border-purevit-primary/10 rounded-2xl text-sm outline-none focus:border-purevit-primary transition-all appearance-none"
+                                className="w-full pl-9 pr-3 py-2 md:py-3 bg-purevit-secondary/50 border border-purevit-primary/10 rounded-xl md:rounded-2xl text-xs md:text-sm outline-none focus:border-purevit-primary appearance-none"
                             >
                                 {years.map(y => <option key={y} value={y}>{y === 'All' ? 'All Years' : y}</option>)}
                             </select>
@@ -189,13 +189,13 @@ const AdminOrders = () => {
 
                     {/* Month Filter */}
                     <div>
-                        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Month</label>
+                        <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1 ml-1">Month</label>
                         <div className="relative">
-                            <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
                             <select
                                 value={filterMonth}
                                 onChange={(e) => setFilterMonth(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 bg-purevit-secondary/50 border border-purevit-primary/10 rounded-2xl text-sm outline-none focus:border-purevit-primary transition-all appearance-none"
+                                className="w-full pl-9 pr-3 py-2 md:py-3 bg-purevit-secondary/50 border border-purevit-primary/10 rounded-xl md:rounded-2xl text-xs md:text-sm outline-none focus:border-purevit-primary appearance-none"
                             >
                                 {months.map(m => <option key={m.val} value={m.val}>{m.label}</option>)}
                             </select>
@@ -204,30 +204,30 @@ const AdminOrders = () => {
 
                     {/* Specific Date */}
                     <div>
-                        <label className="block text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1.5 ml-1">Specific Date</label>
+                        <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1 ml-1">Date</label>
                         <div className="relative">
-                            <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+                            <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
                             <input
                                 type="date"
                                 value={filterDate}
                                 onChange={(e) => setFilterDate(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 bg-purevit-secondary/50 border border-purevit-primary/10 rounded-2xl text-sm outline-none focus:border-purevit-primary transition-all"
+                                className="w-full pl-9 pr-3 py-2 md:py-3 bg-purevit-secondary/50 border border-purevit-primary/10 rounded-xl md:rounded-2xl text-xs md:text-sm"
                             />
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div className="bg-white rounded-2xl border border-purevit-primary/10 overflow-hidden shadow-sm">
-                <table className="w-full text-left">
-                    <thead className="bg-purevit-cream uppercase text-sm text-purevit-dark font-medium">
+            <div className="bg-white rounded-xl md:rounded-2xl border border-purevit-primary/10 overflow-x-auto no-scrollbar shadow-sm">
+                <table className="w-full text-left min-w-[700px] md:min-w-full">
+                    <thead className="bg-purevit-cream uppercase text-[10px] md:text-sm text-purevit-dark font-black tracking-widest">
                         <tr>
-                            <th className="p-4">Order ID</th>
-                            <th className="p-4">User</th>
-                            <th className="p-4">Date</th>
-                            <th className="p-4">Total</th>
-                            <th className="p-4">Status</th>
-                            <th className="p-4">Actions</th>
+                            <th className="p-3 md:p-4">Order ID</th>
+                            <th className="p-3 md:p-4">Customer</th>
+                            <th className="p-3 md:p-4">Date</th>
+                            <th className="p-3 md:p-4">Total</th>
+                            <th className="p-3 md:p-4">Status</th>
+                            <th className="p-3 md:p-4 text-center">Actions</th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-purevit-primary/10">
@@ -246,34 +246,34 @@ const AdminOrders = () => {
                             </tr>
                         ) : filteredOrders.map((order) => (
                             <React.Fragment key={order._id}>
-                                <tr className="hover:bg-purevit-cream/50 transition-colors">
-                                    <td className="p-4 font-mono text-sm text-gray-500">{order._id.substring(0, 10)}...</td>
-                                    <td className="p-4">
-                                        <div className="text-purevit-dark font-medium">{order.user?.name || 'Guest'}</div>
-                                        <div className="text-xs text-gray-500">{order.user?.email}</div>
+                                <tr className="hover:bg-purevit-cream/50 transition-colors text-xs md:text-sm border-b border-purevit-primary/5 last:border-0">
+                                    <td className="p-3 md:p-4 font-mono text-gray-400">#{order._id.substring(order._id.length - 6).toUpperCase()}</td>
+                                    <td className="p-3 md:p-4">
+                                        <div className="text-purevit-dark font-bold">{order.user?.name || 'Guest'}</div>
+                                        <div className="text-[10px] text-gray-400 truncate max-w-[120px]">{order.user?.email}</div>
                                     </td>
-                                    <td className="p-4 text-purevit-dark">{new Date(order.createdAt).toLocaleDateString()}</td>
-                                    <td className="p-4 font-bold text-purevit-dark">₹{order.totalAmount || order.totalPrice}</td>
-                                    <td className="p-4">
+                                    <td className="p-3 md:p-4 text-purevit-dark whitespace-nowrap">{new Date(order.createdAt).toLocaleDateString()}</td>
+                                    <td className="p-3 md:p-4 font-black text-purevit-dark">₹{order.totalAmount || order.totalPrice}</td>
+                                    <td className="p-3 md:p-4 min-w-[130px]">
                                         <select
                                             value={order.status}
                                             onChange={(e) => updateStatus(order._id, e.target.value)}
                                             disabled={loadingMap[order._id]}
-                                            className={`bg-white border border-purevit-primary/20 text-xs rounded-lg px-3 py-2 outline-none focus:border-purevit-primary font-medium
-                                                ${order.status === 'Delivered' ? 'text-green-600' :
-                                                    order.status === 'Cancelled' ? 'text-red-600' : 'text-orange-600'}`}
+                                            className={`w-full bg-white border border-purevit-primary/10 text-[10px] md:text-xs rounded-lg px-2 py-1.5 outline-none focus:border-purevit-primary font-bold transition-all
+                                                ${order.status === 'Delivered' ? 'text-green-600 bg-green-50/30' :
+                                                    order.status === 'Cancelled' ? 'text-red-600 bg-red-50/30' : 'text-orange-600 bg-orange-50/30'}`}
                                         >
                                             {STATUS_OPTIONS.map(opt => (
                                                 <option key={opt} value={opt}>{opt}</option>
                                             ))}
                                         </select>
                                     </td>
-                                    <td className="p-4">
+                                    <td className="p-3 md:p-4 text-center">
                                         <button
                                             onClick={() => toggleExpand(order)}
-                                            className="p-2 hover:bg-purevit-cream rounded-full transition text-purevit-primary"
+                                            className="p-1.5 md:p-2 bg-purevit-cream text-purevit-primary rounded-lg hover:bg-purevit-primary hover:text-white transition-all"
                                         >
-                                            {expandedOrder === order._id ? <ChevronUp size={20} /> : <Eye size={20} />}
+                                            {expandedOrder === order._id ? <ChevronUp size={16} /> : <Eye size={16} />}
                                         </button>
                                     </td>
                                 </tr>
@@ -289,47 +289,60 @@ const AdminOrders = () => {
                                                     exit={{ height: 0, opacity: 0 }}
                                                     className="bg-purevit-cream/30 border-b border-purevit-primary/10 overflow-hidden"
                                                 >
-                                                    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-                                                        <div>
-                                                            <h4 className="font-bold text-purevit-dark mb-4 flex items-center gap-2">
-                                                                <MessageSquare size={16} /> User Notes
-                                                            </h4>
-                                                            <div className="bg-white p-4 rounded-xl border border-purevit-primary/10 text-gray-600 min-h-[100px] text-sm italic">
-                                                                {order.userNotes || "No notes provided by user."}
+                                                    <div className="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                                                        <div className="space-y-6">
+                                                            <div>
+                                                                <h4 className="text-[10px] font-black uppercase tracking-widest text-purevit-dark mb-3 flex items-center gap-2">
+                                                                    <MessageSquare size={14} className="text-purevit-primary" /> User Notes
+                                                                </h4>
+                                                                <div className="bg-white p-4 rounded-xl border border-purevit-primary/10 text-gray-500 text-xs italic shadow-sm">
+                                                                    {order.userNotes || "No notes provided by user."}
+                                                                </div>
                                                             </div>
 
-                                                            <h4 className="font-bold text-purevit-dark mt-6 mb-4">Items</h4>
-                                                            <div className="space-y-2">
-                                                                {order.items.map((item, idx) => (
-                                                                    <div key={idx} className="flex justify-between text-sm border-b border-purevit-primary/10 pb-2 text-purevit-dark">
-                                                                        <span>{item.product?.name || 'Product'} (x{item.quantity})</span>
-                                                                        <span className="font-medium">₹{item.price * item.quantity}</span>
-                                                                    </div>
-                                                                ))}
+                                                            <div>
+                                                                <h4 className="text-[10px] font-black uppercase tracking-widest text-purevit-dark mb-3">Order Items</h4>
+                                                                <div className="bg-white rounded-xl border border-purevit-primary/10 divide-y divide-purevit-primary/5 shadow-sm overflow-hidden text-xs">
+                                                                    {order.items.map((item, idx) => (
+                                                                        <div key={idx} className="p-3 flex justify-between items-center text-purevit-dark hover:bg-purevit-cream/20 transition-colors">
+                                                                            <span className="font-medium">{item.product?.name || 'Product'} <span className="text-gray-400 ml-1">x{item.quantity}</span></span>
+                                                                            <span className="font-bold">₹{item.price * item.quantity}</span>
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
                                                             </div>
                                                         </div>
 
-                                                        <div>
-                                                            <h4 className="font-bold text-purevit-dark mb-4">Admin Private Notes</h4>
-                                                            <textarea
-                                                                value={adminNotesInput}
-                                                                onChange={(e) => setAdminNotesInput(e.target.value)}
-                                                                className="w-full bg-white border border-purevit-primary/20 rounded-xl p-3 text-sm focus:border-purevit-primary outline-none min-h-[100px] text-purevit-dark"
-                                                                placeholder="Add private notes here..."
-                                                            ></textarea>
-                                                            <button
-                                                                onClick={() => saveAdminNotes(order._id)}
-                                                                className="mt-3 bg-purevit-primary text-white font-bold py-2 px-4 rounded-lg text-sm hover:bg-purevit-dark transition flex items-center gap-2"
-                                                            >
-                                                                <Save size={16} /> Save Notes
-                                                            </button>
+                                                        <div className="space-y-6">
+                                                            <div>
+                                                                <h4 className="text-[10px] font-black uppercase tracking-widest text-purevit-dark mb-3 flex items-center gap-2">
+                                                                    <Save size={14} className="text-purevit-primary" /> Admin Private Notes
+                                                                </h4>
+                                                                <textarea
+                                                                    value={adminNotesInput}
+                                                                    onChange={(e) => setAdminNotesInput(e.target.value)}
+                                                                    className="w-full bg-white border border-purevit-primary/10 rounded-xl p-3 text-xs focus:border-purevit-primary outline-none min-h-[100px] text-purevit-dark shadow-sm"
+                                                                    placeholder="Add private notes here..."
+                                                                ></textarea>
+                                                                <button
+                                                                    onClick={() => saveAdminNotes(order._id)}
+                                                                    className="mt-2 w-full md:w-auto bg-purevit-primary text-white font-black uppercase tracking-widest py-2.5 px-6 rounded-lg text-[10px] hover:bg-purevit-dark transition shadow-md flex items-center justify-center gap-2"
+                                                                >
+                                                                    <Save size={14} /> Save Notes
+                                                                </button>
+                                                            </div>
 
-                                                            <div className="mt-6 text-sm text-gray-600 bg-white p-4 rounded-xl border border-purevit-primary/10">
-                                                                <p className="font-bold text-purevit-dark mb-2">Shipping Address:</p>
-                                                                <p>{order.shippingAddress?.street}, {order.shippingAddress?.city}</p>
-                                                                <p>{order.shippingAddress?.state} - {order.shippingAddress?.zip}</p>
-                                                                <p>{order.shippingAddress?.country}</p>
-                                                                <p className="mt-1">Phone: {order.shippingAddress?.phone}</p>
+                                                            <div className="bg-white p-4 rounded-xl border border-purevit-primary/10 shadow-sm">
+                                                                <h4 className="text-[10px] font-black uppercase tracking-widest text-purevit-dark mb-3">Shipping Address</h4>
+                                                                <div className="text-[11px] text-gray-500 leading-relaxed">
+                                                                    <p className="font-bold text-purevit-dark">{order.shippingAddress?.street}</p>
+                                                                    <p>{order.shippingAddress?.city}, {order.shippingAddress?.state} - {order.shippingAddress?.zip}</p>
+                                                                    <p>{order.shippingAddress?.country}</p>
+                                                                    <p className="mt-2 flex items-center gap-2">
+                                                                        <span className="text-purevit-primary font-black">CALL:</span>
+                                                                        <span className="text-purevit-dark font-bold">{order.shippingAddress?.phone}</span>
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>

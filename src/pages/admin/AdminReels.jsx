@@ -101,33 +101,33 @@ const AdminReels = () => {
     };
 
     return (
-        <div className="space-y-8">
+        <div className="space-y-4 md:space-y-8 pb-10">
             <div className="flex justify-between items-center">
-                <h2 className="text-3xl font-serif font-bold text-purevit-dark">Reels Management</h2>
+                <h2 className="text-2xl md:text-3xl font-serif font-bold text-purevit-dark">Reels Management</h2>
             </div>
 
             {/* Create/Edit Reel Form */}
-            <div className="bg-white rounded-2xl border border-purevit-primary/10 p-6 shadow-sm">
+            <div className="bg-white rounded-xl md:rounded-2xl border border-purevit-primary/10 p-4 md:p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 rounded-2xl bg-purevit-primary/10 text-purevit-primary flex items-center justify-center">
-                            <Film size={24} />
+                    <div className="flex items-center gap-2 md:gap-3">
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-purevit-primary/10 text-purevit-primary flex items-center justify-center">
+                            <Film size={20} className="md:w-6 md:h-6" />
                         </div>
                         <div>
-                            <h3 className="text-xl font-bold text-purevit-dark">
+                            <h3 className="text-lg md:text-xl font-bold text-purevit-dark">
                                 {editingId ? 'Edit Reel' : 'Create New Reel'}
                             </h3>
-                            <p className="text-sm text-gray-500">
-                                {editingId ? 'Modify existing reel details' : 'Add a new video reel with product link'}
+                            <p className="text-[10px] md:text-sm text-gray-500">
+                                {editingId ? 'Modify existing reel details' : 'Add a new video reel'}
                             </p>
                         </div>
                     </div>
                     {editingId && (
                         <button
                             onClick={cancelEdit}
-                            className="flex items-center gap-2 px-4 py-2 text-sm font-bold text-gray-400 hover:text-red-500 transition-colors"
+                            className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold text-gray-400 hover:text-red-500 transition-colors"
                         >
-                            <X size={16} /> Cancel Edit
+                            <X size={14} /> <span className="hidden xs:inline">Cancel</span>
                         </button>
                     )}
                 </div>
@@ -141,7 +141,7 @@ const AdminReels = () => {
                                 value={formData.title}
                                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                                 placeholder="Reel title..."
-                                className="w-full bg-purevit-secondary border border-purevit-primary/20 rounded-xl px-4 py-3 text-sm text-purevit-dark focus:border-purevit-primary outline-none transition-all"
+                                className="w-full bg-purevit-secondary border border-purevit-primary/20 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:border-purevit-primary outline-none transition-all"
                                 required
                             />
                         </div>
@@ -153,7 +153,7 @@ const AdminReels = () => {
                                 value={formData.videoUrl}
                                 onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
                                 placeholder="https://..."
-                                className="w-full bg-purevit-secondary border border-purevit-primary/20 rounded-xl px-4 py-3 text-sm text-purevit-dark focus:border-purevit-primary outline-none transition-all"
+                                className="w-full bg-purevit-secondary border border-purevit-primary/20 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:border-purevit-primary outline-none transition-all"
                                 required
                             />
                         </div>
@@ -163,7 +163,7 @@ const AdminReels = () => {
                             <select
                                 value={formData.productId}
                                 onChange={(e) => setFormData({ ...formData, productId: e.target.value })}
-                                className="w-full bg-purevit-secondary border border-purevit-primary/20 rounded-xl px-4 py-3 text-sm text-purevit-dark focus:border-purevit-primary outline-none transition-all"
+                                className="w-full bg-purevit-secondary border border-purevit-primary/20 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:border-purevit-primary outline-none transition-all"
                                 required
                             >
                                 <option value="">Select a product...</option>
@@ -185,9 +185,9 @@ const AdminReels = () => {
             </div>
 
             {/* Reels List */}
-            <div className="bg-white rounded-2xl border border-purevit-primary/10 overflow-hidden shadow-sm">
-                <div className="p-6 border-b border-purevit-primary/10">
-                    <h3 className="text-xl font-bold text-purevit-dark">All Reels ({reels.length})</h3>
+            <div className="bg-white rounded-xl md:rounded-2xl border border-purevit-primary/10 overflow-hidden shadow-sm">
+                <div className="p-4 md:p-6 border-b border-purevit-primary/10">
+                    <h3 className="text-lg md:text-xl font-bold text-purevit-dark">All Reels ({reels.length})</h3>
                 </div>
 
                 {loading ? (
@@ -195,51 +195,52 @@ const AdminReels = () => {
                 ) : reels.length === 0 ? (
                     <div className="p-8 text-center text-gray-500">No reels found. Create your first reel above.</div>
                 ) : (
-                    <div className="overflow-x-auto">
-                        <table className="w-full text-left">
-                            <thead className="bg-purevit-cream uppercase text-sm text-purevit-dark font-medium">
+                    <div className="overflow-x-auto no-scrollbar">
+                        <table className="w-full text-left min-w-[600px] md:min-w-full">
+                            <thead className="bg-purevit-cream uppercase text-[10px] md:text-sm text-purevit-dark font-black tracking-widest">
                                 <tr>
-                                    <th className="p-4">Title</th>
-                                    <th className="p-4">Video URL</th>
-                                    <th className="p-4">Linked Product</th>
-                                    <th className="p-4">Created At</th>
-                                    <th className="p-4">Actions</th>
+                                    <th className="p-3 md:p-4">Title</th>
+                                    <th className="p-3 md:p-4">URL</th>
+                                    <th className="p-3 md:p-4">Product</th>
+                                    <th className="p-3 md:p-4">Date</th>
+                                    <th className="p-3 md:p-4 text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-purevit-primary/10">
                                 {reels.map((reel) => (
-                                    <tr key={reel._id} className="hover:bg-purevit-cream/50 transition-colors">
-                                        <td className="p-4 font-medium text-purevit-dark">{reel.title}</td>
-                                        <td className="p-4">
+                                    <tr key={reel._id} className="hover:bg-purevit-cream/50 transition-colors text-xs md:text-sm border-b border-purevit-primary/5 last:border-0">
+                                        <td className="p-3 md:p-4 font-bold text-purevit-dark">{reel.title}</td>
+                                        <td className="p-3 md:p-4">
                                             <a
                                                 href={reel.videoUrl}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="text-blue-500 hover:text-blue-700 flex items-center gap-2 text-sm"
+                                                className="text-blue-500 hover:text-blue-700 inline-flex items-center gap-1.5 px-2 py-1 bg-blue-50 rounded-lg transition-all"
                                             >
-                                                <ExternalLink size={14} />
-                                                View Video
+                                                <ExternalLink size={12} className="md:w-3.5 md:h-3.5" />
+                                                <span className="hidden md:inline">View Video</span>
+                                                <span className="md:hidden">View</span>
                                             </a>
                                         </td>
-                                        <td className="p-4 text-gray-600">{reel.product?.name || 'N/A'}</td>
-                                        <td className="p-4 text-gray-600 text-sm">
+                                        <td className="p-3 md:p-4 text-gray-500">{reel.product?.name || 'N/A'}</td>
+                                        <td className="p-3 md:p-4 text-gray-400 text-[10px] md:text-xs">
                                             {new Date(reel.createdAt).toLocaleDateString()}
                                         </td>
-                                        <td className="p-4">
-                                            <div className="flex items-center gap-3">
+                                        <td className="p-3 md:p-4">
+                                            <div className="flex items-center justify-center gap-2">
                                                 <button
                                                     onClick={() => handleEdit(reel)}
-                                                    className="text-amber-500 hover:text-amber-700 transition-colors"
-                                                    title="Edit Reel"
+                                                    className="p-1.5 md:p-2 bg-amber-50 text-amber-600 rounded-lg hover:bg-amber-100 transition-colors"
+                                                    title="Edit"
                                                 >
-                                                    <Edit2 size={18} />
+                                                    <Edit2 size={14} className="md:w-4 md:h-4" />
                                                 </button>
                                                 <button
                                                     onClick={() => deleteReel(reel._id)}
-                                                    className="text-red-500 hover:text-red-700 transition-colors"
-                                                    title="Delete Reel"
+                                                    className="p-1.5 md:p-2 bg-red-50 text-red-500 rounded-lg hover:bg-red-100 transition-colors"
+                                                    title="Delete"
                                                 >
-                                                    <Trash2 size={18} />
+                                                    <Trash2 size={14} className="md:w-4 md:h-4" />
                                                 </button>
                                             </div>
                                         </td>

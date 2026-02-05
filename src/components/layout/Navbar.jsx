@@ -14,7 +14,7 @@ const Navbar = () => {
     const [cartCount, setCartCount] = useState(0);
     const [searchParams] = useSearchParams();
     const navigate = useNavigate();
-    const user = JSON.parse(localStorage.getItem('userInfo'));
+    const [userInfo, setUserInfo] = useState(JSON.parse(localStorage.getItem('userInfo')));
 
     const currentAudience = searchParams.get('audience');
     const currentProductType = searchParams.get('productType');
@@ -30,9 +30,9 @@ const Navbar = () => {
         };
 
         const fetchWishlist = async () => {
-            if (user && user.token) {
+            if (userInfo && userInfo.token) {
                 try {
-                    const config = { headers: { Authorization: `Bearer ${user.token}` } };
+                    const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
                     const { data } = await axios.get('http://localhost:5002/api/users/profile', config);
                     const ids = (data.wishlist || []).filter(p => p !== null).map(p => p._id);
                     localStorage.setItem('wishlistIds', JSON.stringify(ids));
@@ -48,16 +48,24 @@ const Navbar = () => {
             setCartCount(count);
         };
 
+        const updateUserInfo = () => {
+            setUserInfo(JSON.parse(localStorage.getItem('userInfo')));
+        };
+
         fetchCategories();
         fetchWishlist();
         updateCartCount();
 
         window.addEventListener('storage', updateCartCount);
         window.addEventListener('cartUpdate', updateCartCount);
+        window.addEventListener('storage', updateUserInfo);
+        window.addEventListener('userLogin', updateUserInfo);
 
         return () => {
             window.removeEventListener('storage', updateCartCount);
             window.removeEventListener('cartUpdate', updateCartCount);
+            window.removeEventListener('storage', updateUserInfo);
+            window.removeEventListener('userLogin', updateUserInfo);
         };
     }, []);
 
@@ -231,17 +239,19 @@ const Navbar = () => {
                                 <Search size={18} />
                             </button>
                         </div>
-                        <Link to="/cart" className="relative text-purevit-dark hover:text-purevit-primary transition-colors">
-                            <ShoppingBag size={18} />
-                            {cartCount > 0 && (
-                                <span className="absolute -top-2 -right-2 bg-purevit-primary text-black text-[8px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center">
-                                    {cartCount}
-                                </span>
-                            )}
-                        </Link>
-                        {user ? (
+                        {userInfo && (
+                            <Link to="/cart" className="relative text-purevit-dark hover:text-purevit-primary transition-colors">
+                                <ShoppingBag size={18} />
+                                {cartCount > 0 && (
+                                    <span className="absolute -top-2 -right-2 bg-purevit-primary text-black text-[8px] font-black w-3.5 h-3.5 rounded-full flex items-center justify-center">
+                                        {cartCount}
+                                    </span>
+                                )}
+                            </Link>
+                        )}
+                        {userInfo ? (
                             <div className="flex items-center gap-4">
-                                {user.role === 'admin' && (
+                                {userInfo.role === 'admin' && (
                                     <Link to="/admin/dashboard" className="text-[10px] font-black uppercase tracking-widest text-purevit-primary hover:text-purevit-dark transition-colors">
                                         Admin
                                     </Link>
@@ -319,8 +329,8 @@ const Navbar = () => {
                             </Link>
                             <Link to="/about" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Our Story</Link>
                             <Link to="/contact" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Contact</Link>
-                            <Link to="/cart" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Cart</Link>
-                            <Link to="/login" className="text-sm text-purevit-primary" onClick={() => setIsOpen(false)}>Login</Link>
+                            {userInfo && <Link to="/cart" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Cart</Link>}
+                            <Link to="/login" className="text-sm text-purevit-primary" onClick={() => setIsOpen(false)}>{userInfo ? 'Logout' : 'Login'}</Link>
                         </div>
                     </motion.div>
                 )}

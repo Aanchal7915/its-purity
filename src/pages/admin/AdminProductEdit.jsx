@@ -187,19 +187,19 @@ const AdminProductEdit = () => {
     };
 
     return (
-        <div className="min-h-screen bg-[#fafbfc] py-12 px-4 sm:px-6 lg:px-8 mt-16 md:mt-24">
+        <div className="min-h-screen bg-[#fafbfc] py-6 md:py-12 px-3 sm:px-6 lg:px-8 mt-12 md:mt-24">
             <div className="max-w-5xl mx-auto">
-                <div className="flex items-center gap-4 mb-10">
-                    <button onClick={() => navigate('/admin/products')} className="p-3 bg-white rounded-full shadow-sm border border-orange-100 text-orange-600 hover:text-green-600 hover:border-green-200 transition-all">
-                        <ArrowLeft size={20} />
+                <div className="flex items-center gap-4 mb-6 md:mb-10">
+                    <button onClick={() => navigate('/admin/products')} className="p-2 md:p-3 bg-white rounded-full shadow-sm border border-orange-100 text-orange-600 hover:text-green-600 transition-all">
+                        <ArrowLeft size={18} className="md:w-5 md:h-5" />
                     </button>
                     <div>
-                        <div className="flex items-center gap-2 mb-1">
-                            <span className="px-2 py-0.5 bg-orange-50 text-orange-600 text-[10px] font-black uppercase tracking-widest rounded-md border border-orange-100">
+                        <div className="flex items-center gap-2 mb-0.5 md:mb-1">
+                            <span className="px-1.5 py-0.5 bg-orange-50 text-orange-600 text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-md border border-orange-100">
                                 Management
                             </span>
                         </div>
-                        <h1 className="text-3xl font-heading font-black text-purevit-dark leading-none">
+                        <h1 className="text-2xl md:text-3xl font-heading font-black text-purevit-dark leading-none">
                             {isEditMode ? 'Refine Product' : 'Create Product'}
                         </h1>
                     </div>
@@ -210,10 +210,10 @@ const AdminProductEdit = () => {
                     <div className="absolute top-0 right-0 w-80 h-80 bg-orange-100/40 blur-[100px] rounded-full -mr-40 -mt-20"></div>
                     <div className="absolute bottom-0 left-0 w-80 h-80 bg-green-50/60 blur-[80px] rounded-full -ml-40 -mb-20"></div>
 
-                    <form onSubmit={submitHandler} className="space-y-6 relative z-10">
+                    <form onSubmit={submitHandler} className="space-y-4 md:space-y-6 relative z-10">
 
                         {/* SECTION 1: Basic Information */}
-                        <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl border border-orange-200/30 space-y-8">
+                        <div className="bg-white rounded-2xl p-4 md:p-8 shadow-xl border border-orange-200/30 space-y-6 md:space-y-8">
                             <label className="text-[10px] font-black uppercase tracking-widest text-orange-600 ml-1 mb-4 block flex items-center gap-2">
                                 <div className="w-1 h-3 bg-orange-500 rounded-full"></div>
                                 01. Basic Product Details
@@ -264,7 +264,7 @@ const AdminProductEdit = () => {
                                     value={description}
                                     onChange={(e) => setDescription(e.target.value)}
                                     rows="4"
-                                    className="w-full px-4 py-3 bg-gradient-to-br from-orange-50/50 to-amber-50/40 border border-orange-200/40 rounded-2xl focus:bg-white focus:border-green-500 focus:shadow-lg transition-all outline-none font-medium text-purevit-dark text-sm hover:border-orange-300/50 resize-none"
+                                    className="w-full px-4 py-3 bg-gradient-to-br from-orange-50/50 to-amber-50/40 border border-orange-200/40 rounded-xl md:rounded-2xl focus:bg-white transition-all outline-none font-medium text-purevit-dark text-xs md:text-sm"
                                     placeholder="Enter product details..."
                                     required
                                 ></textarea>
@@ -298,9 +298,9 @@ const AdminProductEdit = () => {
                                                     if (targetAudience.includes(aud._id)) setTargetAudience(targetAudience.filter(id => id !== aud._id));
                                                     else setTargetAudience([...targetAudience, aud._id]);
                                                 }}
-                                                className={`flex items-center gap-3 p-4 rounded-2xl border transition-all ${targetAudience.includes(aud._id) ? 'bg-white border-green-500 shadow-md text-purevit-dark' : 'bg-white border-orange-100/60 text-gray-500 hover:border-orange-200'}`}
+                                                className={`flex items-center gap-2 p-3 md:p-4 rounded-xl md:rounded-2xl border transition-all ${targetAudience.includes(aud._id) ? 'bg-white border-green-500 shadow-md text-purevit-dark' : 'bg-white border-orange-100/60 text-gray-500 hover:border-orange-200'}`}
                                             >
-                                                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${targetAudience.includes(aud._id) ? 'bg-green-600 border-green-600' : 'border-gray-200'}`}>
+                                                <div className={`w-4 h-4 md:w-5 md:h-5 rounded-full border-2 flex items-center justify-center transition-all ${targetAudience.includes(aud._id) ? 'bg-green-600 border-green-600' : 'border-gray-200'}`}>
                                                     {targetAudience.includes(aud._id) && <Check size={12} className="text-white" />}
                                                 </div>
                                                 <span className="text-[10px] font-black uppercase tracking-widest">{aud.name}</span>
@@ -431,9 +431,9 @@ const AdminProductEdit = () => {
                                     </button>
                                 </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                                     {variants.map((v, idx) => (
-                                        <div key={idx} className="bg-gradient-to-br from-orange-50/30 to-amber-50/30 p-5 rounded-2xl border border-orange-200/30 flex items-end gap-3 group relative">
+                                        <div key={idx} className="bg-gradient-to-br from-orange-50/30 to-amber-50/30 p-3 md:p-5 rounded-xl md:rounded-2xl border border-orange-200/30 flex items-end gap-3 group relative">
                                             <button
                                                 type="button"
                                                 onClick={() => removeVariant(idx)}
@@ -517,9 +517,9 @@ const AdminProductEdit = () => {
                                     </button>
                                 </div>
 
-                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                                     {detailedBenefits.map((benefit, idx) => (
-                                        <div key={idx} className="bg-gradient-to-br from-orange-50/30 to-amber-50/30 p-5 rounded-2xl border border-orange-200/30 relative space-y-4">
+                                        <div key={idx} className="bg-gradient-to-br from-orange-50/30 to-amber-50/30 p-4 md:p-5 rounded-xl md:rounded-2xl border border-orange-200/30 relative space-y-3 md:space-y-4">
                                             <button
                                                 type="button"
                                                 onClick={() => setDetailedBenefits(detailedBenefits.filter((_, i) => i !== idx))}
@@ -612,12 +612,12 @@ const AdminProductEdit = () => {
                                                 key={flag.id}
                                                 type="button"
                                                 onClick={() => flag.setter(!flag.state)}
-                                                className={`flex items-center gap-3 p-4 rounded-2xl border transition-all ${flag.state ? 'bg-white border-green-500 shadow-md text-purevit-dark' : 'bg-white border-orange-100/60 text-gray-500 hover:border-orange-200'}`}
+                                                className={`flex items-center gap-2 p-3 md:p-4 rounded-xl md:rounded-2xl border transition-all ${flag.state ? 'bg-white border-green-500 shadow-md text-purevit-dark' : 'bg-white border-orange-100/60 text-gray-500 hover:border-orange-200'}`}
                                             >
-                                                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center transition-all ${flag.state ? 'bg-green-600 border-green-600' : 'border-gray-200'}`}>
-                                                    {flag.state && <Check size={12} className="text-white" />}
+                                                <div className={`w-4 h-4 md:w-5 md:h-5 rounded-full border-2 flex items-center justify-center transition-all ${flag.state ? 'bg-green-600 border-green-600' : 'border-gray-200'}`}>
+                                                    {flag.state && <Check size={10} className="text-white" />}
                                                 </div>
-                                                <span className="text-[10px] font-black uppercase tracking-widest">{flag.label}</span>
+                                                <span className="text-[9px] md:text-[10px] font-black uppercase tracking-widest">{flag.label}</span>
                                             </button>
                                         ))}
                                     </div>
@@ -629,10 +629,10 @@ const AdminProductEdit = () => {
                         <div className="pt-2">
                             <button
                                 type="submit"
-                                className="w-full group relative py-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] overflow-hidden transition-all duration-300 shadow-xl shadow-green-500/20 hover:shadow-2xl hover:shadow-green-600/30 hover:scale-[1.01] active:scale-[0.99]"
+                                className="w-full group relative py-3.5 md:py-4 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white rounded-xl md:rounded-2xl font-black uppercase tracking-[0.2em] text-[10px] md:text-[11px] overflow-hidden transition-all duration-300 shadow-xl shadow-green-500/20 hover:shadow-2xl"
                             >
-                                <span className="relative z-10 flex items-center justify-center gap-2 text-base">
-                                    <Save size={20} />
+                                <span className="relative z-10 flex items-center justify-center gap-2 text-sm md:text-base">
+                                    <Save size={18} className="md:w-5 md:h-5" />
                                     {isEditMode ? 'Save Changes' : 'Create Product'}
                                 </span>
                                 <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300" />

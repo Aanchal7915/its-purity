@@ -109,58 +109,65 @@ const AdminAnalytics = () => {
     ];
 
     return (
-        <div className="p-4 md:p-8 space-y-8 bg-[#FAF9F6] min-h-screen pb-12">
-            <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 bg-white p-6 rounded-[2.5rem] border border-purevit-primary/10 shadow-sm">
-                <div>
-                    <h1 className="text-3xl font-serif font-bold text-purevit-dark flex items-center gap-3">
-                        <TrendingUp className="text-purevit-primary" /> Advanced Insights
-                    </h1>
-                    <p className="text-sm text-gray-500 mt-1">Real-time performance metrics tracking.</p>
+        <div className="p-3 md:p-8 space-y-4 md:space-y-8 bg-[#FAF9F6] min-h-screen pb-12">
+            <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-[2.5rem] border border-purevit-primary/10 shadow-sm space-y-4">
+                <div className="flex flex-col">
+                    <button className="lg:hidden flex items-center gap-2 px-3 py-1.5 bg-purevit-dark text-white rounded-lg text-[10px] font-bold shadow-sm hover:opacity-90 transition-all self-end mb-2">
+                        <Download size={12} /> Export
+                    </button>
+                    <div>
+                        <h1 className="text-2xl md:text-3xl font-serif font-bold text-purevit-dark flex items-center gap-2 md:gap-3">
+                            <TrendingUp className="text-purevit-primary w-5 h-5 md:w-8 md:h-8" /> Advanced Insights
+                        </h1>
+                        <p className="text-[10px] md:text-sm text-gray-500 mt-1">Real-time performance metrics tracking.</p>
+                    </div>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3">
-                    {/* Standard Filters */}
-                    <div className="flex bg-purevit-secondary/50 p-1 rounded-2xl border border-purevit-primary/5">
-                        {['day', 'week', 'month', 'year', 'custom'].map((t) => (
-                            <button
-                                key={t}
-                                onClick={() => setFilterType(t)}
-                                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all capitalize ${filterType === t
-                                    ? 'bg-white text-purevit-primary shadow-sm'
-                                    : 'text-gray-400 hover:text-purevit-dark'}`}
-                            >
-                                {t}
-                            </button>
-                        ))}
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 md:gap-6">
+                    <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                        {/* Standard Filters */}
+                        <div className="flex bg-purevit-secondary/50 p-1 rounded-xl md:rounded-2xl border border-purevit-primary/5 overflow-x-auto no-scrollbar">
+                            {['day', 'week', 'month', 'year', 'custom'].map((t) => (
+                                <button
+                                    key={t}
+                                    onClick={() => setFilterType(t)}
+                                    className={`px-3 md:px-4 py-1.5 md:py-2 rounded-lg md:rounded-xl text-[10px] md:text-xs font-bold transition-all capitalize whitespace-nowrap ${filterType === t
+                                        ? 'bg-white text-purevit-primary shadow-sm'
+                                        : 'text-gray-400 hover:text-purevit-dark'}`}
+                                >
+                                    {t}
+                                </button>
+                            ))}
+                        </div>
+
+                        {/* Custom Date Inputs */}
+                        {filterType === 'custom' && (
+                            <div className="flex flex-row items-center gap-1.5 animate-in fade-in slide-in-from-right-4 w-full sm:w-auto">
+                                <input
+                                    type="date"
+                                    className="flex-1 sm:flex-none bg-white border border-purevit-primary/10 rounded-lg px-1.5 py-1 text-[9px] md:text-xs font-bold outline-none focus:border-purevit-primary min-w-0"
+                                    value={customRange.start}
+                                    onChange={(e) => setCustomRange({ ...customRange, start: e.target.value })}
+                                />
+                                <span className="text-gray-400 font-bold text-[9px] shrink-0">to</span>
+                                <input
+                                    type="date"
+                                    className="flex-1 sm:flex-none bg-white border border-purevit-primary/10 rounded-lg px-1.5 py-1 text-[9px] md:text-xs font-bold outline-none focus:border-purevit-primary min-w-0"
+                                    value={customRange.end}
+                                    onChange={(e) => setCustomRange({ ...customRange, end: e.target.value })}
+                                />
+                            </div>
+                        )}
                     </div>
 
-                    {/* Custom Date Inputs */}
-                    {filterType === 'custom' && (
-                        <div className="flex items-center gap-2 animate-in fade-in slide-in-from-right-4">
-                            <input
-                                type="date"
-                                className="bg-white border border-purevit-primary/10 rounded-xl px-3 py-2 text-xs font-bold outline-none focus:border-purevit-primary"
-                                value={customRange.start}
-                                onChange={(e) => setCustomRange({ ...customRange, start: e.target.value })}
-                            />
-                            <span className="text-gray-400 font-bold">to</span>
-                            <input
-                                type="date"
-                                className="bg-white border border-purevit-primary/10 rounded-xl px-3 py-2 text-xs font-bold outline-none focus:border-purevit-primary"
-                                value={customRange.end}
-                                onChange={(e) => setCustomRange({ ...customRange, end: e.target.value })}
-                            />
-                        </div>
-                    )}
-
-                    <button className="flex items-center gap-2 px-4 py-2 bg-purevit-dark text-white rounded-xl text-xs font-bold shadow-lg hover:opacity-90 transition-all ml-auto">
+                    <button className="hidden lg:flex items-center gap-2 px-4 py-2 bg-purevit-dark text-white rounded-xl text-xs font-bold shadow-lg hover:opacity-90 transition-all">
                         <Download size={14} /> Export
                     </button>
                 </div>
             </div>
 
             {/* Performance Snapshot */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 <MetricCard
                     label="Total Revenue"
                     value={`₹${stats.totalRevenue?.toLocaleString()}`}
@@ -193,14 +200,14 @@ const AdminAnalytics = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Traffic & Views Chart */}
-                <div className="bg-white p-8 rounded-[2.5rem] border border-purevit-primary/10 shadow-sm relative overflow-hidden group">
-                    <div className="flex items-center justify-between mb-8">
+                <div className="bg-white p-4 md:p-8 rounded-2xl md:rounded-[2.5rem] border border-purevit-primary/10 shadow-sm relative overflow-hidden group">
+                    <div className="flex items-center justify-between mb-6 md:mb-8">
                         <div>
-                            <h3 className="text-xl font-bold text-purevit-dark">Traffic & Engagement</h3>
-                            <p className="text-sm text-gray-500">Correlation between unique visitors and page views</p>
+                            <h3 className="text-lg md:text-xl font-bold text-purevit-dark">Traffic & Engagement</h3>
+                            <p className="text-[10px] md:text-sm text-gray-500">Visitors vs Revenue correlation</p>
                         </div>
                     </div>
-                    <div className="h-[300px] w-full">
+                    <div className="h-[250px] md:h-[300px] w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <LineChart data={salesData.length > 0 ? salesData : trafficData}>
                                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
@@ -216,9 +223,9 @@ const AdminAnalytics = () => {
                 </div>
 
                 {/* Conversion Funnel */}
-                <div className="bg-white p-8 rounded-[2.5rem] border border-purevit-primary/10 shadow-sm">
-                    <h3 className="text-xl font-bold text-purevit-dark mb-8">Customer Journey Funnel</h3>
-                    <div className="space-y-6">
+                <div className="bg-white p-4 md:p-8 rounded-2xl md:rounded-[2.5rem] border border-purevit-primary/10 shadow-sm">
+                    <h3 className="text-lg md:text-xl font-bold text-purevit-dark mb-6 md:mb-8">Customer Journey</h3>
+                    <div className="space-y-4 md:space-y-6">
                         {conversionData.map((step, idx) => (
                             <div key={idx} className="relative">
                                 <div className="flex items-center justify-between mb-2">
@@ -244,8 +251,8 @@ const AdminAnalytics = () => {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 {/* Product Performance Table */}
-                <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] border border-purevit-primary/10 shadow-sm">
-                    <h3 className="text-xl font-bold text-purevit-dark mb-6">Product Performance Analysis</h3>
+                <div className="lg:col-span-2 bg-white p-4 md:p-8 rounded-2xl md:rounded-[2.5rem] border border-purevit-primary/10 shadow-sm">
+                    <h3 className="text-lg md:text-xl font-bold text-purevit-dark mb-4 md:mb-6">Performance Analysis</h3>
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
                             <thead>
@@ -282,9 +289,9 @@ const AdminAnalytics = () => {
                 </div>
 
                 {/* Categorical Breakdown */}
-                <div className="bg-white p-8 rounded-[2.5rem] border border-purevit-primary/10 shadow-sm flex flex-col items-center">
-                    <h3 className="text-xl font-bold text-purevit-dark mb-8 w-full">Sales by Status</h3>
-                    <div className="h-64 w-full">
+                <div className="bg-white p-4 md:p-8 rounded-2xl md:rounded-[2.5rem] border border-purevit-primary/10 shadow-sm flex flex-col items-center">
+                    <h3 className="text-lg md:text-xl font-bold text-purevit-dark mb-6 md:mb-8 w-full">Sales by Status</h3>
+                    <div className="h-[200px] md:h-64 w-full">
                         <ResponsiveContainer width="100%" height="100%">
                             <PieChart>
                                 <Pie
@@ -321,15 +328,15 @@ const AdminAnalytics = () => {
 };
 
 const MetricCard = ({ label, value, change, isUp, icon }) => (
-    <div className="bg-white p-6 rounded-[2.2rem] border border-purevit-primary/10 shadow-sm flex items-center gap-4 hover:shadow-xl transition-all duration-300">
-        <div className="w-12 h-12 bg-purevit-secondary rounded-2xl flex items-center justify-center text-purevit-primary flex-shrink-0">
-            {icon}
+    <div className="bg-white p-4 md:p-6 rounded-2xl md:rounded-[2.2rem] border border-purevit-primary/10 shadow-sm flex items-center gap-3 md:gap-4 hover:shadow-xl transition-all duration-300">
+        <div className="w-10 h-10 md:w-12 md:h-12 bg-purevit-secondary rounded-xl md:rounded-2xl flex items-center justify-center text-purevit-primary flex-shrink-0">
+            {React.cloneElement(icon, { size: 18, className: "md:w-5 md:h-5" })}
         </div>
         <div>
             <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-0.5">{label}</p>
-            <div className="flex items-end gap-2">
-                <span className="text-2xl font-bold text-purevit-dark leading-none">{value}</span>
-                <span className={`text-[10px] font-black border px-1.5 py-0.5 rounded-lg ${isUp ? 'text-green-500 border-green-100 bg-green-50' : 'text-red-500 border-red-100 bg-red-50'}`}>
+            <div className="flex items-end gap-1.5 md:gap-2">
+                <span className="text-xl md:text-2xl font-bold text-purevit-dark leading-none">{value}</span>
+                <span className={`text-[8px] md:text-[10px] font-black border px-1 md:px-1.5 py-0.5 rounded-md md:rounded-lg ${isUp ? 'text-green-500 border-green-100 bg-green-50' : 'text-red-500 border-red-100 bg-red-50'}`}>
                     {change}
                 </span>
             </div>
