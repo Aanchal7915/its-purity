@@ -281,7 +281,7 @@ const HomePage = () => {
                         {[
                             { slug: "science-of-bioavailability", title: "The Science of Bio-Availability", desc: "How Purevit ensures maximum absorption of every nutrient.", image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80" },
                             { slug: "personalized-wellness", title: "Personalized Nutrition", desc: "Why one size does not fit all in health and energy.", image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80" },
-                            { slug: "pharmaceutical-standards", title: "Purity Above All Else", desc: "How we verify every batch for contaminants, potency, and compliance.", image: "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80" }
+                            { slug: "pharmaceutical-standards", title: "Purity Above All Else", desc: "How we verify every batch for contaminants, potency, and compliance.", image: "https://images.unsplash.com/photo-1581594549595-35f6edc7b762?auto=format&fit=crop&q=80" }
                         ].map((item, idx) => (
                             <Link key={idx} to={`/learn/${item.slug}`} className="group bg-white rounded-[2rem] overflow-hidden shadow-lg hover:-translate-y-2 transition-all duration-500">
                                 <div className="h-48 md:h-64 overflow-hidden relative">

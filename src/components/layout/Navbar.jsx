@@ -98,8 +98,8 @@ const Navbar = () => {
                             />
                         </div>
                         <div className="flex flex-col leading-none">
-                            <span className="text-[10px] sm:text-sm font-light tracking-wider text-gray-500">its</span>
-                            <span className="text-2xl sm:text-4xl font-serif font-bold tracking-tight">
+                            <span className="text-[8px] sm:text-sm font-light tracking-wider text-gray-500">its</span>
+                            <span className="text-xl sm:text-4xl font-serif font-bold tracking-tight">
                                 <span className="text-purevit-dark">Pure</span>
                                 <span className="text-purevit-primary">vit</span>
                             </span>
@@ -107,8 +107,8 @@ const Navbar = () => {
                     </Link>
 
                     {/* Desktop Nav */}
-                    <div className="hidden md:flex items-center space-x-12">
-                        <Link to="/" className="text-xs font-black uppercase tracking-[0.2em] text-gray-500 hover:text-purevit-primary transition-all">Home</Link>
+                    <div className="hidden md:flex items-center space-x-8 md:space-x-12">
+                        <Link to="/" className="text-[9px] md:text-xs font-black uppercase tracking-[0.16em] md:tracking-[0.2em] text-gray-500 hover:text-purevit-primary transition-all">Home</Link>
 
                         {/* Shop with Dropdown */}
                         <div
@@ -116,7 +116,7 @@ const Navbar = () => {
                             onMouseEnter={() => setShowShopDropdown(true)}
                             onMouseLeave={() => setShowShopDropdown(false)}
                         >
-                            <Link to="/products" className={`text-xs font-black uppercase tracking-[0.2em] transition-all flex items-center gap-1 py-8 ${(currentAudience || currentProductType) ? 'text-purevit-primary' : 'text-gray-500 hover:text-purevit-primary'}`}>
+                            <Link to="/products" className={`text-[9px] md:text-xs font-black uppercase tracking-[0.16em] md:tracking-[0.2em] transition-all flex items-center gap-1 py-8 ${(currentAudience || currentProductType) ? 'text-purevit-primary' : 'text-gray-500 hover:text-purevit-primary'}`}>
                                 Shop
                                 <ChevronDown size={12} className={`transition-transform duration-500 ${showShopDropdown ? 'rotate-180' : ''}`} />
                             </Link>
@@ -193,11 +193,11 @@ const Navbar = () => {
                             </AnimatePresence>
                         </div>
 
-                        <Link to="/customized-solution" className="text-xs font-black uppercase tracking-[0.2em] text-gray-500 hover:text-purevit-primary transition-all flex items-center gap-2">
+                        <Link to="/customized-solution" className="text-[9px] md:text-xs font-black uppercase tracking-[0.16em] md:tracking-[0.2em] text-gray-500 hover:text-purevit-primary transition-all flex items-center gap-2">
                             Customized Solution
                         </Link>
-                        <Link to="/about" className="text-xs font-black uppercase tracking-[0.2em] text-gray-500 hover:text-purevit-primary transition-all">Our Story</Link>
-                        <Link to="/contact" className="text-xs font-black uppercase tracking-[0.2em] text-gray-500 hover:text-purevit-primary transition-all">Contact</Link>
+                        <Link to="/about" className="text-[9px] md:text-xs font-black uppercase tracking-[0.16em] md:tracking-[0.2em] text-gray-500 hover:text-purevit-primary transition-all">Our Story</Link>
+                        <Link to="/contact" className="text-[9px] md:text-xs font-black uppercase tracking-[0.16em] md:tracking-[0.2em] text-gray-500 hover:text-purevit-primary transition-all">Contact</Link>
                     </div>
 
                     {/* Icons */}
@@ -275,11 +275,11 @@ const Navbar = () => {
                         className="md:hidden bg-white border-b border-gray-100 overflow-hidden"
                     >
                         <div className="px-4 py-6 space-y-4 flex flex-col">
-                            <Link to="/" className="text-lg text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Home</Link>
+                            <Link to="/" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Home</Link>
                             <div className="space-y-2">
                                 <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Shop</span>
-                                <Link to="/products" className="text-lg text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Shop All</Link>
-                                <Link to="/customized-solution" className="text-lg text-gray-500 hover:text-purevit-primary font-bold flex items-center gap-2" onClick={() => setIsOpen(false)}>
+                                <Link to="/products" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Shop All</Link>
+                                <Link to="/customized-solution" className="text-sm text-gray-500 hover:text-purevit-primary font-bold flex items-center gap-2" onClick={() => setIsOpen(false)}>
                                     Customized Solution
                                 </Link>
                                 {audienceCategories.length > 0 && (
@@ -299,10 +299,10 @@ const Navbar = () => {
                                     </div>
                                 )}
                             </div>
-                            <Link to="/about" className="text-lg text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Our Story</Link>
-                            <Link to="/contact" className="text-lg text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Contact</Link>
-                            <Link to="/cart" className="text-lg text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Cart</Link>
-                            <Link to="/login" className="text-lg text-purevit-primary" onClick={() => setIsOpen(false)}>Login</Link>
+                            <Link to="/about" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Our Story</Link>
+                            <Link to="/contact" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Contact</Link>
+                            <Link to="/cart" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Cart</Link>
+                            <Link to="/login" className="text-sm text-purevit-primary" onClick={() => setIsOpen(false)}>Login</Link>
                         </div>
                     </motion.div>
                 )}

@@ -63,6 +63,25 @@ const articles = {
         relatedProducts: [
             { id: 3, name: "Omega Pure", price: 65, image: "https://images.unsplash.com/photo-1512069772995-ec65ed45afd6?auto=format&fit=crop&q=80" }
         ]
+    },
+    "pharmaceutical-standards": {
+        title: "Purity Above All Else",
+        subtitle: "How we protect every batch",
+        image: "https://images.unsplash.com/photo-1581594549595-35f6edc7b762?auto=format&fit=crop&w=1200&q=80",
+        readTime: "7 min read",
+        category: "Quality",
+        content: [
+            { type: "header", text: "Purity Is a Process" },
+            { type: "paragraph", text: "Purity is not a single testâ€”itâ€™s a system. Every ingredient is verified for identity, tested for contaminants, and evaluated for potency before it enters production." },
+            { type: "pullquote", text: "We test what we make, and we test what we ship." },
+            { type: "paragraph", text: "Our suppliers are audited for GMP compliance, and each lot is screened for heavy metals, microbial activity, pesticides, and allergens. Only batches that meet our internal thresholds move forward." },
+            { type: "feature", icon: <ShieldCheck className="text-purevit-primary" />, title: "Triple-Check Protocol", text: "Incoming raw materials, in-process blends, and finished products are each tested independently to ensure consistent purity and label accuracy." },
+            { type: "header", text: "Transparency You Can Trace" },
+            { type: "paragraph", text: "We maintain detailed Certificates of Analysis for every batch and retain samples for long-term stability testing so results hold up over time, not just on day one." }
+        ],
+        relatedProducts: [
+            { id: 4, name: "Clean Lab Essentials", price: 59, image: "https://images.unsplash.com/photo-1580281657521-5b2d7f8d4d73?auto=format&fit=crop&w=900&q=80" }
+        ]
     }
     // ... others follow similar patterns
 };
