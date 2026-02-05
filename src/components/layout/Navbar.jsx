@@ -294,9 +294,6 @@ const Navbar = () => {
                                             className="space-y-2 overflow-y-auto max-h-[50vh]"
                                         >
                                             <Link to="/products" className="text-sm text-gray-500 hover:text-purevit-primary block" onClick={() => setIsOpen(false)}>Shop All</Link>
-                                            <Link to="/customized-solution" className="text-sm text-gray-500 hover:text-purevit-primary font-bold flex items-center gap-2" onClick={() => setIsOpen(false)}>
-                                                Customized Solution
-                                            </Link>
                                             {audienceCategories.length > 0 && (
                                                 <div className="pl-2 space-y-1">
                                                     <span className="text-xs text-gray-500">By Audience</span>
@@ -317,6 +314,9 @@ const Navbar = () => {
                                     )}
                                 </AnimatePresence>
                             </div>
+                            <Link to="/customized-solution" className="text-sm text-gray-500 hover:text-purevit-primary font-bold" onClick={() => setIsOpen(false)}>
+                                Customized Solution
+                            </Link>
                             <Link to="/about" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Our Story</Link>
                             <Link to="/contact" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Contact</Link>
                             <Link to="/cart" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Cart</Link>
