@@ -50,7 +50,7 @@ const ContactPage = () => {
     ];
 
     return (
-        <div className="min-h-screen bg-purevit-secondary pt-24 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden relative">
+        <div className="min-h-screen bg-purevit-secondary pt-16 md:pt-24 pb-10 md:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden relative">
 
             {/* Background Decorative Elemets */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-purevit-primary/5 blur-[120px] rounded-full -mr-48 -mt-24 pointer-events-none"></div>
@@ -59,7 +59,7 @@ const ContactPage = () => {
             <div className="max-w-7xl mx-auto relative z-10">
 
                 {/* Header Section */}
-                <div className="text-center mb-20 space-y-6">
+                <div className="text-center mb-10 md:mb-20 space-y-4 md:space-y-6">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -74,7 +74,7 @@ const ContactPage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.1 }}
-                        className="text-6xl md:text-8xl font-serif text-purevit-dark leading-none"
+                        className="text-4xl md:text-8xl font-serif text-purevit-dark leading-none"
                     >
                         Let's start your <br />
                         <span className="italic text-purevit-primary font-medium tracking-tight">Wellness Journey</span>
@@ -84,13 +84,13 @@ const ContactPage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2 }}
-                        className="text-gray-400 font-medium max-w-2xl mx-auto leading-relaxed text-lg italic"
+                        className="text-gray-400 font-medium max-w-2xl mx-auto leading-relaxed text-sm md:text-lg italic"
                     >
                         Whether you have a question about our laboratory standards or need a personalized ritual guide, our experts are here to help.
                     </motion.p>
                 </div>
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 items-start">
 
                     {/* Left Column: Contact Cards */}
                     <div className="lg:col-span-5 space-y-6">
@@ -118,7 +118,7 @@ const ContactPage = () => {
                             initial={{ opacity: 0, x: -30 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.6 }}
-                            className="bg-white rounded-3xl p-8 border border-gray-100 shadow-lg"
+                            className="bg-white rounded-3xl p-6 md:p-8 border border-gray-100 shadow-lg"
                         >
                             <h3 className="text-xl font-serif text-gray-800 mb-6 italic">Join the Community</h3>
                             <div className="flex gap-4">
@@ -140,7 +140,7 @@ const ContactPage = () => {
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.4 }}
-                        className="lg:col-span-7 bg-white rounded-[2.5rem] p-8 md:p-12 shadow-xl border border-gray-100"
+                        className="lg:col-span-7 bg-white rounded-[2rem] md:rounded-[2.5rem] p-5 md:p-12 shadow-xl border border-gray-100"
                     >
                         <div className="relative z-10">
                             <div className="flex items-center gap-3 mb-8">
@@ -216,7 +216,7 @@ const ContactPage = () => {
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="mt-24 rounded-[3rem] overflow-hidden shadow-xl h-[450px] relative border-4 border-white"
+                    className="mt-12 md:mt-24 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-xl h-[300px] md:h-[450px] relative border-4 border-white"
                 >
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14030.730302820067!2d77.0683!3d28.4503!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d1901df4c4149%3A0xe675ca8241517789!2sSector%2044%2C%20Gurugram%2C%20Haryana!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
@@ -228,7 +228,7 @@ const ContactPage = () => {
                         referrerPolicy="no-referrer-when-downgrade"
                         className="transition-all duration-1000"
                     ></iframe>
-                    <div className="absolute bottom-8 left-8 bg-white/95 backdrop-blur-sm p-6 rounded-3xl shadow-lg border border-gray-100 max-w-xs space-y-3">
+                    <div className="absolute bottom-4 md:bottom-8 left-4 md:left-8 bg-white/95 backdrop-blur-sm p-4 md:p-6 rounded-2xl md:rounded-3xl shadow-lg border border-gray-100 max-w-[240px] md:max-w-xs space-y-2 md:space-y-3">
                         <div className="w-10 h-10 bg-purevit-primary/10 rounded-full flex items-center justify-center text-purevit-primary">
                             <MapPin size={20} />
                         </div>
@@ -243,7 +243,7 @@ const ContactPage = () => {
                 </motion.div>
 
                 {/* FAQS Link / Trust Footer */}
-                <div className="mt-24 pt-10 border-t border-purevit-primary/10 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div className="mt-12 md:mt-24 pt-8 md:pt-10 border-t border-purevit-primary/10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
                     <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-2xl bg-white flex items-center justify-center text-purevit-primary shadow-sm">
                             <Globe size={24} />

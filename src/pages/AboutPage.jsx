@@ -18,8 +18,8 @@ const AboutPage = () => {
         <div className="min-h-screen bg-white selection:bg-purevit-primary selection:text-black font-sans">
 
             {/* 1. HEADER SECTION (Two Columns) */}
-            <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
+            <section className="pt-10 md:pt-16 pb-6 md:pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-end">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -27,8 +27,8 @@ const AboutPage = () => {
                         className="space-y-4"
                     >
                         <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500">Who we are</span>
-                        <h1 className="text-5xl md:text-7xl font-serif text-purevit-dark leading-[1.1] font-medium">
-                            We are specialists <br /> in the health field
+                        <h1 className="text-3xl md:text-7xl font-serif text-purevit-dark leading-[1.1] font-medium">
+                            We are specialists <br className="hidden md:block" /> in the health field
                         </h1>
                     </motion.div>
 
@@ -36,7 +36,7 @@ const AboutPage = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="lg:max-w-md lg:ml-auto space-y-8"
+                        className="lg:max-w-md lg:ml-auto space-y-4 md:space-y-8"
                     >
                         <p className="text-gray-500 text-sm leading-relaxed">
                             Our services cover a wide range of nutritional needs, from crafting bespoke supplements to rigorous testing of every raw ingredient that enters our lab.
@@ -54,12 +54,12 @@ const AboutPage = () => {
             </section>
 
             {/* 2. HERO IMAGE (Large Horizontal) */}
-            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 md:pb-20">
                 <motion.div
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8 }}
-                    className="w-full h-[400px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl relative"
+                    className="w-full h-[250px] md:h-[600px] rounded-2xl md:rounded-3xl overflow-hidden shadow-2xl relative"
                 >
                     <img
                         src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1600&q=80"
@@ -71,7 +71,7 @@ const AboutPage = () => {
             </section>
 
             {/* 3. TICKER BAR (Purevit Dark) */}
-            <div className="bg-purevit-dark py-6 overflow-hidden flex whitespace-nowrap">
+            <div className="bg-purevit-dark py-4 md:py-6 overflow-hidden flex whitespace-nowrap">
                 <motion.div
                     animate={{ x: ["0%", "-50%"] }}
                     transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
@@ -90,13 +90,13 @@ const AboutPage = () => {
 
 
             {/* 4. STATS SECTION (Beige Background) */}
-            <section className="bg-[#f5f0e6] py-24">
+            <section className="bg-[#f5f0e6] py-12 md:py-24">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-20">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start mb-10 md:mb-20">
                         <div className="space-y-6">
                             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-purevit-dark/60">Start with us</span>
-                            <h2 className="text-4xl md:text-5xl font-serif text-purevit-dark leading-tight font-medium">
-                                Straightforward health <br /> services with no <br /> hidden surprises
+                            <h2 className="text-3xl md:text-5xl font-serif text-purevit-dark leading-tight font-medium">
+                                Straightforward health <br className="hidden md:block" /> services with no <br className="hidden md:block" /> hidden surprises
                             </h2>
                         </div>
                         <div className="space-y-8">
@@ -109,16 +109,16 @@ const AboutPage = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-purevit-dark/10">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 pt-8 md:pt-12 border-t border-purevit-dark/10">
                         {[
                             { label: "Year Experience", val: "25 Years" },
                             { label: "Team Expert", val: "250+" },
                             { label: "Awards & Honor", val: "500+" },
                             { label: "Clients worldwide", val: "1000+" }
                         ].map((stat, idx) => (
-                            <div key={idx} className="space-y-2 border-l border-purevit-dark/20 pl-6 first:border-0">
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-purevit-dark/40">{stat.label}</p>
-                                <p className="text-3xl font-serif text-purevit-dark font-medium">{stat.val}</p>
+                            <div key={idx} className="space-y-1 md:space-y-2 border-l border-purevit-dark/20 pl-3 md:pl-6 sm:first:border-l first:border-0">
+                                <p className="text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-purevit-dark/40 leading-tight">{stat.label}</p>
+                                <p className="text-lg md:text-3xl font-serif text-purevit-dark font-medium">{stat.val}</p>
                             </div>
                         ))}
                     </div>
@@ -126,19 +126,19 @@ const AboutPage = () => {
             </section>
 
             {/* 4.5 THE FARM-TO-BOTTLE JOURNEY */}
-            <section className="py-20 bg-white">
+            <section className="py-12 md:py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                        <div className="space-y-4">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 md:mb-20 gap-6 md:gap-8">
+                        <div className="space-y-2 md:space-y-4">
                             <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em]">Transparency</span>
-                            <h2 className="text-4xl md:text-6xl font-serif text-purevit-dark font-medium leading-[1.1]">The Farm-to-Bottle <br /> Journey</h2>
+                            <h2 className="text-3xl md:text-6xl font-serif text-purevit-dark font-medium leading-[1.1]">The Farm-to-Bottle <br className="hidden md:block" /> Journey</h2>
                         </div>
                         <p className="max-w-md text-gray-500 text-sm leading-relaxed mb-2">
                             How we transform the earth's most potent raw materials into the pharmaceutical-grade supplements your body deserves.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-12 relative">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-12 relative">
                         {/* Connecting Line (Desktop) */}
                         <div className="hidden md:block absolute top-[25px] left-[10%] right-[10%] h-px bg-gray-100 z-0"></div>
 
@@ -149,7 +149,7 @@ const AboutPage = () => {
                             { step: "04", title: "Clean Packaging", desc: "100% recyclable amber glass ensures protection from UV light and plastic-free storage." }
                         ].map((item, i) => (
                             <div key={i} className="relative z-10 space-y-6">
-                                <div className="w-12 h-12 rounded-full bg-purevit-dark text-white flex items-center justify-center text-xs font-bold ring-8 ring-white">
+                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-purevit-dark text-white flex items-center justify-center text-[10px] md:text-xs font-bold ring-4 md:ring-8 ring-white">
                                     {item.step}
                                 </div>
                                 <div className="space-y-2">
@@ -163,23 +163,23 @@ const AboutPage = () => {
             </section>
 
             {/* 4.7 QUALITY STANDARDS STRIP (Seal of approval after Journey) */}
-            <div className="bg-gradient-to-r from-[#f5f0e6] via-white to-[#f5f0e6] py-8 border-y border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center md:justify-between items-center gap-6">
-                    {["Non-GMO Project", "Certified Organic", "Lab Tested", "Cruelty Free", "ISO Certified"].map((label, i) => (
-                        <div key={i} className="flex items-center gap-3 px-4 py-2 rounded-full bg-white/80 shadow-sm border border-gray-100">
-                            <Star size={14} className="text-purevit-primary" />
-                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-purevit-dark">{label}</span>
+            <div className="bg-gradient-to-r from-[#f5f0e6] via-white to-[#f5f0e6] py-6 md:py-8 border-y border-gray-100">
+                <div className="max-w-7xl mx-auto px-2 md:px-4 grid grid-cols-3 md:flex md:flex-wrap justify-center md:justify-between items-center gap-2 md:gap-6">
+                    {["Non-GMO Project", "Certified Organic", "Lab Tested", "Cruelty Free", "ISO Certified", "100% Vegan"].map((label, i) => (
+                        <div key={i} className="flex flex-col md:flex-row items-center gap-1 md:gap-3 px-2 md:px-4 py-2 rounded-xl md:rounded-full bg-white/80 shadow-sm border border-gray-100 text-center">
+                            <Star size={12} className="text-purevit-primary md:w-[14px] md:h-[14px]" />
+                            <span className="text-[7px] md:text-[10px] font-black uppercase tracking-wider md:tracking-[0.3em] text-purevit-dark leading-tight">{label}</span>
                         </div>
                     ))}
                 </div>
             </div>
 
             {/* 5. TEAM SECTION - SOPHISTICATED GRID */}
-            <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <div className="text-center mb-16">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-purevit-primary mb-4 block">Meet Our Team</span>
-                    <h2 className="text-5xl md:text-6xl font-serif text-purevit-dark leading-tight font-medium">
-                        Guided by Expertise, <br /> driven by <span className="italic">Passion</span>
+            <section className="py-12 md:py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div className="text-center mb-10 md:mb-16">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-purevit-primary mb-2 md:mb-4 block">Meet Our Team</span>
+                    <h2 className="text-3xl md:text-6xl font-serif text-purevit-dark leading-tight font-medium">
+                        Guided by Expertise, <br className="hidden md:block" /> driven by <span className="italic">Passion</span>
                     </h2>
                 </div>
 
@@ -211,7 +211,7 @@ const AboutPage = () => {
                             transition={{ duration: 0.6, delay: idx * 0.1 }}
                             className="group relative"
                         >
-                            <div className="aspect-[4/5] rounded-[2rem] overflow-hidden mb-8 relative bg-gray-100 shadow-lg">
+                            <div className="aspect-[4/5] rounded-2xl md:rounded-[2rem] overflow-hidden mb-4 md:mb-8 relative bg-gray-100 shadow-lg">
                                 <img
                                     src={member.img}
                                     alt={member.name}
@@ -241,10 +241,10 @@ const AboutPage = () => {
                 </div>
 
                 {/* MORE TO EXPLORE */}
-                <div className="mt-20 text-center border-t border-gray-100 pt-12">
-                    <h3 className="text-5xl md:text-7xl font-serif text-black font-medium mb-10 select-none leading-none uppercase tracking-tighter">More to explore</h3>
+                <div className="mt-10 md:mt-20 text-center border-t border-gray-100 pt-8 md:pt-12">
+                    <h3 className="text-3xl md:text-7xl font-serif text-black font-medium mb-6 md:mb-10 select-none leading-none uppercase tracking-tighter">More to explore</h3>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 text-left">
                         {[
                             {
                                 title: "Science & Innovation",
@@ -270,13 +270,13 @@ const AboutPage = () => {
                             <motion.div
                                 key={idx}
                                 whileHover={{ y: -5 }}
-                                className="p-8 rounded-2xl bg-[#fcfbf9] border border-gray-100 hover:border-purevit-primary/30 hover:shadow-xl transition-all group"
+                                className="p-4 md:p-8 rounded-xl md:rounded-2xl bg-[#fcfbf9] border border-gray-100 hover:border-purevit-primary/30 hover:shadow-xl transition-all group"
                             >
-                                <div className="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center text-purevit-dark border border-gray-50 mb-6 group-hover:bg-purevit-dark group-hover:text-white transition-colors">
-                                    {item.icon ? <item.icon size={20} /> : <Plus size={20} />}
+                                <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-white shadow-sm flex items-center justify-center text-purevit-dark border border-gray-50 mb-4 md:mb-6 group-hover:bg-purevit-dark group-hover:text-white transition-colors">
+                                    {item.icon ? <item.icon size={16} className="md:w-5 md:h-5" /> : <Plus size={16} className="md:w-5 md:h-5" />}
                                 </div>
-                                <h4 className="text-xl font-serif text-purevit-dark font-medium mb-4">{item.title}</h4>
-                                <p className="text-gray-500 text-sm leading-relaxed">
+                                <h4 className="text-sm md:text-xl font-serif text-purevit-dark font-medium mb-2 md:mb-4">{item.title}</h4>
+                                <p className="text-gray-500 text-[10px] md:text-sm leading-relaxed line-clamp-3 md:line-clamp-none">
                                     {item.desc}
                                 </p>
                             </motion.div>
@@ -286,9 +286,9 @@ const AboutPage = () => {
             </section>
 
             {/* CTA SECTION (Minimalist) */}
-            <section className="bg-[#163020] py-20">
-                <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-12">
-                    <h2 className="text-3xl md:text-5xl font-serif text-white max-w-xl text-center md:text-left">
+            <section className="bg-[#163020] py-12 md:py-20">
+                <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12">
+                    <h2 className="text-2xl md:text-5xl font-serif text-white max-w-xl text-center md:text-left">
                         Take the first step towards a healthier lifestyle.
                     </h2>
                     <div className="flex gap-4">

@@ -314,7 +314,7 @@ const Navbar = () => {
                                     )}
                                 </AnimatePresence>
                             </div>
-                            <Link to="/customized-solution" className="text-sm text-gray-500 hover:text-purevit-primary font-bold" onClick={() => setIsOpen(false)}>
+                            <Link to="/customized-solution" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>
                                 Customized Solution
                             </Link>
                             <Link to="/about" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Our Story</Link>
