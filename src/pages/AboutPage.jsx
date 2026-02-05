@@ -18,7 +18,7 @@ const AboutPage = () => {
         <div className="min-h-screen bg-white selection:bg-purevit-primary selection:text-black font-sans">
 
             {/* 1. HEADER SECTION (Two Columns) */}
-            <section className="pt-24 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+            <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-end">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ const AboutPage = () => {
                         </p>
                         <div className="flex items-center gap-6">
                             <Link to="/products" className="bg-purevit-dark text-white px-6 py-3 rounded-md text-xs font-bold hover:bg-black transition-all">
-                                Free Consultation
+                                Shop Now
                             </Link>
                             <Link to="/contact" className="text-purevit-dark text-xs font-bold border-b border-purevit-dark pb-0.5 hover:text-black transition-all">
                                 Contact Us
@@ -62,7 +62,7 @@ const AboutPage = () => {
                     className="w-full h-[400px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl relative"
                 >
                     <img
-                        src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80"
+                        src="https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?auto=format&fit=crop&w=1600&q=80"
                         alt="Purevit Scientific Research"
                         className="w-full h-full object-cover"
                     />
@@ -126,7 +126,7 @@ const AboutPage = () => {
             </section>
 
             {/* 4.5 THE FARM-TO-BOTTLE JOURNEY */}
-            <section className="py-32 bg-white">
+            <section className="py-20 bg-white">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
                         <div className="space-y-4">
@@ -163,11 +163,11 @@ const AboutPage = () => {
             </section>
 
             {/* 4.7 QUALITY STANDARDS STRIP (Seal of approval after Journey) */}
-            <div className="bg-white py-12 border-y border-gray-100">
-                <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center md:justify-between items-center gap-8 opacity-40">
+            <div className="bg-gradient-to-r from-[#f5f0e6] via-white to-[#f5f0e6] py-8 border-y border-gray-100">
+                <div className="max-w-7xl mx-auto px-4 flex flex-wrap justify-center md:justify-between items-center gap-6">
                     {["Non-GMO Project", "Certified Organic", "Lab Tested", "Cruelty Free", "ISO Certified"].map((label, i) => (
-                        <div key={i} className="flex items-center gap-2">
-                            <Star size={12} className="text-purevit-dark" />
+                        <div key={i} className="flex items-center gap-3 px-4 py-2 rounded-full bg-white/80 shadow-sm border border-gray-100">
+                            <Star size={14} className="text-purevit-primary" />
                             <span className="text-[10px] font-black uppercase tracking-[0.3em] text-purevit-dark">{label}</span>
                         </div>
                     ))}
@@ -175,8 +175,8 @@ const AboutPage = () => {
             </div>
 
             {/* 5. TEAM SECTION - SOPHISTICATED GRID */}
-            <section className="py-32 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-                <div className="text-center mb-24">
+            <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+                <div className="text-center mb-16">
                     <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-purevit-primary mb-4 block">Meet Our Team</span>
                     <h2 className="text-5xl md:text-6xl font-serif text-purevit-dark leading-tight font-medium">
                         Guided by Expertise, <br /> driven by <span className="italic">Passion</span>
@@ -186,21 +186,21 @@ const AboutPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                     {[
                         {
-                            name: "Dr. Eleanor Pena",
+                            name: "Dr. Ananya Sharma",
                             role: "Chief Scientist",
-                            img: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&q=80",
+                            img: "https://images.unsplash.com/photo-1598257006626-48b0c252070d?auto=format&fit=crop&w=900&q=80",
                             bio: "Leading our clinical trials and ingredient verification with 20+ years in pharmacology."
                         },
                         {
-                            name: "Dianne Russell",
+                            name: "Dr. Rohan Mehta",
                             role: "Lead Nutritionist",
-                            img: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80",
+                            img: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=900&q=80",
                             bio: "Crafting bespoke nutritional strategies to optimize daily energy and immunity levels."
                         },
                         {
-                            name: "Albert Flores",
+                            name: "Dr. Priya Iyer",
                             role: "Safety & Quality",
-                            img: "https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&q=80",
+                            img: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80",
                             bio: "Meticulously auditing our global supply chain to ensure zero contamination."
                         }
                     ].map((member, idx) => (
@@ -241,8 +241,8 @@ const AboutPage = () => {
                 </div>
 
                 {/* MORE TO EXPLORE */}
-                <div className="mt-32 text-center border-t border-gray-100 pt-20">
-                    <h3 className="text-7xl md:text-9xl font-serif text-black font-medium mb-16 select-none leading-none uppercase tracking-tighter">More to explore</h3>
+                <div className="mt-20 text-center border-t border-gray-100 pt-12">
+                    <h3 className="text-5xl md:text-7xl font-serif text-black font-medium mb-10 select-none leading-none uppercase tracking-tighter">More to explore</h3>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
                         {[
@@ -293,7 +293,7 @@ const AboutPage = () => {
                     </h2>
                     <div className="flex gap-4">
                         <Link to="/products" className="bg-white text-[#163020] px-10 py-4 rounded-md font-bold text-xs hover:bg-[#f5f0e6] transition-all whitespace-nowrap">
-                            Contact Us Today
+                            Shop Now
                         </Link>
                     </div>
                 </div>

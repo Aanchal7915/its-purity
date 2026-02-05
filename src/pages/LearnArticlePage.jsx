@@ -80,7 +80,7 @@ const LearnArticlePage = () => {
     return (
         <div className="bg-[#fcfbf9] min-h-screen">
             {/* Immersive Column Header */}
-            <header className="relative pt-40 pb-24 px-4 overflow-hidden">
+            <header className="relative pt-24 pb-16 px-4 overflow-hidden">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
                         {/* Title Section */}
@@ -102,7 +102,7 @@ const LearnArticlePage = () => {
                                 transition={{ delay: 0.2 }}
                                 className="space-y-6"
                             >
-                                <h1 className="text-6xl md:text-8xl lg:text-9xl font-serif text-purevit-dark leading-[0.9] tracking-tighter">
+                                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-purevit-dark leading-[1] tracking-tight">
                                     {article.title}
                                 </h1>
                                 <p className="text-xl md:text-2xl text-gray-400 font-serif italic max-w-2xl leading-relaxed">
@@ -152,26 +152,26 @@ const LearnArticlePage = () => {
             </header>
 
             {/* Main Editorial Body */}
-            <main className="pb-40">
+            <main className="pb-24">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
                         {/* Article Content Column */}
                         <div className="lg:col-span-8">
-                            <article className="prose prose-2xl max-w-none space-y-12">
+                            <article className="prose prose-xl max-w-none space-y-12">
                                 {article.content.map((item, idx) => {
                                     if (item.type === "header") return (
-                                        <h2 key={idx} className="text-4xl md:text-5xl font-serif text-purevit-dark pt-12 border-t border-gray-100">
+                                        <h2 key={idx} className="text-3xl md:text-4xl font-serif text-purevit-dark pt-12 border-t border-gray-100">
                                             {item.text}
                                         </h2>
                                     );
                                     if (item.type === "paragraph") return (
-                                        <p key={idx} className={`text-xl md:text-2xl text-gray-600 leading-relaxed font-light ${idx === 1 ? 'first-letter:text-7xl first-letter:font-serif first-letter:mr-3 first-letter:float-left first-letter:text-purevit-primary' : ''}`}>
+                                        <p key={idx} className={`text-lg md:text-xl text-gray-600 leading-relaxed font-light ${idx === 1 ? 'first-letter:text-6xl first-letter:font-serif first-letter:mr-3 first-letter:float-left first-letter:text-purevit-primary' : ''}`}>
                                             {item.text}
                                         </p>
                                     );
                                     if (item.type === "pullquote") return (
                                         <div key={idx} className="py-12 px-10 md:px-20 border-l-4 border-purevit-primary bg-white shadow-[20px_20px_60px_-15px_rgba(212,175,55,0.1)] rounded-r-3xl my-16">
-                                            <blockquote className="text-3xl md:text-4xl font-serif text-purevit-dark italic leading-tight">
+                                            <blockquote className="text-2xl md:text-3xl font-serif text-purevit-dark italic leading-tight">
                                                 "{item.text}"
                                             </blockquote>
                                         </div>
@@ -182,8 +182,8 @@ const LearnArticlePage = () => {
                                                 {React.cloneElement(item.icon, { size: 36 })}
                                             </div>
                                             <div className="space-y-4">
-                                                <h4 className="text-3xl font-serif text-purevit-dark">{item.title}</h4>
-                                                <p className="text-gray-500 text-xl leading-relaxed">{item.text}</p>
+                                                <h4 className="text-2xl font-serif text-purevit-dark">{item.title}</h4>
+                                                <p className="text-gray-500 text-lg leading-relaxed">{item.text}</p>
                                             </div>
                                         </div>
                                     );
@@ -242,7 +242,7 @@ const LearnArticlePage = () => {
                                                     {product.name}
                                                 </h6>
                                                 <div className="flex items-center justify-between">
-                                                    <span className="text-2xl font-serif text-purevit-primary">${product.price}</span>
+                                                    <span className="text-2xl font-serif text-purevit-primary">₹{product.price}</span>
                                                     <div className="w-10 h-10 rounded-full bg-purevit-dark text-white flex items-center justify-center group-hover:bg-purevit-primary transition-colors">
                                                         <ArrowRight size={18} />
                                                     </div>

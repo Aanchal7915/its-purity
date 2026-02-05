@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Sparkles, Activity, ShieldCheck, Microscope, ArrowRight, CheckCircle2, FlaskConical, ClipboardList, Package } from 'lucide-react';
 
@@ -90,12 +91,12 @@ const CustomizedSolutionPage = () => {
                             Elevate your wellbeing with precision.
                         </p>
                         <div className="flex gap-6">
-                            <button className="px-10 py-5 bg-purevit-dark text-white rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-black transition-all flex items-center gap-3">
-                                Begin Consultation <ArrowRight size={16} />
-                            </button>
-                            <button className="px-10 py-5 border border-gray-100 text-purevit-dark rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-gray-50 transition-all">
+                            <Link to="/about" className="px-10 py-5 bg-purevit-dark text-white rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-black transition-all flex items-center gap-3">
+                                Our Story <ArrowRight size={16} />
+                            </Link>
+                            <Link to="/contact" className="px-10 py-5 border border-gray-100 text-purevit-dark rounded-full font-bold uppercase tracking-widest text-[10px] hover:bg-gray-50 transition-all">
                                 Learn More
-                            </button>
+                            </Link>
                         </div>
                     </motion.div>
                 </div>
@@ -157,7 +158,7 @@ const CustomizedSolutionPage = () => {
             </section>
 
             {/* The Process Section */}
-            <section className="py-32 overflow-hidden">
+            <section className="pt-16 pb-32 overflow-hidden">
                 <div className="container mx-auto px-6">
                     <div className="text-center mb-24">
                         <h2 className="text-5xl font-serif text-purevit-dark mb-6">Crafting Your <span className="italic">Personalized Bottle</span></h2>
@@ -221,7 +222,7 @@ const CustomizedSolutionPage = () => {
             </section>
 
             {/* CTA Section - Elegant Cream Theme */}
-            <section className="py-32 bg-[#FDFCF0] relative overflow-hidden">
+            <section className="pt-16 pb-20 bg-[#FDFCF0] relative overflow-hidden">
                 <div className="absolute inset-0 z-0">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-purevit-primary/5 rounded-full blur-[120px]"></div>
                 </div>
@@ -235,9 +236,9 @@ const CustomizedSolutionPage = () => {
                         Join thousands of individuals who have unlocked their potential with
                         precise, science-backed nutrition. Your journey starts with a simple assessment.
                     </p>
-                    <button className="px-16 py-6 bg-purevit-primary text-black rounded-full font-black uppercase tracking-[0.3em] text-[10px] hover:scale-105 transition-all shadow-[0_15px_30px_rgba(34,197,94,0.2)]">
-                        Start Your Transformation Now
-                    </button>
+                    <Link to="/contact" className="px-16 py-6 bg-purevit-primary text-black rounded-full font-black uppercase tracking-[0.3em] text-[10px] hover:scale-105 transition-all shadow-[0_15px_30px_rgba(34,197,94,0.2)]">
+                        Contact us
+                    </Link>
 
                     <div className="mt-16 flex justify-center gap-12 text-gray-400">
                         <div className="flex items-center gap-2">

@@ -48,7 +48,7 @@ const slides = [
         title: "Peak Performance, Pure Recovery.",
         subtitle: "Elite Lean Protein - Muscle Fuel",
         description: "Fuel your muscles with the world's cleanest whey isolate. Designed for athletes who demand purity without compromise, our protein delivers a full spectrum of amino acids to accelerate muscle protein synthesis and cut down recovery time, helping you build a stronger, leaner physique faster.",
-        image: "https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=1000&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1000&auto=format&fit=crop",
         stats: [
             { label: "Recovery", value: "Fast", icon: <Activity size={20} /> },
             { label: "Muscle", value: "Growth", icon: <Zap size={20} /> },
@@ -61,7 +61,7 @@ const slides = [
         title: "Deep Rest for a Brighter Tomorrow.",
         subtitle: "Sleep Support - Natural Rest",
         description: "Transform your nights and reclaim your days with our non-habit forming sleep aid. By harmonizing with your body's natural circadian rhythm using calming botanicals and targeted minerals, we help you achieve deep, restorative REM sleep so you wake up feeling completely refreshed and energized.",
-        image: "https://images.unsplash.com/photo-1511295742364-91ac240a6281?q=80&w=1000&auto=format&fit=crop",
+        image: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=1000&auto=format&fit=crop",
         stats: [
             { label: "Deep", value: "Sleep", icon: <Activity size={20} /> },
             { label: "Natural", value: "Rest", icon: <Shield size={20} /> },

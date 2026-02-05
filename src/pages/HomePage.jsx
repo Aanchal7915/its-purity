@@ -108,7 +108,7 @@ const HomePage = () => {
             <HeroCarousel />
 
             {/* Benefits Section */}
-            <section className="py-16 md:py-28 bg-white relative overflow-hidden">
+            <section className="py-12 md:py-20 bg-white relative overflow-hidden">
                 <div className="absolute -top-32 -left-32 w-96 h-96 bg-purevit-primary/5 blur-[90px] rounded-full pointer-events-none"></div>
                 <div className="absolute -bottom-32 -right-24 w-[420px] h-[420px] bg-purevit-secondary/40 blur-[120px] rounded-full pointer-events-none"></div>
                 <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -157,7 +157,7 @@ const HomePage = () => {
             </section>
 
             {/* Watch & Shop (Reels) */}
-            <section className="py-16 md:py-32 bg-purevit-cream border-y border-purevit-primary/10">
+            <section className="py-12 md:py-20 bg-purevit-cream border-y border-purevit-primary/10">
                 <div className="max-w-7xl mx-auto px-4 md:px-8">
                     <div className="mb-12">
                         <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Community</span>
@@ -206,7 +206,7 @@ const HomePage = () => {
             </section>
 
             {/* Product Formats */}
-            <section className="py-16 md:py-32 bg-purevit-cream border-y border-purevit-primary/5">
+            <section className="py-12 md:py-20 bg-purevit-cream border-y border-purevit-primary/5">
                 <div className="max-w-7xl mx-auto px-4 md:px-8">
                     <div className="mb-12">
                         <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The Formulations</span>
@@ -242,7 +242,7 @@ const HomePage = () => {
                 { title: "New Launches", data: newLaunches, badge: "newlaunch" },
                 { title: "Super Saver", data: superSavers, badge: "supersaver", bg: "bg-[#f9fafb]" }
             ].map((section, sIdx) => (
-                <section key={sIdx} className={`py-16 md:py-24 ${section.bg || 'bg-white'}`}>
+                <section key={sIdx} className={`py-12 md:py-20 ${section.bg || 'bg-white'}`}>
                     <div className="max-w-7xl mx-auto px-4 md:px-8">
                         <div className="text-center mb-12">
                             <h2 className="text-3xl md:text-5xl font-serif font-bold text-black">{section.title}</h2>
@@ -268,7 +268,7 @@ const HomePage = () => {
             ))}
 
             {/* Learn Section */}
-            <section className="py-16 md:py-32 bg-[#fcfbf9] relative overflow-hidden">
+            <section className="py-12 md:py-20 bg-[#fcfbf9] relative overflow-hidden">
                 <div className="max-w-7xl mx-auto px-4 md:px-8">
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
                         <div className="space-y-4">
@@ -281,7 +281,7 @@ const HomePage = () => {
                         {[
                             { slug: "science-of-bioavailability", title: "The Science of Bio-Availability", desc: "How Purevit ensures maximum absorption of every nutrient.", image: "https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80" },
                             { slug: "personalized-wellness", title: "Personalized Nutrition", desc: "Why one size does not fit all in health and energy.", image: "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&q=80" },
-                            { slug: "pharmaceutical-standards", title: "Purity Above All Else", desc: "Our rigorous 5-step pharmaceutical testing standards.", image: "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80" }
+                            { slug: "pharmaceutical-standards", title: "Purity Above All Else", desc: "How we verify every batch for contaminants, potency, and compliance.", image: "https://images.unsplash.com/photo-1581093588401-fbb62a02f120?auto=format&fit=crop&q=80" }
                         ].map((item, idx) => (
                             <Link key={idx} to={`/learn/${item.slug}`} className="group bg-white rounded-[2rem] overflow-hidden shadow-lg hover:-translate-y-2 transition-all duration-500">
                                 <div className="h-48 md:h-64 overflow-hidden relative">
@@ -290,6 +290,9 @@ const HomePage = () => {
                                 <div className="p-8">
                                     <h3 className="text-xl md:text-2xl font-serif text-purevit-dark leading-tight group-hover:text-purevit-primary transition-colors">{item.title}</h3>
                                     <p className="mt-3 text-sm text-gray-400 line-clamp-2">{item.desc}</p>
+                                    <div className="mt-6 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-purevit-dark group-hover:text-purevit-primary transition-colors">
+                                        Learn More <ArrowRight size={12} />
+                                    </div>
                                 </div>
                             </Link>
                         ))}

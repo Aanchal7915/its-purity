@@ -153,7 +153,7 @@ const ProductListPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-purevit-secondary pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-purevit-secondary pt-8 md:pt-12 pb-20 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
 
                 {/* Header Section */}
