@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Plus, Trash2, Tag, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { Plus, Trash2, Tag, AlertCircle, CheckCircle2, Edit2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminCategoryPage = () => {
@@ -9,10 +9,15 @@ const AdminCategoryPage = () => {
     const [catName, setCatName] = useState('');
     const [catDesc, setCatDesc] = useState('');
     const [catType, setCatType] = useState('audience');
+    const [catImage, setCatImage] = useState('');
 
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState(null);
     const [isTypeOpen, setIsTypeOpen] = useState(false);
+    const [editingCategory, setEditingCategory] = useState(null);
+    const [editName, setEditName] = useState('');
+    const [editDesc, setEditDesc] = useState('');
+    const [editImage, setEditImage] = useState('');
 
     const fetchCategories = async () => {
         try {
@@ -40,6 +45,7 @@ const AdminCategoryPage = () => {
             await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/categories`, {
                 name: catName,
                 description: catDesc,
+                image: catImage,
                 type: catType || 'general',
                 parent: null
             }, config);
@@ -48,6 +54,7 @@ const AdminCategoryPage = () => {
             setCatName('');
             setCatDesc('');
             setCatType('audience');
+            setCatImage('');
             fetchCategories();
         } catch (error) {
             setMessage({ type: 'error', text: error.response?.data?.message || error.message });
@@ -70,6 +77,49 @@ const AdminCategoryPage = () => {
             } catch (error) {
                 alert(error.response?.data?.message || error.message);
             }
+        }
+    };
+
+    const startEdit = (cat) => {
+        setEditingCategory(cat);
+        setEditName(cat.name || '');
+        setEditDesc(cat.description || '');
+        setEditImage(cat.image || '');
+    };
+
+    const cancelEdit = () => {
+        setEditingCategory(null);
+        setEditName('');
+        setEditDesc('');
+        setEditImage('');
+    };
+
+    const submitEdit = async (e) => {
+        e.preventDefault();
+        if (!editingCategory) return;
+        setLoading(true);
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem('userInfo')).token}`
+                }
+            };
+            await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/categories/${editingCategory._id}`, {
+                name: editName,
+                description: editDesc,
+                image: editImage,
+                type: editingCategory.type
+            }, config);
+
+            setMessage({ type: 'success', text: 'Category updated!' });
+            cancelEdit();
+            fetchCategories();
+        } catch (error) {
+            setMessage({ type: 'error', text: error.response?.data?.message || error.message });
+        } finally {
+            setLoading(false);
+            setTimeout(() => setMessage(null), 3000);
         }
     };
 
@@ -98,6 +148,69 @@ const AdminCategoryPage = () => {
                     >
                         {message.type === 'success' ? <CheckCircle2 size={20} /> : <AlertCircle size={20} />}
                         <span className="font-bold">{message.text}</span>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
+            <AnimatePresence>
+                {editingCategory && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="bg-white border border-purevit-primary/10 rounded-2xl md:rounded-3xl p-4 md:p-6 shadow-sm max-w-2xl"
+                    >
+                        <div className="flex items-center justify-between mb-4">
+                            <div>
+                                <h3 className="text-base md:text-lg font-bold text-purevit-dark">Edit Category</h3>
+                                <p className="text-[9px] md:text-xs text-gray-400 font-bold uppercase tracking-widest leading-none mt-1">
+                                    {editingCategory.type === 'audience' ? 'Audience Type' : 'Product Type'}
+                                </p>
+                            </div>
+                            <button type="button" onClick={cancelEdit} className="text-gray-400 hover:text-purevit-dark transition-colors">
+                                Cancel
+                            </button>
+                        </div>
+                        <form onSubmit={submitEdit} className="space-y-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                                <div className="space-y-1.5 md:space-y-2">
+                                    <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Name</label>
+                                    <input
+                                        type="text"
+                                        value={editName}
+                                        onChange={(e) => setEditName(e.target.value)}
+                                        className="w-full bg-purevit-secondary border border-purevit-primary/15 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:bg-white outline-none transition-all"
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-1.5 md:space-y-2">
+                                    <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Description</label>
+                                    <input
+                                        type="text"
+                                        value={editDesc}
+                                        onChange={(e) => setEditDesc(e.target.value)}
+                                        className="w-full bg-purevit-secondary border border-purevit-primary/15 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:bg-white outline-none transition-all"
+                                    />
+                                </div>
+                                <div className="space-y-1.5 md:space-y-2 md:col-span-2">
+                                    <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Image URL</label>
+                                    <input
+                                        type="text"
+                                        value={editImage}
+                                        onChange={(e) => setEditImage(e.target.value)}
+                                        placeholder="https://..."
+                                        className="w-full bg-purevit-secondary border border-purevit-primary/15 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:bg-white outline-none transition-all"
+                                    />
+                                </div>
+                            </div>
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="w-full py-3 bg-purevit-primary hover:bg-purevit-dark text-white rounded-xl font-black uppercase tracking-widest text-[10px] md:text-xs transition-all shadow-md active:scale-95"
+                            >
+                                Save Changes
+                            </button>
+                        </form>
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -184,6 +297,16 @@ const AdminCategoryPage = () => {
                                     className="w-full bg-purevit-secondary border border-purevit-primary/15 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:bg-white outline-none transition-all"
                                 />
                             </div>
+                            <div className="space-y-1.5 md:space-y-2 md:col-span-2 lg:col-span-3">
+                                <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Image URL</label>
+                                <input
+                                    type="text"
+                                    value={catImage}
+                                    onChange={(e) => setCatImage(e.target.value)}
+                                    placeholder="https://..."
+                                    className="w-full bg-purevit-secondary border border-purevit-primary/15 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:bg-white outline-none transition-all"
+                                />
+                            </div>
                         </div>
                         <button
                             type="submit"
@@ -208,9 +331,14 @@ const AdminCategoryPage = () => {
                                         <Tag size={12} className="text-purple-500 flex-shrink-0" />
                                         <span className="font-bold text-[11px] md:text-sm text-purevit-dark truncate">{cat.name}</span>
                                     </div>
-                                    <button type="button" onClick={() => deleteHandler(cat._id)} className="text-gray-300 hover:text-red-500 transition-colors p-1">
-                                        <Trash2 size={12} className="md:w-3.5 md:h-3.5" />
-                                    </button>
+                                    <div className="flex items-center gap-1">
+                                        <button type="button" onClick={() => startEdit(cat)} className="text-gray-300 hover:text-purple-600 transition-colors p-1" title="Edit">
+                                            <Edit2 size={12} className="md:w-3.5 md:h-3.5" />
+                                        </button>
+                                        <button type="button" onClick={() => deleteHandler(cat._id)} className="text-gray-300 hover:text-red-500 transition-colors p-1" title="Delete">
+                                            <Trash2 size={12} className="md:w-3.5 md:h-3.5" />
+                                        </button>
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -227,9 +355,14 @@ const AdminCategoryPage = () => {
                                         <Tag size={12} className="text-emerald-500 flex-shrink-0" />
                                         <span className="font-bold text-[11px] md:text-sm text-purevit-dark truncate">{cat.name}</span>
                                     </div>
-                                    <button type="button" onClick={() => deleteHandler(cat._id)} className="text-gray-300 hover:text-red-500 transition-colors p-1">
-                                        <Trash2 size={12} className="md:w-3.5 md:h-3.5" />
-                                    </button>
+                                    <div className="flex items-center gap-1">
+                                        <button type="button" onClick={() => startEdit(cat)} className="text-gray-300 hover:text-emerald-600 transition-colors p-1" title="Edit">
+                                            <Edit2 size={12} className="md:w-3.5 md:h-3.5" />
+                                        </button>
+                                        <button type="button" onClick={() => deleteHandler(cat._id)} className="text-gray-300 hover:text-red-500 transition-colors p-1" title="Delete">
+                                            <Trash2 size={12} className="md:w-3.5 md:h-3.5" />
+                                        </button>
+                                    </div>
                                 </div>
                             ))}
                         </div>
