@@ -8,6 +8,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [categories, setCategories] = useState([]);
     const [showShopDropdown, setShowShopDropdown] = useState(false);
+    const [showMobileShopDropdown, setShowMobileShopDropdown] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [cartCount, setCartCount] = useState(0);
@@ -277,27 +278,44 @@ const Navbar = () => {
                         <div className="px-4 py-6 space-y-4 flex flex-col">
                             <Link to="/" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Home</Link>
                             <div className="space-y-2">
-                                <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Shop</span>
-                                <Link to="/products" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Shop All</Link>
-                                <Link to="/customized-solution" className="text-sm text-gray-500 hover:text-purevit-primary font-bold flex items-center gap-2" onClick={() => setIsOpen(false)}>
-                                    Customized Solution
-                                </Link>
-                                {audienceCategories.length > 0 && (
-                                    <div className="pl-2 space-y-1">
-                                        <span className="text-xs text-gray-500">By Audience</span>
-                                        {audienceCategories.map(aud => (
-                                            <Link key={aud._id} to={`/products?audience=${aud._id}`} className="block text-sm text-gray-400 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>{aud.name}</Link>
-                                        ))}
-                                    </div>
-                                )}
-                                {productTypeCategories.length > 0 && (
-                                    <div className="pl-2 space-y-1">
-                                        <span className="text-xs text-gray-500">By Product Type</span>
-                                        {productTypeCategories.map(pt => (
-                                            <Link key={pt._id} to={`/products?productType=${pt._id}`} className="block text-sm text-gray-400 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>{pt.name}</Link>
-                                        ))}
-                                    </div>
-                                )}
+                                <button
+                                    onClick={() => setShowMobileShopDropdown(!showMobileShopDropdown)}
+                                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-gray-400 w-full"
+                                >
+                                    <span>Shop</span>
+                                    <ChevronDown size={12} className={`transition-transform duration-300 ${showMobileShopDropdown ? 'rotate-180' : ''}`} />
+                                </button>
+                                <AnimatePresence>
+                                    {showMobileShopDropdown && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            className="space-y-2 overflow-hidden"
+                                        >
+                                            <Link to="/products" className="text-sm text-gray-500 hover:text-purevit-primary block" onClick={() => setIsOpen(false)}>Shop All</Link>
+                                            <Link to="/customized-solution" className="text-sm text-gray-500 hover:text-purevit-primary font-bold flex items-center gap-2" onClick={() => setIsOpen(false)}>
+                                                Customized Solution
+                                            </Link>
+                                            {audienceCategories.length > 0 && (
+                                                <div className="pl-2 space-y-1">
+                                                    <span className="text-xs text-gray-500">By Audience</span>
+                                                    {audienceCategories.map(aud => (
+                                                        <Link key={aud._id} to={`/products?audience=${aud._id}`} className="block text-sm text-gray-400 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>{aud.name}</Link>
+                                                    ))}
+                                                </div>
+                                            )}
+                                            {productTypeCategories.length > 0 && (
+                                                <div className="pl-2 space-y-1">
+                                                    <span className="text-xs text-gray-500">By Product Type</span>
+                                                    {productTypeCategories.map(pt => (
+                                                        <Link key={pt._id} to={`/products?productType=${pt._id}`} className="block text-sm text-gray-400 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>{pt.name}</Link>
+                                                    ))}
+                                                </div>
+                                            )}
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
                             <Link to="/about" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Our Story</Link>
                             <Link to="/contact" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Contact</Link>
