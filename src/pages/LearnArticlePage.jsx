@@ -99,11 +99,11 @@ const LearnArticlePage = () => {
     return (
         <div className="bg-[#fcfbf9] min-h-screen">
             {/* Immersive Column Header */}
-            <header className="relative pt-24 pb-16 px-4 overflow-hidden">
+            <header className="relative pt-12 md:pt-24 pb-6 md:pb-16 px-4 overflow-hidden">
                 <div className="max-w-7xl mx-auto">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-16 items-start">
                         {/* Title Section */}
-                        <div className="lg:col-span-8 space-y-10">
+                        <div className="lg:col-span-8 space-y-4 md:space-y-10">
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -119,27 +119,27 @@ const LearnArticlePage = () => {
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.2 }}
-                                className="space-y-6"
+                                className="space-y-3 md:space-y-6"
                             >
-                                <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-purevit-dark leading-[1] tracking-tight">
+                                <h1 className="text-3xl md:text-7xl lg:text-8xl font-serif text-purevit-dark leading-[1.1] md:leading-[1] tracking-tight">
                                     {article.title}
                                 </h1>
-                                <p className="text-xl md:text-2xl text-gray-400 font-serif italic max-w-2xl leading-relaxed">
+                                <p className="text-sm md:text-2xl text-gray-400 font-serif italic max-w-2xl leading-relaxed">
                                     &mdash; {article.subtitle}
                                 </p>
                             </motion.div>
 
-                            <div className="flex items-center gap-10 pt-4">
-                                <div className="flex -space-x-3">
+                            <div className="flex items-center gap-4 md:gap-10 pt-2 md:pt-4">
+                                <div className="flex -space-x-2 md:-space-x-3">
                                     {[1, 2, 3].map(i => (
-                                        <div key={i} className="w-10 h-10 rounded-full border-2 border-white overflow-hidden bg-gray-100">
+                                        <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white overflow-hidden bg-gray-100">
                                             <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="Expert" />
                                         </div>
                                     ))}
                                 </div>
                                 <div>
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-purevit-dark">Reviewed by</p>
-                                    <p className="text-sm font-serif italic text-gray-500">Purevit Scientific Board</p>
+                                    <p className="text-[8px] md:text-[10px] font-black uppercase tracking-widest text-purevit-dark">Reviewed by</p>
+                                    <p className="text-xs md:text-sm font-serif italic text-gray-500">Purevit Scientific Board</p>
                                 </div>
                                 <div className="h-10 w-px bg-gray-200 hidden md:block"></div>
                                 <div className="hidden md:block">
@@ -156,7 +156,7 @@ const LearnArticlePage = () => {
                             transition={{ delay: 0.4 }}
                             className="lg:col-span-4"
                         >
-                            <div className="relative aspect-[3/4] rounded-[4rem] overflow-hidden shadow-2xl border-4 border-white">
+                            <div className="relative aspect-[4/3] md:aspect-[3/4] rounded-[2rem] md:rounded-[4rem] overflow-hidden shadow-lg md:shadow-2xl border-2 md:border-4 border-white">
                                 <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
                                 <div className="absolute inset-0 bg-purevit-primary/5 mix-blend-multiply"></div>
                             </div>
@@ -171,38 +171,38 @@ const LearnArticlePage = () => {
             </header>
 
             {/* Main Editorial Body */}
-            <main className="pb-24">
+            <main className="pb-12 md:pb-24">
                 <div className="max-w-7xl mx-auto px-4">
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-20">
                         {/* Article Content Column */}
                         <div className="lg:col-span-8">
-                            <article className="prose prose-xl max-w-none space-y-12">
+                            <article className="prose prose-xl max-w-none space-y-6 md:space-y-12">
                                 {article.content.map((item, idx) => {
                                     if (item.type === "header") return (
-                                        <h2 key={idx} className="text-3xl md:text-4xl font-serif text-purevit-dark pt-12 border-t border-gray-100">
+                                        <h2 key={idx} className="text-2xl md:text-4xl font-serif text-purevit-dark pt-6 md:pt-12 border-t border-gray-100">
                                             {item.text}
                                         </h2>
                                     );
                                     if (item.type === "paragraph") return (
-                                        <p key={idx} className={`text-lg md:text-xl text-gray-600 leading-relaxed font-light ${idx === 1 ? 'first-letter:text-6xl first-letter:font-serif first-letter:mr-3 first-letter:float-left first-letter:text-purevit-primary' : ''}`}>
+                                        <p key={idx} className={`text-sm md:text-xl text-gray-600 leading-relaxed font-light ${idx === 1 ? 'first-letter:text-4xl md:first-letter:text-6xl first-letter:font-serif first-letter:mr-2 md:first-letter:mr-3 first-letter:float-left first-letter:text-purevit-primary' : ''}`}>
                                             {item.text}
                                         </p>
                                     );
                                     if (item.type === "pullquote") return (
-                                        <div key={idx} className="py-12 px-10 md:px-20 border-l-4 border-purevit-primary bg-white shadow-[20px_20px_60px_-15px_rgba(212,175,55,0.1)] rounded-r-3xl my-16">
-                                            <blockquote className="text-2xl md:text-3xl font-serif text-purevit-dark italic leading-tight">
+                                        <div key={idx} className="py-6 md:py-12 px-4 md:px-20 border-l-4 border-purevit-primary bg-white shadow-[20px_20px_60px_-15px_rgba(212,175,55,0.1)] rounded-r-3xl my-6 md:my-16">
+                                            <blockquote className="text-lg md:text-3xl font-serif text-purevit-dark italic leading-tight">
                                                 "{item.text}"
                                             </blockquote>
                                         </div>
                                     );
                                     if (item.type === "feature") return (
-                                        <div key={idx} className="bg-white p-10 rounded-[3rem] shadow-sm border border-gray-100 flex flex-col md:flex-row gap-10 items-start group hover:border-purevit-primary/30 transition-all my-12">
-                                            <div className="bg-[#fcfbf9] aspect-square w-24 rounded-[2rem] flex items-center justify-center shrink-0 border border-gray-100 group-hover:bg-purevit-primary group-hover:text-white transition-all">
-                                                {React.cloneElement(item.icon, { size: 36 })}
+                                        <div key={idx} className="bg-white p-5 md:p-10 rounded-[2rem] md:rounded-[3rem] shadow-sm border border-gray-100 flex flex-col md:flex-row gap-4 md:gap-10 items-start group hover:border-purevit-primary/30 transition-all my-6 md:my-12">
+                                            <div className="bg-[#fcfbf9] aspect-square w-16 md:w-24 rounded-[1.5rem] md:rounded-[2rem] flex items-center justify-center shrink-0 border border-gray-100 group-hover:bg-purevit-primary group-hover:text-white transition-all">
+                                                {React.cloneElement(item.icon, { size: 24, className: "md:w-9 md:h-9" })}
                                             </div>
-                                            <div className="space-y-4">
-                                                <h4 className="text-2xl font-serif text-purevit-dark">{item.title}</h4>
-                                                <p className="text-gray-500 text-lg leading-relaxed">{item.text}</p>
+                                            <div className="space-y-2 md:space-y-4">
+                                                <h4 className="text-lg md:text-2xl font-serif text-purevit-dark">{item.title}</h4>
+                                                <p className="text-gray-500 text-sm md:text-lg leading-relaxed">{item.text}</p>
                                             </div>
                                         </div>
                                     );
@@ -211,34 +211,34 @@ const LearnArticlePage = () => {
                             </article>
 
                             {/* Author Footer */}
-                            <footer className="mt-24 p-12 bg-white rounded-[3rem] border border-gray-100 flex flex-wrap items-center justify-between gap-8">
-                                <div className="flex items-center gap-6">
-                                    <div className="w-20 h-20 rounded-full border-4 border-[#fcfbf9] overflow-hidden">
+                            <footer className="mt-12 md:mt-24 p-5 md:p-12 bg-white rounded-[2rem] md:rounded-[3rem] border border-gray-100 flex flex-wrap items-center justify-between gap-4 md:gap-8">
+                                <div className="flex items-center gap-3 md:gap-6">
+                                    <div className="w-14 h-14 md:w-20 md:h-20 rounded-full border-2 md:border-4 border-[#fcfbf9] overflow-hidden">
                                         <img src="https://i.pravatar.cc/150?u=dr_smith" alt="Author" />
                                     </div>
                                     <div>
-                                        <h4 className="text-xl font-serif text-purevit-dark">Dr. Aris Thorne</h4>
-                                        <p className="text-sm text-gray-400">Chief Science Officer, Purevit</p>
+                                        <h4 className="text-base md:text-xl font-serif text-purevit-dark">Dr. Aris Thorne</h4>
+                                        <p className="text-xs md:text-sm text-gray-400">Chief Science Officer, Purevit</p>
                                     </div>
                                 </div>
-                                <div className="flex gap-3">
-                                    <button className="px-6 py-3 rounded-xl border border-gray-100 flex items-center gap-2 text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all font-bold text-[10px] uppercase tracking-widest">
-                                        <Share2 size={14} /> Share
+                                <div className="flex gap-2 md:gap-3 w-full md:w-auto">
+                                    <button className="flex-1 md:flex-none px-4 md:px-6 py-2 md:py-3 rounded-xl border border-gray-100 flex items-center justify-center gap-2 text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all font-bold text-[9px] md:text-[10px] uppercase tracking-widest">
+                                        <Share2 size={12} className="md:w-3.5 md:h-3.5" /> Share
                                     </button>
-                                    <button className="px-6 py-3 rounded-xl border border-gray-100 flex items-center gap-2 text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all font-bold text-[10px] uppercase tracking-widest">
-                                        <Bookmark size={14} /> Bookmark
+                                    <button className="flex-1 md:flex-none px-4 md:px-6 py-2 md:py-3 rounded-xl border border-gray-100 flex items-center justify-center gap-2 text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all font-bold text-[9px] md:text-[10px] uppercase tracking-widest">
+                                        <Bookmark size={12} className="md:w-3.5 md:h-3.5" /> Bookmark
                                     </button>
                                 </div>
                             </footer>
                         </div>
 
                         {/* Sidebar Column */}
-                        <aside className="lg:col-span-4 space-y-16">
+                        <aside className="lg:col-span-4 space-y-8 md:space-y-16">
                             {/* Featured Products - Elegant Cards */}
-                            <div className="space-y-8">
-                                <div className="flex items-center gap-3 px-4">
+                            <div className="space-y-4 md:space-y-8">
+                                <div className="flex items-center gap-2 md:gap-3 px-4">
                                     <div className="h-px flex-1 bg-gradient-to-r from-transparent to-purevit-primary/20"></div>
-                                    <h5 className="font-serif text-xl text-purevit-dark italic">Featured Products</h5>
+                                    <h5 className="font-serif text-base md:text-xl text-purevit-dark italic">Featured Products</h5>
                                     <div className="h-px flex-1 bg-gradient-to-l from-transparent to-purevit-primary/20"></div>
                                 </div>
 
