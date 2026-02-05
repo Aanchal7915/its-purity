@@ -287,10 +287,10 @@ const HomePage = () => {
                                 <div className="h-48 md:h-64 overflow-hidden relative">
                                     <img src={item.image} alt={item.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" />
                                 </div>
-                                <div className="p-8">
-                                    <h3 className="text-xl md:text-2xl font-serif text-purevit-dark leading-tight group-hover:text-purevit-primary transition-colors">{item.title}</h3>
+                                <div className="p-5 md:p-8">
+                                    <h3 className="text-lg md:text-2xl font-serif text-purevit-dark leading-tight group-hover:text-purevit-primary transition-colors">{item.title}</h3>
                                     <p className="mt-3 text-sm text-gray-400 line-clamp-2">{item.desc}</p>
-                                    <div className="mt-6 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-purevit-dark group-hover:text-purevit-primary transition-colors">
+                                    <div className="mt-4 inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.25em] text-black group-hover:text-purevit-primary transition-colors">
                                         Learn More <ArrowRight size={12} />
                                     </div>
                                 </div>

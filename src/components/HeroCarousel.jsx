@@ -163,7 +163,7 @@ const HeroCarousel = () => {
                     }}
                     className="absolute inset-0 w-full h-full"
                 >
-                    <div className="relative w-full h-full flex items-center pt-16 pb-24 md:pt-24 md:pb-32">
+                    <div className="relative w-full h-full flex items-center pt-16 pb-60 md:pt-24 md:pb-32">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                                 {/* Text Content */}
@@ -184,7 +184,7 @@ const HeroCarousel = () => {
                                         initial={{ opacity: 0, y: 30 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.3 }}
-                                        className="text-4xl md:text-6xl lg:text-7xl font-serif text-purevit-dark leading-tight"
+                                        className="text-3xl md:text-6xl lg:text-7xl font-serif text-purevit-dark leading-tight"
                                     >
                                         {slides[current].title}
                                     </motion.h1>
@@ -193,7 +193,7 @@ const HeroCarousel = () => {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.4 }}
-                                        className="text-gray-500 text-sm md:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium"
+                                        className="text-gray-500 text-xs md:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium"
                                     >
                                         {slides[current].description}
                                     </motion.p>
@@ -220,12 +220,12 @@ const HeroCarousel = () => {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.6 }}
-                                        className="flex flex-wrap gap-4 md:gap-6 justify-center lg:justify-start pt-4"
+                                        className="flex flex-row w-full md:w-auto gap-3 md:gap-6 justify-center lg:justify-start pt-6"
                                     >
-                                        <Link to="/products" className="px-8 py-4 md:px-10 md:py-5 bg-purevit-dark hover:bg-black text-white font-bold rounded-md transition-all text-[10px] md:text-xs tracking-widest uppercase shadow-xl">
+                                        <Link to="/products" className="flex-1 md:flex-none text-center px-4 py-3 md:px-10 md:py-5 bg-purevit-dark hover:bg-black text-white font-bold rounded-md transition-all text-[10px] md:text-xs tracking-widest uppercase shadow-xl whitespace-nowrap">
                                             Shop Collection
                                         </Link>
-                                        <Link to="/about" className="px-8 py-4 md:px-10 md:py-5 border border-purevit-dark/10 hover:bg-gray-50 text-purevit-dark font-bold rounded-md transition-all text-[10px] md:text-xs tracking-widest uppercase">
+                                        <Link to="/about" className="flex-1 md:flex-none text-center px-4 py-3 md:px-10 md:py-5 border border-purevit-dark/10 hover:bg-gray-50 text-purevit-dark font-bold rounded-md transition-all text-[10px] md:text-xs tracking-widest uppercase whitespace-nowrap">
                                             Learn More
                                         </Link>
                                     </motion.div>
@@ -255,7 +255,7 @@ const HeroCarousel = () => {
 
             {/* Navigation Controls */}
             {/* Centered Dots */}
-            <div className="absolute inset-x-0 -bottom-4 md:bottom-6 flex justify-center items-center z-30">
+            <div className="absolute inset-x-0 bottom-8 md:bottom-6 flex justify-center items-center z-30 pointer-events-none">
                 <div className="flex gap-3 px-6 py-3 rounded-full backdrop-blur-md bg-white/10 border border-white/10 shadow-lg">
                     {slides.map((_, idx) => (
                         <button
@@ -271,19 +271,19 @@ const HeroCarousel = () => {
             </div>
 
             {/* Side Arrows */}
-            <div className="absolute inset-x-0 top-[55%] -translate-y-1/2 flex justify-between items-center max-w-[95%] mx-auto pointer-events-none z-30">
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between items-center w-full px-2 md:px-8 pointer-events-none z-30">
                 <button
                     onClick={() => paginate(-1)}
-                    className="w-9 h-9 md:w-14 md:h-14 rounded-full border border-purevit-dark/10 flex items-center justify-center text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all group backdrop-blur-md bg-white/30 pointer-events-auto shadow-xl"
+                    className="w-8 h-8 md:w-14 md:h-14 rounded-full border border-purevit-dark/10 flex items-center justify-center text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all group backdrop-blur-md bg-white/30 pointer-events-auto shadow-xl"
                 >
-                    <ChevronLeft size={18} className="md:hidden group-hover:-translate-x-1 transition-transform" />
+                    <ChevronLeft size={16} className="md:hidden group-hover:-translate-x-1 transition-transform" />
                     <ChevronLeft size={28} className="hidden md:block group-hover:-translate-x-1 transition-transform" />
                 </button>
                 <button
                     onClick={() => paginate(1)}
-                    className="w-9 h-9 md:w-14 md:h-14 rounded-full border border-purevit-dark/10 flex items-center justify-center text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all group backdrop-blur-md bg-white/30 pointer-events-auto shadow-xl"
+                    className="w-8 h-8 md:w-14 md:h-14 rounded-full border border-purevit-dark/10 flex items-center justify-center text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all group backdrop-blur-md bg-white/30 pointer-events-auto shadow-xl"
                 >
-                    <ChevronRight size={18} className="md:hidden group-hover:translate-x-1 transition-transform" />
+                    <ChevronRight size={16} className="md:hidden group-hover:translate-x-1 transition-transform" />
                     <ChevronRight size={28} className="hidden md:block group-hover:translate-x-1 transition-transform" />
                 </button>
             </div>

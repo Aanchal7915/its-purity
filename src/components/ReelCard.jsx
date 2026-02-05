@@ -114,9 +114,9 @@ const ReelCard = ({ reel }) => {
   const showYouTube = isYouTubeUrl(reel?.videoUrl) && embedUrl;
 
   return (
-    <div className="relative w-full h-[420px] sm:h-[500px] flex-shrink-0 bg-black rounded-2xl overflow-hidden border border-white/10 group snap-center">
+    <div className="flex flex-col w-full h-[280px] sm:h-[500px] flex-shrink-0 bg-white rounded-2xl overflow-hidden border border-gray-200 group snap-center shadow-md hover:shadow-xl transition-all duration-300">
       {/* Media Layer */}
-      <div className="absolute inset-0 cursor-pointer" onClick={togglePlay}>
+      <div className="relative flex-1 bg-black overflow-hidden cursor-pointer" onClick={togglePlay}>
         {showYouTube ? (
           <iframe
             key={`${videoId}-${isPlaying}-${isMuted}`}
@@ -126,11 +126,11 @@ const ReelCard = ({ reel }) => {
             frameBorder="0"
             allow="autoplay; encrypted-media; picture-in-picture"
             allowFullScreen
+            style={{ pointerEvents: 'none' }}
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-white/70 p-6 text-center">
-            This reel URL is not a playable video file.<br />
-            Use YouTube link (shorts/watch) or provide direct .mp4/.webm URL.
+          <div className="w-full h-full flex items-center justify-center text-white/70 p-6 text-center bg-zinc-900">
+            <Play className="w-12 h-12 mb-2 opacity-50" />
           </div>
         )}
 
@@ -139,58 +139,64 @@ const ReelCard = ({ reel }) => {
             <Play className="w-12 h-12 text-white/80 fill-white/80" />
           </div>
         )}
-      </div>
 
-      <button
-        onClick={toggleMute}
-        className="absolute top-4 right-4 p-2 bg-black/40 rounded-full backdrop-blur-sm hover:bg-black/60 transition z-20"
-      >
-        {isMuted ? (
-          <VolumeX size={16} className="text-white" />
-        ) : (
-          <Volume2 size={16} className="text-white" />
-        )}
-      </button>
-
-      <div className="absolute bottom-32 right-4 flex flex-col gap-4 z-20">
-        <button onClick={addToWishlist} className="flex flex-col items-center gap-1 group/btn">
-          <div className="p-2 bg-black/40 rounded-full backdrop-blur-sm group-hover/btn:bg-red-500/20 transition">
-            <Heart size={24} className={liked ? "fill-red-500 text-red-500" : "text-white"} />
-          </div>
+        {/* Mute Button */}
+        <button
+          onClick={toggleMute}
+          className="absolute top-4 right-4 p-2 bg-black/40 rounded-full backdrop-blur-sm hover:bg-black/60 transition z-30"
+        >
+          {isMuted ? (
+            <VolumeX size={14} className="text-white" />
+          ) : (
+            <Volume2 size={14} className="text-white" />
+          )}
         </button>
 
-        <button onClick={shareReel} className="flex flex-col items-center gap-1 group/btn">
-          <div className="p-2 bg-black/40 rounded-full backdrop-blur-sm group-hover/btn:bg-white/20 transition">
-            <Share2 size={24} className="text-white" />
-          </div>
-        </button>
-      </div>
+        {/* Side Actions (Heart/Share/Views) on Video */}
+        <div className="absolute bottom-4 right-4 flex flex-col gap-3 z-30">
+          <button onClick={addToWishlist} className="group/btn relative">
+            <div className="p-2 bg-black/40 rounded-full backdrop-blur-sm group-hover/btn:bg-red-500/20 transition">
+              <Heart size={20} className={liked ? "fill-red-500 text-red-500" : "text-white"} />
+            </div>
+          </button>
 
-      <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl p-3 flex items-center gap-3 shadow-lg z-20 transform transition-transform duration-300 translate-y-2 group-hover:translate-y-0">
-        <div className="w-12 h-12 bg-gray-100 rounded-lg overflow-hidden flex-shrink-0">
-          <img
-            src={reel.product?.images?.[0] || "https://via.placeholder.com/50"}
-            alt={reel.product?.name || "Product"}
-            className="w-full h-full object-cover"
-          />
+          <button onClick={shareReel} className="group/btn relative">
+            <div className="p-2 bg-black/40 rounded-full backdrop-blur-sm group-hover/btn:bg-white/20 transition">
+              <Share2 size={20} className="text-white" />
+            </div>
+          </button>
         </div>
 
-        <div className="flex-1 min-w-0">
-          <h4 className="font-bold text-sm text-black truncate">
-            {reel.product?.name || "Product Name"}
-          </h4>
-          <p className="text-xs text-gray-600">₹{reel.product?.price}</p>
+        {/* Gradient Overlay for text visibility */}
+        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-black/60 to-transparent pointer-events-none z-10" />
+      </div>
+
+      {/* Product Footer */}
+      <div className="p-2 md:p-3 bg-white flex flex-col gap-2 md:gap-3 relative z-20">
+        <div className="flex items-center gap-2 md:gap-3">
+          <div className="w-8 h-8 md:w-10 md:h-10 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100">
+            <img
+              src={reel.product?.images?.[0] || "https://via.placeholder.com/50"}
+              alt={reel.product?.name || "Product"}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="flex-1 min-w-0">
+            <h4 className="font-bold text-[10px] md:text-sm text-gray-900 truncate leading-tight">
+              {reel.product?.name || "Product Name"}
+            </h4>
+            <p className="text-[9px] md:text-xs text-gray-500 font-medium mt-0.5">₹{reel.product?.price}</p>
+          </div>
         </div>
 
         <button
           onClick={addToCart}
-          className="bg-black text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-gray-800 transition"
+          className="w-full bg-black text-white text-[10px] md:text-xs font-bold py-1.5 md:py-2.5 rounded-lg hover:bg-gray-800 transition shadow-sm active:scale-[0.98]"
         >
           Buy Now
         </button>
       </div>
-
-      <div className="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/80 to-transparent pointer-events-none z-10" />
     </div>
   );
 };

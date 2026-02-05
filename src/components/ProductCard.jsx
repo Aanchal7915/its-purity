@@ -44,8 +44,8 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
         if (activeBadge && badges[activeBadge]?.condition) {
             const b = badges[activeBadge];
             return (
-                <div className={`px-4 py-1.5 ${b.color} text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-1.5`}>
-                    <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                <div className={`px-2 py-0.5 md:px-4 md:py-1.5 ${b.color} text-white text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-1 md:gap-1.5`}>
+                    <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full animate-pulse" />
                     {b.label}
                 </div>
             );
@@ -58,8 +58,8 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
             if (badges[key].condition) {
                 const b = badges[key];
                 return (
-                    <div className={`px-4 py-1.5 ${b.color} text-white text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-1.5`}>
-                        <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                    <div className={`px-2 py-0.5 md:px-4 md:py-1.5 ${b.color} text-white text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-1 md:gap-1.5`}>
+                        <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full animate-pulse" />
                         {b.label}
                     </div>
                 );
@@ -158,45 +158,45 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
             </div>
 
             {/* Content Section */}
-            <div className="p-4 pt-3">
+            <div className="p-2 pt-2 md:p-4 md:pt-3">
                 {/* Brand & Title */}
-                <div className="flex items-center gap-2 mb-2">
+                <div className="hidden md:flex items-center gap-2 mb-2">
                     <div className="px-2 py-0.5 bg-purevit-primary/10 text-purevit-primary rounded text-[9px] font-bold uppercase tracking-wider border border-purevit-primary/10">
                         {product.brand || 'PureVit'}
                     </div>
                 </div>
 
                 <Link to={`/products/${product._id}`}>
-                    <h3 className="text-sm font-bold text-gray-900 mb-0.5 leading-tight h-9 line-clamp-2 group-hover:text-purevit-primary transition-colors">
+                    <h3 className="text-[10px] md:text-sm font-bold text-gray-900 mb-0.5 leading-tight md:h-9 line-clamp-2 group-hover:text-purevit-primary transition-colors">
                         {product.name}
                     </h3>
                 </Link>
 
-                <p className="text-gray-400 text-[10px] font-medium mb-3 h-7 line-clamp-2 leading-tight">
+                <p className="hidden md:block text-gray-400 text-[10px] font-medium mb-3 h-7 line-clamp-2 leading-tight">
                     {product.shortDescription || 'Crafted for essential daily wellness.'}
                 </p>
 
                 {/* Pricing Block */}
-                <div className="flex flex-col gap-0.5 mb-3">
+                <div className="flex flex-col gap-0.5 mb-2 md:mb-3">
                     <div className="flex items-center gap-2">
-                        <span className="text-lg font-outfit font-bold text-gray-900">₹{product.price.toLocaleString()}</span>
+                        <span className="text-sm md:text-lg font-outfit font-bold text-gray-900">₹{product.price.toLocaleString()}</span>
                         {product.discountPrice > product.price && (
-                            <span className="text-gray-400 line-through text-[11px] font-medium">MRP: ₹{product.discountPrice.toLocaleString()}</span>
+                            <span className="text-gray-400 line-through text-[9px] md:text-[11px] font-medium">MRP: ₹{product.discountPrice.toLocaleString()}</span>
                         )}
                         {savingsPercent > 0 && (
-                            <div className="px-1.5 py-0.5 bg-green-50 text-green-600 font-black text-[8px] uppercase rounded border border-green-100">
+                            <div className="hidden md:block px-1.5 py-0.5 bg-green-50 text-green-600 font-black text-[8px] uppercase rounded border border-green-100">
                                 {savingsPercent}% OFF
                             </div>
                         )}
                     </div>
 
-                    <div className="text-[10px] font-medium text-gray-400">
+                    <div className="text-[9px] md:text-[10px] font-medium text-gray-400">
                         (₹{(product.price / (product.unitCount || 50)).toFixed(2)} / {product.unitName?.slice(0, -1) || 'unit'})
                     </div>
                 </div>
 
                 {/* Size Pill */}
-                <div className="mb-4">
+                <div className="hidden md:block mb-4">
                     <div className="inline-flex items-center px-3 py-1.5 bg-[#FAF9F6] border border-orange-100/40 rounded-full text-purevit-dark text-[10px] font-black uppercase tracking-wider shadow-sm">
                         <div className="w-1 h-1 bg-green-500 rounded-full mr-1.5 shadow-[0_0_8px_rgba(34,197,94,0.4)]" />
                         {product.unitCount || 50} {product.unitName || 'Tabs'}
@@ -206,7 +206,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
                 {/* Bottom Action */}
                 <button
                     onClick={(e) => { e.preventDefault(); onAddToCart(product); }}
-                    className="w-full relative py-2.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-black uppercase tracking-widest text-[10px] overflow-hidden group/btn transition-all duration-300 hover:shadow-lg active:scale-[0.98]"
+                    className="w-full relative py-1.5 md:py-2.5 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-lg font-black uppercase tracking-widest text-[10px] overflow-hidden group/btn transition-all duration-300 hover:shadow-lg active:scale-[0.98]"
                 >
                     <div className="relative z-10 flex items-center justify-center gap-1.5">
                         <ShoppingCart size={14} className="fill-white" />
