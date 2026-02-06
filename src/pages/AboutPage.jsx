@@ -41,11 +41,11 @@ const AboutPage = () => {
                         <p className="text-gray-500 text-sm leading-relaxed">
                             Our services cover a wide range of nutritional needs, from crafting bespoke supplements to rigorous testing of every raw ingredient that enters our lab.
                         </p>
-                        <div className="flex items-center gap-6">
-                            <Link to="/products" className="bg-purevit-dark text-white px-6 py-3 rounded-md text-xs font-bold hover:bg-black transition-all">
+                        <div className="flex items-center gap-3 md:gap-6 flex-nowrap">
+                            <Link to="/products" className="bg-purevit-dark text-white px-4 md:px-6 py-3 rounded-md text-xs font-bold hover:bg-black transition-all whitespace-nowrap">
                                 Shop Now
                             </Link>
-                            <Link to="/contact" className="text-purevit-dark text-xs font-bold border-b border-purevit-dark pb-0.5 hover:text-black transition-all">
+                            <Link to="/contact" className="text-purevit-dark text-xs font-bold border-b border-purevit-dark pb-0.5 hover:text-black transition-all whitespace-nowrap">
                                 Contact Us
                             </Link>
                         </div>
