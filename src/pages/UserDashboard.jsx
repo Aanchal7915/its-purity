@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { User, ShoppingBag, Heart, LogOut, CheckCircle, Truck, Package, XCircle, ChevronRight, Settings, MapPin, Phone, Mail, ShieldCheck, X } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
@@ -232,41 +232,55 @@ const UserDashboard = () => {
             {activeTab === 'orders' && (
                 <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                     <div className="flex items-center justify-between mb-2 px-4">
-                        <h2 className="text-3xl font-serif text-purevit-dark">Order History</h2>
-                        <div className="text-xs font-black uppercase tracking-widest text-gray-400">
+                        <h2 className="text-lg md:text-3xl font-serif text-purevit-dark">Order History</h2>
+                        <div className="text-[10px] md:text-xs font-black uppercase tracking-widest text-gray-400">
                             Total Orders: {orders.length}
                         </div>
                     </div>
+                    <div className="px-4 mb-4 lg:hidden">
+                        <button
+                            type="button"
+                            onClick={() => setActiveTab('profile')}
+                            className="w-full py-2.5 rounded-xl bg-purevit-primary/10 text-purevit-primary text-[10px] font-black uppercase tracking-widest"
+                        >
+                            My Profile
+                        </button>
+                    </div>
 
                     {orders.length === 0 ? (
-                        <div className="bg-white rounded-[2.5rem] p-20 text-center shadow-lg border border-purevit-primary/5">
+                        <div className="bg-white rounded-[2.5rem] p-10 md:p-20 text-center shadow-lg border border-purevit-primary/5">
                             <div className="w-20 h-20 bg-purevit-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400">
                                 <ShoppingBag size={32} />
                             </div>
-                            <h3 className="text-2xl font-serif text-purevit-dark mb-2">No orders yet</h3>
-                            <p className="text-gray-400 mb-8 max-w-xs mx-auto">Start your health journey by exploring our pure collections.</p>
-                            <Link to="/products" className="inline-flex items-center gap-2 px-8 py-4 bg-purevit-primary text-black font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-purevit-dark hover:text-white transition-all shadow-lg">
+                            <h3 className="text-lg md:text-2xl font-serif text-purevit-dark mb-2">No orders yet</h3>
+                            <p className="text-sm md:text-base text-gray-400 mb-8 max-w-xs mx-auto">Start your health journey by exploring our pure collections.</p>
+                            <Link to="/products" className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-purevit-primary text-black font-black uppercase tracking-widest text-[10px] md:text-xs rounded-2xl hover:bg-purevit-dark hover:text-white transition-all shadow-lg">
                                 Shop Now <ChevronRight size={14} />
                             </Link>
                         </div>
                     ) : (
-                        <div className="space-y-6">
+                        <div className="space-y-5 md:space-y-6">
                             {orders.map((order) => (
-                                <div key={order._id} className="bg-white rounded-[2.5rem] shadow-xl border border-purevit-primary/5 overflow-hidden transition-all duration-500 hover:shadow-2xl">
-                                    <div className="p-8 border-b border-gray-50 bg-purevit-cream/20 flex flex-col md:flex-row justify-between md:items-center gap-6">
+                                <div key={order._id} className="bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-md md:shadow-xl border border-purevit-primary/5 overflow-hidden transition-all duration-500 hover:shadow-2xl">
+                                    <div className="p-4 md:p-8 border-b border-gray-50 bg-purevit-cream/20 flex flex-col md:flex-row justify-between md:items-center gap-4 md:gap-6">
                                         <div>
                                             <div className="flex items-center gap-3 mb-1">
                                                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Order ID:</span>
                                                 <span className="text-xs font-mono font-bold text-purevit-dark">#{order._id.slice(-8).toUpperCase()}</span>
                                             </div>
-                                            <div className="text-sm font-bold text-purevit-dark">Planted on {new Date(order.createdAt).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}</div>
+                                                        <div className="text-[11px] md:text-sm font-bold text-purevit-dark">Planted on {new Date(order.createdAt).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}</div>
+                                                        <div className="text-[10px] md:text-xs text-gray-400 font-medium">
+                                                            Payment: {order.paymentMethod || 'N/A'} · Paid: {order.isPaid ? 'Yes' : 'No'}
+                                                            {order.shippingAddress?.city ? ` · Ship: ${order.shippingAddress.city}` : ''}
+                                                        </div>
                                         </div>
                                         <div className="flex items-center gap-6">
                                             <div className="text-right">
-                                                <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Total</span>
-                                                <span className="text-2xl font-bold text-purevit-dark">â‚¹{order.totalAmount}</span>
+                                                <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Total Paid</span>
+                                                <span className="text-lg md:text-2xl font-bold text-purevit-dark">₹{order.totalAmount}</span>
+                                                <span className="block text-[9px] md:text-[10px] text-gray-400 font-medium">Items: {order.items?.reduce((sum, it) => sum + (it.quantity || 0), 0)}</span>
                                             </div>
-                                            <div className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm border
+                                            <div className={`px-3 md:px-5 py-1 md:py-2 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-sm border
                                             ${order.status === 'Delivered' ? 'bg-green-50 text-green-600 border-green-100' :
                                                     order.status === 'Processing' ? 'bg-blue-50 text-blue-600 border-blue-100' :
                                                         'bg-amber-50 text-amber-600 border-amber-100'}`}>
@@ -275,30 +289,30 @@ const UserDashboard = () => {
                                         </div>
                                     </div>
 
-                                    <div className="p-8 pb-4">
-                                        <div className="flex flex-wrap gap-4">
+                                    <div className="p-4 md:p-8 pb-3 md:pb-4">
+                                        <div className="flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4">
                                             {order.items.map((item, idx) => (
-                                                <div key={idx} className="flex-1 min-w-[200px] p-4 rounded-2xl bg-purevit-secondary/30 flex items-center gap-4 group transition-colors hover:bg-purevit-secondary/50">
-                                                    <div className="w-16 h-16 rounded-xl bg-white overflow-hidden shadow-sm shrink-0">
-                                                        <img src={item.product?.image || item.image || "https://images.unsplash.com/photo-1512152272829-e3139592d56f?auto=format&fit=crop&q=80"} alt="" className="w-full h-full object-cover" />
+                                                <div key={idx} className="w-full md:flex-1 min-w-0 md:min-w-[200px] p-3 md:p-4 rounded-2xl bg-purevit-secondary/30 flex items-center gap-3 md:gap-4 group transition-colors hover:bg-purevit-secondary/50">
+                                                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-white overflow-hidden shadow-sm shrink-0">
+                                                        <img src={item.product?.images?.[0] || item.product?.image || item.image || ""} alt={item.product?.name || item.name || "Product"} className="w-full h-full object-cover" />
                                                     </div>
                                                     <div className="min-w-0">
-                                                        <h4 className="text-sm font-bold text-purevit-dark truncate">{item.product?.name || item.name}</h4>
-                                                        <p className="text-xs text-gray-400 font-medium">Qty: {item.quantity} Â· â‚¹{item.price}</p>
+                                                        <h4 className="text-[10px] md:text-sm font-bold text-purevit-dark leading-snug break-words whitespace-normal">{item.product?.name || item.name || 'Product'}</h4>
+                                                        <p className="text-[10px] md:text-xs text-gray-400 font-medium">Qty: {item.quantity} · ₹{item.price}</p>
                                                     </div>
                                                 </div>
                                             ))}
                                         </div>
                                     </div>
 
-                                    <div className="p-8 pt-4 flex justify-between items-center bg-gray-50/30">
+                                    <div className="p-4 md:p-8 pt-3 md:pt-4 flex justify-between items-center bg-gray-50/30">
                                         <div className="flex -space-x-2">
                                             <div className="w-8 h-8 rounded-full bg-purevit-primary flex items-center justify-center text-black border-2 border-white shadow-sm ring-1 ring-purevit-primary/20">
                                                 <Truck size={14} />
                                             </div>
                                             <span className="pl-4 text-[10px] font-black uppercase tracking-widest text-gray-400 self-center">Standard Logistics</span>
                                         </div>
-                                        <button className="text-xs font-black uppercase tracking-widest text-purevit-primary hover:text-purevit-dark transition-colors">Track Order Details</button>
+                                        <button className="text-[10px] md:text-xs font-black uppercase tracking-widest text-purevit-primary hover:text-purevit-dark transition-colors">Track Order Details</button>
                                     </div>
                                 </div>
                             ))}
@@ -314,6 +328,15 @@ const UserDashboard = () => {
                             <div className="text-[10px] md:text-xs font-black uppercase tracking-widest text-gray-400">
                                 {wishlist.length} Items Saved
                             </div>
+                        </div>
+                        <div className="px-2 md:px-4 mb-3 lg:hidden">
+                            <button
+                                type="button"
+                                onClick={() => setActiveTab('profile')}
+                                className="w-full py-2.5 rounded-xl bg-purevit-primary/10 text-purevit-primary text-[10px] font-black uppercase tracking-widest"
+                            >
+                                My Profile
+                            </button>
                         </div>
 
                         {wishlist.length === 0 ? (
@@ -340,7 +363,7 @@ const UserDashboard = () => {
                                         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                                         <button
                                             onClick={() => removeFromWishlist(item._id)}
-                                            className="absolute top-2 right-2 md:top-5 md:right-5 w-7 h-7 md:w-10 md:h-10 bg-white shadow-lg rounded-lg md:rounded-xl flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white transition-all transform hover:rotate-12"
+                                            className="absolute top-1 right-1 md:top-5 md:right-5 w-7 h-7 md:w-10 md:h-10 bg-transparent md:bg-white md:shadow-lg rounded-lg md:rounded-xl flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white transition-all transform hover:rotate-12"
                                         >
                                             <XCircle size={14} className="md:w-[18px] md:h-[18px]" />
                                         </button>
@@ -563,23 +586,32 @@ const UserDashboard = () => {
                         {activeTab === 'orders' && (
                             <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                 <div className="flex items-center justify-between mb-2 px-4">
-                                    <h2 className="text-3xl font-serif text-purevit-dark">Order History</h2>
-                                    <div className="text-xs font-black uppercase tracking-widest text-gray-400">
+                                    <h2 className="text-lg md:text-3xl font-serif text-purevit-dark">Order History</h2>
+                                    <div className="text-[10px] md:text-xs font-black uppercase tracking-widest text-gray-400">
                                         Total Orders: {orders.length}
                                     </div>
                                 </div>
+                                <div className="px-4 mb-4 lg:hidden">
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveTab('profile')}
+                                        className="w-full py-2.5 rounded-xl bg-purevit-primary/10 text-purevit-primary text-[10px] font-black uppercase tracking-widest"
+                                    >
+                                        My Profile
+                                    </button>
+                                </div>
 
                                 {orders.length === 0 ? (
-                                    <div className="bg-white rounded-[2.5rem] p-20 text-center shadow-lg border border-purevit-primary/5">
-                                        <div className="w-20 h-20 bg-purevit-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400">
-                                            <ShoppingBag size={32} />
-                                        </div>
-                                        <h3 className="text-2xl font-serif text-purevit-dark mb-2">No orders yet</h3>
-                                        <p className="text-gray-400 mb-8 max-w-xs mx-auto">Start your health journey by exploring our pure collections.</p>
-                                        <Link to="/products" className="inline-flex items-center gap-2 px-8 py-4 bg-purevit-primary text-black font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-purevit-dark hover:text-white transition-all shadow-lg">
-                                            Shop Now <ChevronRight size={14} />
-                                        </Link>
+                                <div className="bg-white rounded-[2.5rem] p-10 md:p-20 text-center shadow-lg border border-purevit-primary/5">
+                                    <div className="w-20 h-20 bg-purevit-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400">
+                                        <ShoppingBag size={32} />
                                     </div>
+                                    <h3 className="text-lg md:text-2xl font-serif text-purevit-dark mb-2">No orders yet</h3>
+                                    <p className="text-sm md:text-base text-gray-400 mb-8 max-w-xs mx-auto">Start your health journey by exploring our pure collections.</p>
+                                    <Link to="/products" className="inline-flex items-center gap-2 px-6 py-3 md:px-8 md:py-4 bg-purevit-primary text-black font-black uppercase tracking-widest text-[10px] md:text-xs rounded-2xl hover:bg-purevit-dark hover:text-white transition-all shadow-lg">
+                                        Shop Now <ChevronRight size={14} />
+                                    </Link>
+                                </div>
                                 ) : (
                                     <div className="space-y-6">
                                         {orders.map((order) => (
@@ -591,13 +623,18 @@ const UserDashboard = () => {
                                                             <span className="text-xs font-mono font-bold text-purevit-dark">#{order._id.slice(-8).toUpperCase()}</span>
                                                         </div>
                                                         <div className="text-sm font-bold text-purevit-dark">Planted on {new Date(order.createdAt).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}</div>
+                                                        <div className="text-xs text-gray-400 font-medium">
+                                                            Payment: {order.paymentMethod || 'N/A'} · Paid: {order.isPaid ? 'Yes' : 'No'}
+                                                            {order.shippingAddress?.city ? ` · Ship: ${order.shippingAddress.city}` : ''}
+                                                        </div>
                                                     </div>
                                                     <div className="flex items-center gap-6">
-                                                        <div className="text-right">
-                                                            <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Total</span>
-                                                            <span className="text-2xl font-bold text-purevit-dark">₹{order.totalAmount}</span>
-                                                        </div>
-                                                        <div className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm border
+                                                            <div className="text-right">
+                                                                <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Total Paid</span>
+                                                                <span className="text-lg md:text-2xl font-bold text-purevit-dark">₹{order.totalAmount}</span>
+                                                                <span className="block text-[9px] md:text-[10px] text-gray-400 font-medium">Items: {order.items?.reduce((sum, it) => sum + (it.quantity || 0), 0)}</span>
+                                                            </div>
+                                                        <div className={`px-3 md:px-5 py-1 md:py-2 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-sm border
                                                         ${order.status === 'Delivered' ? 'bg-green-50 text-green-600 border-green-100' :
                                                                 order.status === 'Processing' ? 'bg-blue-50 text-blue-600 border-blue-100' :
                                                                     'bg-amber-50 text-amber-600 border-amber-100'}`}>
@@ -606,30 +643,30 @@ const UserDashboard = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className="p-8 pb-4">
-                                                    <div className="flex flex-wrap gap-4">
+                                                <div className="p-4 md:p-8 pb-3 md:pb-4">
+                                                    <div className="flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4">
                                                         {order.items.map((item, idx) => (
-                                                            <div key={idx} className="flex-1 min-w-[200px] p-4 rounded-2xl bg-purevit-secondary/30 flex items-center gap-4 group transition-colors hover:bg-purevit-secondary/50">
-                                                                <div className="w-16 h-16 rounded-xl bg-white overflow-hidden shadow-sm shrink-0">
-                                                                    <img src={item.product?.image || item.image || "https://images.unsplash.com/photo-1512152272829-e3139592d56f?auto=format&fit=crop&q=80"} alt="" className="w-full h-full object-cover" />
+                                                            <div key={idx} className="w-full md:flex-1 min-w-0 md:min-w-[200px] p-3 md:p-4 rounded-2xl bg-purevit-secondary/30 flex items-center gap-3 md:gap-4 group transition-colors hover:bg-purevit-secondary/50">
+                                                                <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-white overflow-hidden shadow-sm shrink-0">
+                                                                    <img src={item.product?.images?.[0] || item.product?.image || item.image || ""} alt={item.product?.name || item.name || "Product"} className="w-full h-full object-cover" />
                                                                 </div>
                                                                 <div className="min-w-0">
-                                                                    <h4 className="text-sm font-bold text-purevit-dark truncate">{item.product?.name || item.name}</h4>
-                                                                    <p className="text-xs text-gray-400 font-medium">Qty: {item.quantity} · ₹{item.price}</p>
+                                                                    <h4 className="text-[11px] md:text-sm font-bold text-purevit-dark leading-snug break-words whitespace-normal">{item.product?.name || item.name || 'Product'}</h4>
+                                                                    <p className="text-[10px] md:text-xs text-gray-400 font-medium">Qty: {item.quantity} · ₹{item.price}</p>
                                                                 </div>
                                                             </div>
                                                         ))}
                                                     </div>
                                                 </div>
 
-                                                <div className="p-8 pt-4 flex justify-between items-center bg-gray-50/30">
+                                                <div className="p-4 md:p-8 pt-3 md:pt-4 flex justify-between items-center bg-gray-50/30">
                                                     <div className="flex -space-x-2">
                                                         <div className="w-8 h-8 rounded-full bg-purevit-primary flex items-center justify-center text-black border-2 border-white shadow-sm ring-1 ring-purevit-primary/20">
                                                             <Truck size={14} />
                                                         </div>
                                                         <span className="pl-4 text-[10px] font-black uppercase tracking-widest text-gray-400 self-center">Standard Logistics</span>
                                                     </div>
-                                                    <button className="text-xs font-black uppercase tracking-widest text-purevit-primary hover:text-purevit-dark transition-colors">Track Order Details</button>
+                                                    <button className="text-[10px] md:text-xs font-black uppercase tracking-widest text-purevit-primary hover:text-purevit-dark transition-colors">Track Order Details</button>
                                                 </div>
                                             </div>
                                         ))}
@@ -645,6 +682,15 @@ const UserDashboard = () => {
                                     <div className="text-xs font-black uppercase tracking-widest text-gray-400">
                                         {wishlist.length} Items Saved
                                     </div>
+                                </div>
+                                <div className="px-4 mb-4 lg:hidden">
+                                    <button
+                                        type="button"
+                                        onClick={() => setActiveTab('profile')}
+                                        className="w-full py-2.5 rounded-xl bg-purevit-primary/10 text-purevit-primary text-[10px] font-black uppercase tracking-widest"
+                                    >
+                                        My Profile
+                                    </button>
                                 </div>
 
                                 {wishlist.length === 0 ? (
@@ -700,3 +746,4 @@ const UserDashboard = () => {
 };
 
 export default UserDashboard;
+
