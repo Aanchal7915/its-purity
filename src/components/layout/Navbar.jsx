@@ -99,7 +99,7 @@ const Navbar = () => {
                 <div className="flex justify-between h-20 items-center">
                     {/* Logo */}
                     <Link to="/" className="flex items-center gap-3 group">
-                        <div className="relative h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 flex-shrink-0">
+                        <div className="relative h-20 w-20 sm:h-20 sm:w-20 lg:h-24 lg:w-24 flex-shrink-0">
                             <img
                                 src="/assets/images/logo.png"
                                 alt="Purevit"
@@ -107,8 +107,8 @@ const Navbar = () => {
                             />
                         </div>
                         <div className="flex flex-col leading-none">
-                            <span className="text-[8px] sm:text-sm font-light tracking-wider text-gray-500">its</span>
-                            <span className="text-xl sm:text-4xl font-serif font-bold tracking-tight">
+                            <span className="text-[10px] sm:text-sm font-light tracking-wider text-gray-500">its</span>
+                            <span className="text-2xl sm:text-4xl font-serif font-bold tracking-tight">
                                 <span className="text-purevit-dark">Pure</span>
                                 <span className="text-purevit-primary">vit</span>
                             </span>
