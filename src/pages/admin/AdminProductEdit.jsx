@@ -16,6 +16,8 @@ const AdminProductEdit = () => {
     const [countInStock, setCountInStock] = useState(0);
     const [image, setImage] = useState('');
     const [images, setImages] = useState([]);
+    const [videoUrl, setVideoUrl] = useState('');
+    const [primaryMedia, setPrimaryMedia] = useState('');
     const [isFeatured, setIsFeatured] = useState(false);
     const [isBestSeller, setIsBestSeller] = useState(false);
     const [isNewLaunch, setIsNewLaunch] = useState(false);
@@ -67,6 +69,8 @@ const AdminProductEdit = () => {
             setBrand(data.brand || '');
             setImage(data.images?.[0] || '');
             setImages(data.images || []);
+            setVideoUrl(data.videoUrl || '');
+            setPrimaryMedia(data.primaryMedia || '');
             setCountInStock(data.stock);
             setDescription(data.description);
             setShortDescription(data.shortDescription || '');
@@ -109,6 +113,8 @@ const AdminProductEdit = () => {
             unitName,
             stock: countInStock,
             images: images.length > 0 ? images : [image],
+            videoUrl,
+            primaryMedia,
             isFeatured,
             isBestSeller,
             isNewLaunch,
@@ -164,6 +170,7 @@ const AdminProductEdit = () => {
                 const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload`, formData, config);
                 const fullUrl = `${import.meta.env.VITE_API_BASE_URL}${data}`;
                 setImages([...images, fullUrl]);
+                if (!primaryMedia) setPrimaryMedia('image');
             } catch (error) {
                 console.error(error);
                 alert(error.response?.data?.message || error.message || 'Image upload failed');
@@ -179,12 +186,49 @@ const AdminProductEdit = () => {
                 const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload/multiple`, formData, config);
                 const fullUrls = data.map(path => `${import.meta.env.VITE_API_BASE_URL}${path}`);
                 setImages([...images, ...fullUrls]);
+                if (!primaryMedia) setPrimaryMedia('image');
             } catch (error) {
                 console.error(error);
                 alert(error.response?.data?.message || error.message || 'Multiple image upload failed');
             }
         }
     };
+
+    const uploadVideoHandler = async (e) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+        const formData = new FormData();
+        formData.append('video', file);
+        try {
+            const config = {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            };
+            const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload/video`, formData, config);
+            const fullUrl = `${import.meta.env.VITE_API_BASE_URL}${data}`;
+            setVideoUrl(fullUrl);
+            if (!primaryMedia) setPrimaryMedia('video');
+        } catch (error) {
+            console.error(error);
+            alert(error.response?.data?.message || error.message || 'Video upload failed');
+        }
+    };
+
+    const removeImageAt = (index) => {
+        setImages((prev) => {
+            const next = prev.filter((_, i) => i !== index);
+            if (next.length === 0) {
+                setImage('');
+                if (primaryMedia === 'image' && videoUrl) {
+                    setPrimaryMedia('video');
+                }
+            } else if (prev[index] === image) {
+                setImage(next[0]);
+            }
+            return next;
+        });
+    };
+
+    const hasVideo = typeof videoUrl === 'string' ? videoUrl.trim().length > 0 : !!videoUrl;
 
     return (
         <div className="min-h-screen bg-[#fafbfc] py-6 md:py-12 px-3 sm:px-6 lg:px-8 mt-12 md:mt-24">
@@ -579,22 +623,55 @@ const AdminProductEdit = () => {
                                 <div className="space-y-4">
                                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Composition Gallery</label>
                                     <div className="flex flex-wrap gap-4">
-                                        {images.map((img, index) => (
+                                        {images.map((img, index) => {
+                                            if (!img) return null;
+                                            return (
                                             <div key={index} className="relative w-24 h-24 bg-gradient-to-br from-orange-50/50 to-amber-50/40 rounded-2xl overflow-hidden border border-orange-200/40 group p-2">
                                                 <img src={img} alt="Product" className="w-full h-full object-contain mix-blend-multiply" />
                                                 <button
                                                     type="button"
-                                                    onClick={() => setImages(images.filter((_, i) => i !== index))}
+                                                    onClick={() => removeImageAt(index)}
                                                     className="absolute top-1 right-1 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
                                                 >
                                                     <X size={10} />
                                                 </button>
                                             </div>
-                                        ))}
+                                            );
+                                        })}
                                         <label className="w-24 h-24 flex flex-col items-center justify-center border-2 border-dashed border-orange-200 rounded-2xl hover:border-green-500 cursor-pointer transition-all text-gray-400 hover:text-green-600 bg-orange-50/20 hover:bg-green-50/30">
                                             <Upload size={24} />
                                             <span className="text-[8px] mt-1 font-black uppercase tracking-widest">Upload</span>
                                             <input type="file" className="hidden" onChange={uploadFileHandler} multiple />
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Product Video</label>
+                                    <div className="flex flex-wrap gap-4 items-center">
+                                        {hasVideo && (
+                                            <div className="relative w-24 h-24 bg-gradient-to-br from-orange-50/50 to-amber-50/40 rounded-2xl overflow-hidden border border-orange-200/40 group p-2">
+                                                <video src={videoUrl} className="w-full h-full object-cover rounded-xl" muted />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        setVideoUrl('');
+                                                        if (primaryMedia === 'video' && images.filter(Boolean).length > 0) {
+                                                            setPrimaryMedia('image');
+                                                        } else if (primaryMedia === 'video') {
+                                                            setPrimaryMedia('');
+                                                        }
+                                                    }}
+                                                    className="absolute top-1 right-1 p-1 bg-red-500 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                                                >
+                                                    <X size={10} />
+                                                </button>
+                                            </div>
+                                        )}
+                                        <label className="w-24 h-24 flex flex-col items-center justify-center border-2 border-dashed border-orange-200 rounded-2xl hover:border-green-500 cursor-pointer transition-all text-gray-400 hover:text-green-600 bg-orange-50/20 hover:bg-green-50/30">
+                                            <Upload size={24} />
+                                            <span className="text-[8px] mt-1 font-black uppercase tracking-widest">Upload</span>
+                                            <input type="file" className="hidden" accept="video/mp4,video/webm,video/quicktime" onChange={uploadVideoHandler} />
                                         </label>
                                     </div>
                                 </div>

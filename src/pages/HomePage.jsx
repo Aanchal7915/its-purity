@@ -36,7 +36,7 @@ const HomePage = () => {
         }
 
         localStorage.setItem('cartItems', JSON.stringify(newItems));
-        alert('${product.name} added to cart!');
+        alert(`${product.name} added to cart!`);
         window.dispatchEvent(new Event('cartUpdate'));
     };
 

@@ -18,6 +18,8 @@ const ProductDetailPage = () => {
     const [pincode, setPincode] = useState('');
     const [relatedProducts, setRelatedProducts] = useState([]);
     const [mainImage, setMainImage] = useState('');
+    const [validImages, setValidImages] = useState([]);
+    const [showVideo, setShowVideo] = useState(false);
     const [selectedSize, setSelectedSize] = useState('');
     const [isLiked, setIsLiked] = useState(false);
 
@@ -26,7 +28,10 @@ const ProductDetailPage = () => {
             try {
                 const { data } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/products/${id}`);
                 setProduct(data);
-                setMainImage(data.images[0]);
+                const filteredImages = (data.images || []).filter(Boolean);
+                setValidImages(filteredImages);
+                setMainImage(filteredImages[0] || '');
+                setShowVideo(data.primaryMedia === 'video' && !!data.videoUrl);
                 if (data.variants && data.variants.length > 0) {
                     setSelectedSize(data.variants[0]);
                 } else {
@@ -159,11 +164,29 @@ const ProductDetailPage = () => {
                         <div className="p-6 md:p-12 bg-[#fbfcfd] border-b lg:border-b-0 lg:border-r border-gray-50 text-center">
                             <div className="sticky top-24 space-y-8">
                                 <div className="aspect-square bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-inner p-4 flex items-center justify-center">
-                                    <img src={mainImage} alt={product.name} className="max-w-full max-h-full object-contain mix-blend-multiply" />
+                                    {showVideo && product.videoUrl ? (
+                                        <video
+                                            src={product.videoUrl}
+                                            className="max-w-full max-h-full object-contain"
+                                            controls
+                                            playsInline
+                                        />
+                                    ) : mainImage ? (
+                                        <img src={mainImage} alt={product.name} className="max-w-full max-h-full object-contain mix-blend-multiply" />
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-xs text-gray-400">No media</div>
+                                    )}
                                 </div>
                                 <div className="flex gap-3 overflow-x-auto pb-2 no-scrollbar">
-                                    {product.images.map((img, idx) => (
-                                        <button key={idx} onClick={() => setMainImage(img)} className={`w-16 h-16 md:w-20 md:h-20 rounded-xl border-2 transition-all p-2 bg-white flex-shrink-0 ${mainImage === img ? 'border-purevit-primary ring-2 ring-purevit-primary/10' : 'border-gray-100'}`}>
+                                    {validImages.map((img, idx) => (
+                                        <button
+                                            key={idx}
+                                            onClick={() => {
+                                                setShowVideo(false);
+                                                setMainImage(img);
+                                            }}
+                                            className={`w-16 h-16 md:w-20 md:h-20 rounded-xl border-2 transition-all p-2 bg-white flex-shrink-0 ${mainImage === img && !showVideo ? 'border-purevit-primary ring-2 ring-purevit-primary/10' : 'border-gray-100'}`}
+                                        >
                                             <img src={img} alt="" className="w-full h-full object-contain mix-blend-multiply" />
                                         </button>
                                     ))}

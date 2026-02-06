@@ -136,7 +136,7 @@ const HeroCarousel = () => {
     }, [current]);
 
     return (
-        <section className="relative h-[70vh] min-h-[560px] md:h-[90vh] md:min-h-[700px] w-full overflow-hidden bg-purevit-secondary pt-6 md:pt-0">
+        <section className="relative h-[70vh] min-h-[560px] md:h-[90vh] md:min-h-[700px] w-full overflow-hidden bg-purevit-secondary pt-20 md:pt-0">
             <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                     key={current}
@@ -163,11 +163,11 @@ const HeroCarousel = () => {
                     }}
                     className="absolute inset-0 w-full h-full"
                 >
-                    <div className="relative w-full h-full flex items-center pt-28 pb-60 md:pt-24 md:pb-32">
+                    <div className="relative w-full h-full flex items-center pt-44 pb-48 md:pt-28 md:pb-32">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                                 {/* Text Content */}
-                                <div className="lg:col-span-7 space-y-2 md:space-y-8 z-10 text-center lg:text-left pt-3 md:pt-0">
+                                <div className="lg:col-span-7 space-y-2 md:space-y-8 z-10 text-center lg:text-left pt-10 md:pt-0">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}

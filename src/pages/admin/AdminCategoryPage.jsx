@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Plus, Trash2, Tag, AlertCircle, CheckCircle2, Edit2 } from 'lucide-react';
+import { Plus, Trash2, Tag, AlertCircle, CheckCircle2, Edit2, Upload } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const AdminCategoryPage = () => {
@@ -123,6 +123,24 @@ const AdminCategoryPage = () => {
         }
     };
 
+    const uploadCategoryImage = async (e, setImage) => {
+        const files = e.target.files;
+        if (!files || files.length === 0) return;
+        const formData = new FormData();
+        formData.append('image', files[0]);
+        try {
+            const config = {
+                headers: { 'Content-Type': 'multipart/form-data' },
+            };
+            const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload`, formData, config);
+            const fullUrl = `${import.meta.env.VITE_API_BASE_URL}${data}`;
+            setImage(fullUrl);
+        } catch (error) {
+            console.error(error);
+            alert(error.response?.data?.message || error.message || 'Image upload failed');
+        }
+    };
+
     const audienceCategories = categories.filter(c => c.type === 'audience');
     const productTypeCategories = categories.filter(c => c.type === 'form');
 
@@ -193,14 +211,18 @@ const AdminCategoryPage = () => {
                                     />
                                 </div>
                                 <div className="space-y-1.5 md:space-y-2 md:col-span-2">
-                                    <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Image URL</label>
-                                    <input
-                                        type="text"
-                                        value={editImage}
-                                        onChange={(e) => setEditImage(e.target.value)}
-                                        placeholder="https://..."
-                                        className="w-full bg-purevit-secondary border border-purevit-primary/15 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:bg-white outline-none transition-all"
-                                    />
+                                    <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Image</label>
+                                    <div className="flex items-center gap-3">
+                                        {editImage && (
+                                            <div className="w-12 h-12 rounded-xl overflow-hidden border border-purevit-primary/10 bg-white">
+                                                <img src={editImage} alt="Category" className="w-full h-full object-cover" />
+                                            </div>
+                                        )}
+                                        <label className="cursor-pointer flex items-center gap-2 px-4 py-2.5 md:py-3 rounded-xl border border-dashed border-purevit-primary/20 text-[10px] md:text-xs font-black uppercase tracking-widest text-purevit-dark hover:bg-purevit-cream/50 transition-all">
+                                            <Upload size={14} /> Upload
+                                            <input type="file" className="hidden" onChange={(e) => uploadCategoryImage(e, setEditImage)} />
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <button
@@ -298,14 +320,18 @@ const AdminCategoryPage = () => {
                                 />
                             </div>
                             <div className="space-y-1.5 md:space-y-2 md:col-span-2 lg:col-span-3">
-                                <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Image URL</label>
-                                <input
-                                    type="text"
-                                    value={catImage}
-                                    onChange={(e) => setCatImage(e.target.value)}
-                                    placeholder="https://..."
-                                    className="w-full bg-purevit-secondary border border-purevit-primary/15 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:bg-white outline-none transition-all"
-                                />
+                                <label className="block text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 ml-1">Image</label>
+                                <div className="flex items-center gap-3">
+                                    {catImage && (
+                                        <div className="w-12 h-12 rounded-xl overflow-hidden border border-purevit-primary/10 bg-white">
+                                            <img src={catImage} alt="Category" className="w-full h-full object-cover" />
+                                        </div>
+                                    )}
+                                    <label className="cursor-pointer flex items-center gap-2 px-4 py-2.5 md:py-3 rounded-xl border border-dashed border-purevit-primary/20 text-[10px] md:text-xs font-black uppercase tracking-widest text-purevit-dark hover:bg-purevit-cream/50 transition-all">
+                                        <Upload size={14} /> Upload
+                                        <input type="file" className="hidden" onChange={(e) => uploadCategoryImage(e, setCatImage)} />
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <button

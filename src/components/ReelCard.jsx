@@ -18,6 +18,9 @@ const ReelCard = ({ reel }) => {
   const isYouTubeUrl = (url = "") =>
     /youtube\.com|youtu\.be/.test(url);
 
+  const isInstagramUrl = (url = "") =>
+    /instagram\.com\/(reel|p)\//.test(url);
+
   const getYouTubeId = (url = "") => {
     // Shorts: https://youtube.com/shorts/VIDEOID?...
     const shortsMatch = url.match(/shorts\/([a-zA-Z0-9_-]+)/);
@@ -35,6 +38,14 @@ const ReelCard = ({ reel }) => {
   };
 
   const videoId = useMemo(() => getYouTubeId(reel?.videoUrl || ""), [reel?.videoUrl]);
+  const instagramEmbedUrl = useMemo(() => {
+    const url = reel?.videoUrl || "";
+    if (!isInstagramUrl(url)) return null;
+    const match = url.match(/instagram\.com\/(reel|p)\/([^/?#]+)/);
+    const code = match?.[2];
+    if (!code) return null;
+    return `https://www.instagram.com/${match[1]}/${code}/embed`;
+  }, [reel?.videoUrl]);
 
   // YouTube embed URL (autoplay works best with mute=1)
   const embedUrl = useMemo(() => {
@@ -112,6 +123,7 @@ const ReelCard = ({ reel }) => {
   };
 
   const showYouTube = isYouTubeUrl(reel?.videoUrl) && embedUrl;
+  const showInstagram = isInstagramUrl(reel?.videoUrl) && instagramEmbedUrl;
 
   return (
     <div className="flex flex-col w-full h-[280px] sm:h-[500px] flex-shrink-0 bg-white rounded-2xl overflow-hidden border border-gray-200 group snap-center shadow-md hover:shadow-xl transition-all duration-300">
@@ -125,6 +137,16 @@ const ReelCard = ({ reel }) => {
             title="YouTube Reel"
             frameBorder="0"
             allow="autoplay; encrypted-media; picture-in-picture"
+            allowFullScreen
+            style={{ pointerEvents: 'none' }}
+          />
+        ) : showInstagram ? (
+          <iframe
+            src={instagramEmbedUrl}
+            className="w-full h-full object-cover"
+            title="Instagram Reel"
+            frameBorder="0"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             allowFullScreen
             style={{ pointerEvents: 'none' }}
           />

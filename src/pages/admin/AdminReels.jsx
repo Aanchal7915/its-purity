@@ -118,7 +118,7 @@ const AdminReels = () => {
                                 {editingId ? 'Edit Reel' : 'Create New Reel'}
                             </h3>
                             <p className="text-[10px] md:text-sm text-gray-500">
-                                {editingId ? 'Modify existing reel details' : 'Add a new video reel'}
+                                {editingId ? 'Modify existing reel details' : 'Add a new Instagram reel'}
                             </p>
                         </div>
                     </div>
@@ -147,12 +147,12 @@ const AdminReels = () => {
                         </div>
 
                         <div className="space-y-2">
-                            <label className="block text-xs font-black uppercase tracking-widest text-gray-500">Video URL</label>
+                            <label className="block text-xs font-black uppercase tracking-widest text-gray-500">Instagram Reel URL</label>
                             <input
                                 type="url"
                                 value={formData.videoUrl}
                                 onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
-                                placeholder="https://..."
+                                placeholder="https://www.instagram.com/reel/..."
                                 className="w-full bg-purevit-secondary border border-purevit-primary/20 rounded-xl px-4 py-2.5 md:py-3 text-xs md:text-sm text-purevit-dark focus:border-purevit-primary outline-none transition-all"
                                 required
                             />
@@ -200,7 +200,7 @@ const AdminReels = () => {
                             <thead className="bg-purevit-cream uppercase text-[10px] md:text-sm text-purevit-dark font-black tracking-widest">
                                 <tr>
                                     <th className="p-3 md:p-4">Title</th>
-                                    <th className="p-3 md:p-4">URL</th>
+                                    <th className="p-3 md:p-4">Instagram</th>
                                     <th className="p-3 md:p-4">Product</th>
                                     <th className="p-3 md:p-4">Date</th>
                                     <th className="p-3 md:p-4 text-center">Actions</th>
@@ -218,7 +218,7 @@ const AdminReels = () => {
                                                 className="text-blue-500 hover:text-blue-700 inline-flex items-center gap-1.5 px-2 py-1 bg-blue-50 rounded-lg transition-all"
                                             >
                                                 <ExternalLink size={12} className="md:w-3.5 md:h-3.5" />
-                                                <span className="hidden md:inline">View Video</span>
+                                                <span className="hidden md:inline">View Reel</span>
                                                 <span className="md:hidden">View</span>
                                             </a>
                                         </td>

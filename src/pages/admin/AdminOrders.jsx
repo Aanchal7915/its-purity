@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Eye, Check, X, ChevronDown, ChevronUp, Save, MessageSquare, Search, Download, Filter, Calendar } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,6 +14,16 @@ const AdminOrders = () => {
     const [filterDate, setFilterDate] = useState('');
 
     const STATUS_OPTIONS = ['Processing', 'Out for delivery', 'Delivered', 'Cancelled', 'Returned', 'Replaced'];
+    const getStatusClass = (status) => {
+        if (status === 'Delivered') return 'text-green-600 bg-green-50/30';
+        if (status === 'Cancelled') return 'text-red-600 bg-red-50/30';
+        if (status === 'Return Requested') return 'text-amber-700 bg-amber-50/40';
+        if (status === 'Replace Requested') return 'text-blue-700 bg-blue-50/40';
+        if (status === 'Returned') return 'text-amber-600 bg-amber-50/30';
+        if (status === 'Replaced') return 'text-blue-600 bg-blue-50/30';
+        if (status === 'Out for delivery') return 'text-indigo-600 bg-indigo-50/30';
+        return 'text-orange-600 bg-orange-50/30';
+    };
 
     useEffect(() => {
         fetchOrders();
@@ -44,6 +54,20 @@ const AdminOrders = () => {
             alert('Error updating status');
         } finally {
             setLoadingMap(prev => ({ ...prev, [id]: false }));
+        }
+    };
+
+    const updateItemStatus = async (orderId, itemId, status) => {
+        try {
+            const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+            const config = {
+                headers: { Authorization: `Bearer ${userInfo.token}` },
+            };
+            await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/orders/${orderId}/items/${itemId}/status`, { status }, config);
+            fetchOrders();
+        } catch (error) {
+            console.error(error);
+            alert('Error updating item status');
         }
     };
 
@@ -226,7 +250,6 @@ const AdminOrders = () => {
                             <th className="p-3 md:p-4">Customer</th>
                             <th className="p-3 md:p-4">Date</th>
                             <th className="p-3 md:p-4">Total</th>
-                            <th className="p-3 md:p-4">Status</th>
                             <th className="p-3 md:p-4 text-center">Actions</th>
                         </tr>
                     </thead>
@@ -254,20 +277,6 @@ const AdminOrders = () => {
                                     </td>
                                     <td className="p-3 md:p-4 text-purevit-dark whitespace-nowrap">{new Date(order.createdAt).toLocaleDateString()}</td>
                                     <td className="p-3 md:p-4 font-black text-purevit-dark">₹{order.totalAmount || order.totalPrice}</td>
-                                    <td className="p-3 md:p-4 min-w-[130px]">
-                                        <select
-                                            value={order.status}
-                                            onChange={(e) => updateStatus(order._id, e.target.value)}
-                                            disabled={loadingMap[order._id]}
-                                            className={`w-full bg-white border border-purevit-primary/10 text-[10px] md:text-xs rounded-lg px-2 py-1.5 outline-none focus:border-purevit-primary font-bold transition-all
-                                                ${order.status === 'Delivered' ? 'text-green-600 bg-green-50/30' :
-                                                    order.status === 'Cancelled' ? 'text-red-600 bg-red-50/30' : 'text-orange-600 bg-orange-50/30'}`}
-                                        >
-                                            {STATUS_OPTIONS.map(opt => (
-                                                <option key={opt} value={opt}>{opt}</option>
-                                            ))}
-                                        </select>
-                                    </td>
                                     <td className="p-3 md:p-4 text-center">
                                         <button
                                             onClick={() => toggleExpand(order)}
@@ -304,9 +313,42 @@ const AdminOrders = () => {
                                                                 <h4 className="text-[10px] font-black uppercase tracking-widest text-purevit-dark mb-3">Order Items</h4>
                                                                 <div className="bg-white rounded-xl border border-purevit-primary/10 divide-y divide-purevit-primary/5 shadow-sm overflow-hidden text-xs">
                                                                     {order.items.map((item, idx) => (
-                                                                        <div key={idx} className="p-3 flex justify-between items-center text-purevit-dark hover:bg-purevit-cream/20 transition-colors">
-                                                                            <span className="font-medium">{item.product?.name || item.name || 'Product'} <span className="text-gray-400 ml-1">x{item.quantity}</span></span>
-                                                                            <span className="font-bold">₹{item.price * item.quantity}</span>
+                                                                        <div key={idx} className="p-3 flex flex-col md:flex-row md:items-center md:justify-between gap-2 text-purevit-dark hover:bg-purevit-cream/20 transition-colors">
+                                                                            <div className="flex items-center justify-between gap-3">
+                                                                                <span className="font-medium">{item.product?.name || item.name || 'Product'} <span className="text-gray-400 ml-1">x{item.quantity}</span></span>
+                                                                            </div>
+                                                                            <div className="flex items-center justify-between gap-3">
+                                                                                <div className="flex items-center gap-2">
+                                                                                    <select
+                                                                                        value={item.status || order.status}
+                                                                                        onChange={(e) => updateItemStatus(order._id, item._id, e.target.value)}
+                                                                                        className={`w-24 md:w-40 border border-purevit-primary/10 text-[10px] md:text-xs rounded-lg px-2 py-1.5 outline-none focus:border-purevit-primary font-bold transition-all ${getStatusClass(item.status || order.status)}`}
+                                                                                    >
+                                                                                        {STATUS_OPTIONS.map(opt => (
+                                                                                            <option key={opt} value={opt}>{opt}</option>
+                                                                                        ))}
+                                                                                    </select>
+                                                                                    {(item.status === 'Return Requested' || item.status === 'Replace Requested') && (
+                                                                                        <div className="flex items-center gap-1">
+                                                                                            <button
+                                                                                                type="button"
+                                                                                                onClick={() => updateItemStatus(order._id, item._id, item.status === 'Return Requested' ? 'Returned' : 'Replaced')}
+                                                                                                className="px-2 py-1 rounded-md bg-green-50 text-green-700 text-[9px] font-black uppercase tracking-widest border border-green-100 hover:bg-green-500 hover:text-white transition-colors"
+                                                                                            >
+                                                                                                Accept
+                                                                                            </button>
+                                                                                            <button
+                                                                                                type="button"
+                                                                                                onClick={() => updateItemStatus(order._id, item._id, 'Delivered')}
+                                                                                                className="px-2 py-1 rounded-md bg-red-50 text-red-700 text-[9px] font-black uppercase tracking-widest border border-red-100 hover:bg-red-500 hover:text-white transition-colors"
+                                                                                            >
+                                                                                                Reject
+                                                                                            </button>
+                                                                                        </div>
+                                                                                    )}
+                                                                                </div>
+                                                                                <span className="font-bold">₹{item.price * item.quantity}</span>
+                                                                            </div>
                                                                         </div>
                                                                     ))}
                                                                 </div>
@@ -361,3 +403,4 @@ const AdminOrders = () => {
 };
 
 export default AdminOrders;
+

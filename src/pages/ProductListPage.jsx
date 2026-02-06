@@ -144,7 +144,7 @@ const ProductListPage = () => {
 
         localStorage.setItem('cartItems', JSON.stringify(newItems));
         window.dispatchEvent(new Event('cartUpdate'));
-        alert('${product.name} added to cart!');
+        alert(`${product.name} added to cart!`);
     };
 
     const updateFilterParam = (key, value) => {

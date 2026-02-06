@@ -12,6 +12,7 @@ const UserDashboard = () => {
     const navigate = useNavigate();
     const tabContentRef = useRef(null);
     const [showMobileDetail, setShowMobileDetail] = useState(false);
+    const STATUS_OPTIONS = ['Processing', 'Out for delivery', 'Delivered', 'Cancelled', 'Returned', 'Replaced'];
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -103,6 +104,36 @@ const UserDashboard = () => {
             console.error(error);
         }
     }
+
+    const getItemStatus = (item, order) => {
+        if (item?.status && item.status !== 'Processing') return item.status;
+        return order?.status || item?.status || 'Processing';
+    };
+
+    const getUserItemActions = (status) => {
+        if (status === 'Delivered') return [
+            { label: 'Request Return', status: 'Return Requested' },
+            { label: 'Request Replace', status: 'Replace Requested' }
+        ];
+        return [];
+    };
+
+    const updateItemStatus = async (orderId, itemId, status) => {
+        try {
+            const config = {
+                headers: {
+                    Authorization: `Bearer ${userInfo.token}`,
+                },
+            };
+            await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/orders/${orderId}/items/${itemId}/status`, { status }, config);
+            // Refresh orders
+            const { data: ordersData } = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/orders/myorders`, config);
+            setOrders(ordersData);
+        } catch (error) {
+            console.error(error);
+            alert(error.response?.data?.message || 'Failed to update item status');
+        }
+    };
 
     if (loading) {
         return (
@@ -280,28 +311,55 @@ const UserDashboard = () => {
                                                 <span className="text-lg md:text-2xl font-bold text-purevit-dark">₹{order.totalAmount}</span>
                                                 <span className="block text-[9px] md:text-[10px] text-gray-400 font-medium">Items: {order.items?.reduce((sum, it) => sum + (it.quantity || 0), 0)}</span>
                                             </div>
-                                            <div className={`px-3 md:px-5 py-1 md:py-2 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-sm border
-                                            ${order.status === 'Delivered' ? 'bg-green-50 text-green-600 border-green-100' :
-                                                    order.status === 'Processing' ? 'bg-blue-50 text-blue-600 border-blue-100' :
-                                                        'bg-amber-50 text-amber-600 border-amber-100'}`}>
-                                                {order.status}
-                                            </div>
+                                            <div className="hidden"></div>
                                         </div>
                                     </div>
 
                                     <div className="p-4 md:p-8 pb-3 md:pb-4">
                                         <div className="flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4">
-                                            {order.items.map((item, idx) => (
-                                                <div key={idx} className="w-full md:flex-1 min-w-0 md:min-w-[200px] p-3 md:p-4 rounded-2xl bg-purevit-secondary/30 flex items-center gap-3 md:gap-4 group transition-colors hover:bg-purevit-secondary/50">
-                                                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-white overflow-hidden shadow-sm shrink-0">
-                                                        <img src={item.product?.images?.[0] || item.product?.image || item.image || ""} alt={item.product?.name || item.name || "Product"} className="w-full h-full object-cover" />
+                                            {order.items.map((item, idx) => {
+                                                const itemStatus = getItemStatus(item, order);
+                                                const actions = getUserItemActions(itemStatus);
+                                                return (
+                                                    <div key={idx} className="w-full md:flex-1 min-w-0 md:min-w-[200px] p-3 md:p-4 rounded-2xl bg-purevit-secondary/30 flex items-center gap-3 md:gap-4 group transition-colors hover:bg-purevit-secondary/50">
+                                                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-white overflow-hidden shadow-sm shrink-0">
+                                                            <img src={item.product?.images?.[0] || item.product?.image || item.image || ""} alt={item.product?.name || item.name || "Product"} className="w-full h-full object-cover" />
+                                                        </div>
+                                                        <div className="min-w-0 w-full">
+                                                            <h4 className="text-[10px] md:text-sm font-bold text-purevit-dark leading-snug break-words whitespace-normal">{item.product?.name || item.name || 'Product'}</h4>
+                                                            <p className="text-[10px] md:text-xs text-gray-400 font-medium">Qty: {item.quantity} · ₹{item.price}</p>
+                                                            <div className="mt-2 flex flex-wrap items-center gap-2">
+                                                                <span className={`px-2 py-0.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest border
+                                                                    ${itemStatus === 'Delivered' ? 'bg-green-50 text-green-600 border-green-100' :
+                                                                        itemStatus === 'Out for delivery' ? 'bg-sky-50 text-sky-700 border-sky-100 shadow-sm' :
+                                                                        itemStatus === 'Return Requested' ? 'bg-amber-50 text-amber-700 border-amber-100 shadow-sm' :
+                                                                            itemStatus === 'Replace Requested' ? 'bg-blue-50 text-blue-700 border-blue-100 shadow-sm' :
+                                                                        itemStatus === 'Returned' ? 'bg-amber-50 text-amber-600 border-amber-100' :
+                                                                            itemStatus === 'Replaced' ? 'bg-blue-50 text-blue-600 border-blue-100' :
+                                                                                itemStatus === 'Cancelled' ? 'bg-red-50 text-red-600 border-red-100' :
+                                                                                    itemStatus === 'Processing' ? 'bg-emerald-50 text-emerald-700 border-emerald-100 shadow-sm' :
+                                                                                        'bg-gray-50 text-gray-500 border-gray-100'}`}>{itemStatus}</span>
+                                                                {actions.map(action => (
+                                                                    <button
+                                                                        key={action.status}
+                                                                        type="button"
+                                                                        onClick={() => updateItemStatus(order._id, item._id, action.status)}
+                                                                        className={`px-2.5 py-1 rounded-lg border text-[9px] font-bold tracking-wide transition-colors ${
+                                                                            action.status === 'Returned'
+                                                                                ? 'border-amber-200 text-amber-700 hover:bg-amber-500 hover:text-white'
+                                                                                : action.status === 'Replaced'
+                                                                                    ? 'border-blue-200 text-blue-700 hover:bg-blue-500 hover:text-white'
+                                                                                    : 'border-purevit-primary/20 text-purevit-primary hover:bg-purevit-primary hover:text-white'
+                                                                        }`}
+                                                                    >
+                                                                        {action.label}
+                                                                    </button>
+                                                                ))}
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div className="min-w-0">
-                                                        <h4 className="text-[10px] md:text-sm font-bold text-purevit-dark leading-snug break-words whitespace-normal">{item.product?.name || item.name || 'Product'}</h4>
-                                                        <p className="text-[10px] md:text-xs text-gray-400 font-medium">Qty: {item.quantity} · ₹{item.price}</p>
-                                                    </div>
-                                                </div>
-                                            ))}
+                                                );
+                                            })}
                                         </div>
                                     </div>
 
@@ -634,28 +692,55 @@ const UserDashboard = () => {
                                                                 <span className="text-lg md:text-2xl font-bold text-purevit-dark">₹{order.totalAmount}</span>
                                                                 <span className="block text-[9px] md:text-[10px] text-gray-400 font-medium">Items: {order.items?.reduce((sum, it) => sum + (it.quantity || 0), 0)}</span>
                                                             </div>
-                                                        <div className={`px-3 md:px-5 py-1 md:py-2 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest shadow-sm border
-                                                        ${order.status === 'Delivered' ? 'bg-green-50 text-green-600 border-green-100' :
-                                                                order.status === 'Processing' ? 'bg-blue-50 text-blue-600 border-blue-100' :
-                                                                    'bg-amber-50 text-amber-600 border-amber-100'}`}>
-                                                            {order.status}
-                                                        </div>
+                                                        <div className="hidden"></div>
                                                     </div>
                                                 </div>
 
                                                 <div className="p-4 md:p-8 pb-3 md:pb-4">
                                                     <div className="flex flex-col md:flex-row md:flex-wrap gap-3 md:gap-4">
-                                                        {order.items.map((item, idx) => (
-                                                            <div key={idx} className="w-full md:flex-1 min-w-0 md:min-w-[200px] p-3 md:p-4 rounded-2xl bg-purevit-secondary/30 flex items-center gap-3 md:gap-4 group transition-colors hover:bg-purevit-secondary/50">
-                                                                <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-white overflow-hidden shadow-sm shrink-0">
-                                                                    <img src={item.product?.images?.[0] || item.product?.image || item.image || ""} alt={item.product?.name || item.name || "Product"} className="w-full h-full object-cover" />
-                                                                </div>
-                                                                <div className="min-w-0">
-                                                                    <h4 className="text-[11px] md:text-sm font-bold text-purevit-dark leading-snug break-words whitespace-normal">{item.product?.name || item.name || 'Product'}</h4>
-                                                                    <p className="text-[10px] md:text-xs text-gray-400 font-medium">Qty: {item.quantity} · ₹{item.price}</p>
-                                                                </div>
+                                                        {order.items.map((item, idx) => {
+                                                            const itemStatus = getItemStatus(item, order);
+                                                            const actions = getUserItemActions(itemStatus);
+                                                            return (
+                                                                <div key={idx} className="w-full md:flex-1 min-w-0 md:min-w-[200px] p-3 md:p-4 rounded-2xl bg-purevit-secondary/30 flex items-center gap-3 md:gap-4 group transition-colors hover:bg-purevit-secondary/50">
+                                                                    <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl bg-white overflow-hidden shadow-sm shrink-0">
+                                                                        <img src={item.product?.images?.[0] || item.product?.image || item.image || ""} alt={item.product?.name || item.name || "Product"} className="w-full h-full object-cover" />
+                                                                    </div>
+                                                                    <div className="min-w-0 w-full">
+                                                                        <h4 className="text-[11px] md:text-sm font-bold text-purevit-dark leading-snug break-words whitespace-normal">{item.product?.name || item.name || 'Product'}</h4>
+                                                                        <p className="text-[10px] md:text-xs text-gray-400 font-medium">Qty: {item.quantity} · ₹{item.price}</p>
+                                                            <div className="mt-2 flex flex-wrap items-center gap-2">
+                                                                                <span className={`px-2 py-0.5 rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-widest border
+                                                                                    ${itemStatus === 'Delivered' ? 'bg-green-50 text-green-600 border-green-100' :
+                                                                                        itemStatus === 'Out for delivery' ? 'bg-sky-50 text-sky-700 border-sky-100 shadow-sm' :
+                                                                                        itemStatus === 'Return Requested' ? 'bg-amber-50 text-amber-700 border-amber-100 shadow-sm' :
+                                                                                            itemStatus === 'Replace Requested' ? 'bg-blue-50 text-blue-700 border-blue-100 shadow-sm' :
+                                                                                        itemStatus === 'Returned' ? 'bg-amber-50 text-amber-600 border-amber-100' :
+                                                                                            itemStatus === 'Replaced' ? 'bg-blue-50 text-blue-600 border-blue-100' :
+                                                                                                itemStatus === 'Cancelled' ? 'bg-red-50 text-red-600 border-red-100' :
+                                                                                                    itemStatus === 'Processing' ? 'bg-emerald-50 text-emerald-700 border-emerald-100 shadow-sm' :
+                                                                                                        'bg-gray-50 text-gray-500 border-gray-100'}`}>{itemStatus}</span>
+                                                                {actions.map(action => (
+                                                                    <button
+                                                                        key={action.status}
+                                                                        type="button"
+                                                                        onClick={() => updateItemStatus(order._id, item._id, action.status)}
+                                                                        className={`px-2.5 py-1 rounded-lg border text-[9px] font-bold tracking-wide transition-colors ${
+                                                                            action.status === 'Returned'
+                                                                                ? 'border-amber-200 text-amber-700 hover:bg-amber-500 hover:text-white'
+                                                                                : action.status === 'Replaced'
+                                                                                    ? 'border-blue-200 text-blue-700 hover:bg-blue-500 hover:text-white'
+                                                                                    : 'border-purevit-primary/20 text-purevit-primary hover:bg-purevit-primary hover:text-white'
+                                                                        }`}
+                                                                    >
+                                                                        {action.label}
+                                                                    </button>
+                                                                ))}
                                                             </div>
-                                                        ))}
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
                                                     </div>
                                                 </div>
 

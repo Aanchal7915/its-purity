@@ -115,11 +115,23 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
             {/* Image Section */}
             <div className="aspect-[5/4] bg-[#f8f9fb] relative overflow-hidden p-4 group-hover:p-3 transition-all duration-500">
                 <Link to={`/products/${product._id}`}>
-                    <img
-                        src={product.images && product.images[0]}
-                        alt={product.name}
-                        className="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
-                    />
+                    {(product.primaryMedia === 'video' || (!product.primaryMedia && !product.images?.[0] && product.videoUrl)) && product.videoUrl ? (
+                        <video
+                            src={product.videoUrl}
+                            poster={product.images && product.images[0]}
+                            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
+                            muted
+                            loop
+                            playsInline
+                            autoPlay
+                        />
+                    ) : (
+                        <img
+                            src={product.images && product.images[0]}
+                            alt={product.name}
+                            className="w-full h-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-110"
+                        />
+                    )}
                 </Link>
 
                 {/* Badges Overlay */}

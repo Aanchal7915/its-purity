@@ -75,7 +75,7 @@ const CartPage = () => {
                         {cartItems.map((item) => (
                             <div key={item.product} className="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-purevit-primary/5 flex flex-col md:flex-row gap-8 transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] hover:-translate-y-1 group">
                                 <div className="w-full md:w-40 h-40 bg-purevit-cream rounded-2xl overflow-hidden shrink-0 border border-purevit-secondary shadow-inner">
-                                    <img src={item.image} alt={item.name} className="w-full h-full object-cover mix-blend-multiply" />
+                                    <img src={item.image} alt={item.name} className="w-full h-full object-contain mix-blend-multiply" />
                                 </div>
                                 <div className="flex-1 flex flex-col justify-between">
                                     <div>
@@ -85,9 +85,9 @@ const CartPage = () => {
                                             </Link>
                                             <button
                                                 onClick={() => removeFromCart(item.product)}
-                                                className="w-10 h-10 rounded-xl bg-red-50 text-red-400 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                                                className="w-8 h-8 md:w-10 md:h-10 rounded-xl bg-red-50 text-red-400 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"
                                             >
-                                                <Trash2 className="w-5 h-5" />
+                                                <Trash2 className="w-4 h-4 md:w-5 md:h-5" />
                                             </button>
                                         </div>
                                         <p className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-6 flex items-center gap-2">
