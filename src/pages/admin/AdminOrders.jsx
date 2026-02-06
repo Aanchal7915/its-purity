@@ -305,7 +305,7 @@ const AdminOrders = () => {
                                                                 <div className="bg-white rounded-xl border border-purevit-primary/10 divide-y divide-purevit-primary/5 shadow-sm overflow-hidden text-xs">
                                                                     {order.items.map((item, idx) => (
                                                                         <div key={idx} className="p-3 flex justify-between items-center text-purevit-dark hover:bg-purevit-cream/20 transition-colors">
-                                                                            <span className="font-medium">{item.product?.name || 'Product'} <span className="text-gray-400 ml-1">x{item.quantity}</span></span>
+                                                                            <span className="font-medium">{item.product?.name || item.name || 'Product'} <span className="text-gray-400 ml-1">x{item.quantity}</span></span>
                                                                             <span className="font-bold">₹{item.price * item.quantity}</span>
                                                                         </div>
                                                                     ))}
