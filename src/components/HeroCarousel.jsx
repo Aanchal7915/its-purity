@@ -136,7 +136,7 @@ const HeroCarousel = () => {
     }, [current]);
 
     return (
-        <section className="relative h-[70vh] min-h-[560px] md:h-[90vh] md:min-h-[700px] w-full overflow-hidden bg-purevit-secondary pt-20 md:pt-0">
+        <section className="relative min-h-[560px] md:min-h-[700px] w-full overflow-hidden bg-purevit-secondary pt-16 md:pt-0">
             <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                     key={current}
@@ -163,21 +163,21 @@ const HeroCarousel = () => {
                     }}
                     className="absolute inset-0 w-full h-full"
                 >
-                    <div className="relative w-full h-full flex items-center pt-44 pb-48 md:pt-28 md:pb-32">
+                    <div className="relative w-full h-full flex items-center py-20 md:pt-20 md:pb-28">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                                 {/* Text Content */}
-                                <div className="lg:col-span-7 space-y-2 md:space-y-8 z-10 text-center lg:text-left pt-10 md:pt-0">
+                                <div className="lg:col-span-7 space-y-2 md:space-y-8 z-10 text-center lg:text-left pt-2 md:pt-0">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.2 }}
                                         className="flex items-center gap-3 justify-center lg:justify-start"
                                     >
-                                        <span className="text-[7px] md:text-xs font-black uppercase tracking-[0.4em] text-purevit-primary">
+                                        <span className="text-[6px] md:text-[10px] font-black uppercase tracking-[0.3em] text-purevit-primary">
                                             {slides[current].subtitle}
                                         </span>
-                                        <div className="h-px w-12 bg-gray-200"></div>
+                                        <div className="h-px w-10 bg-gray-200"></div>
                                     </motion.div>
 
                                     <motion.h1

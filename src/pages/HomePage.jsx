@@ -118,6 +118,43 @@ const HomePage = () => {
             {/* Hero Section */}
             <HeroCarousel />
 
+
+
+
+
+            
+            {/* Product Sections (Featured, Best Seller, New, Saver) */}
+            {[
+                { title: "Featured Products", data: featuredProducts, badge: "featured" },
+                { title: "Best Sellers", data: bestSellers, badge: "bestseller", bg: "bg-[#f9fafb]" },
+                { title: "New Launches", data: newLaunches, badge: "newlaunch" },
+                { title: "Super Saver", data: superSavers, badge: "supersaver", bg: "bg-[#f9fafb]" }
+            ].map((section, sIdx) => (
+                <section key={sIdx} className={`py-12 md:py-20 ${section.bg || 'bg-white'}`}>
+                    <div className="max-w-7xl mx-auto px-4 md:px-8">
+                        <div className="text-center mb-12">
+                            <h2 className="text-3xl md:text-5xl font-serif font-bold text-black">{section.title}</h2>
+                        </div>
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                            {section.data.length > 0 ? section.data.map((product) => (
+                                <ProductCard key={product._id} product={product} activeBadge={section.badge} onAddToCart={addToCart} onAddToWishlist={handleAddToWishlist} />
+                            )) : (
+                                [1, 2, 3, 4].map((i) => (
+                                    <div key={i} className="aspect-[3/4] bg-white rounded-3xl border border-dashed border-gray-200 flex items-center justify-center">
+                                        <p className="text-gray-400 text-xs">No Products</p>
+                                    </div>
+                                ))
+                            )}
+                        </div>
+                        <div className="mt-12 flex justify-center">
+                            <Link to="/products" className="inline-flex items-center gap-3 px-8 py-3 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
+                                View Collection <ArrowRight size={14} />
+                            </Link>
+                        </div>
+                    </div>
+                </section>
+            ))}
+
             {/* Benefits Section */}
             <section className="py-12 md:py-20 bg-white relative overflow-hidden">
                 <div className="absolute -top-32 -left-32 w-96 h-96 bg-purevit-primary/5 blur-[90px] rounded-full pointer-events-none"></div>
@@ -247,37 +284,6 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Product Sections (Featured, Best Seller, New, Saver) */}
-            {[
-                { title: "Featured Products", data: featuredProducts, badge: "featured" },
-                { title: "Best Sellers", data: bestSellers, badge: "bestseller", bg: "bg-[#f9fafb]" },
-                { title: "New Launches", data: newLaunches, badge: "newlaunch" },
-                { title: "Super Saver", data: superSavers, badge: "supersaver", bg: "bg-[#f9fafb]" }
-            ].map((section, sIdx) => (
-                <section key={sIdx} className={`py-12 md:py-20 ${section.bg || 'bg-white'}`}>
-                    <div className="max-w-7xl mx-auto px-4 md:px-8">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl md:text-5xl font-serif font-bold text-black">{section.title}</h2>
-                        </div>
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-                            {section.data.length > 0 ? section.data.map((product) => (
-                                <ProductCard key={product._id} product={product} activeBadge={section.badge} onAddToCart={addToCart} onAddToWishlist={handleAddToWishlist} />
-                            )) : (
-                                [1, 2, 3, 4].map((i) => (
-                                    <div key={i} className="aspect-[3/4] bg-white rounded-3xl border border-dashed border-gray-200 flex items-center justify-center">
-                                        <p className="text-gray-400 text-xs">No Products</p>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                        <div className="mt-12 flex justify-center">
-                            <Link to="/products" className="inline-flex items-center gap-3 px-8 py-3 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
-                                View Collection <ArrowRight size={14} />
-                            </Link>
-                        </div>
-                    </div>
-                </section>
-            ))}
 
             {/* Learn Section */}
             <section className="py-12 md:py-20 bg-[#fcfbf9] relative overflow-hidden">
