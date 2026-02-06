@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { User, ShoppingBag, Heart, LogOut, CheckCircle, Truck, Package, XCircle, ChevronRight, Settings, MapPin, Phone, Mail, ShieldCheck } from 'lucide-react';
+import { User, ShoppingBag, Heart, LogOut, CheckCircle, Truck, Package, XCircle, ChevronRight, Settings, MapPin, Phone, Mail, ShieldCheck, X } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 
 const UserDashboard = () => {
@@ -10,6 +10,8 @@ const UserDashboard = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
+    const tabContentRef = useRef(null);
+    const [showMobileDetail, setShowMobileDetail] = useState(false);
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
@@ -53,6 +55,12 @@ const UserDashboard = () => {
 
         fetchData();
     }, [navigate, userInfo?.token]);
+
+    useEffect(() => {
+        if (window.innerWidth < 1024 && showMobileDetail) {
+            tabContentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }, [activeTab, showMobileDetail]);
 
 
     const handleLogout = () => {
@@ -104,6 +112,258 @@ const UserDashboard = () => {
         );
     }
 
+    const tabContent = (
+        <>
+            {activeTab === 'profile' && (
+                <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="bg-white rounded-[2.5rem] p-10 shadow-xl border border-purevit-primary/5">
+                        <div className="flex items-center gap-4 mb-10">
+                            <div className="w-12 h-12 rounded-2xl bg-purevit-cream flex items-center justify-center text-purevit-dark">
+                                <Settings size={22} />
+                            </div>
+                            <div>
+                                <h2 className="text-3xl font-serif text-purevit-dark">Profile Settings</h2>
+                                <p className="text-gray-400 text-sm">Manage your account information and preferences</p>
+                            </div>
+                        </div>
+
+                        <form onSubmit={handleUpdateProfile} className="space-y-10">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-purevit-dark/40 ml-1">Full Name</label>
+                                    <div className="relative">
+                                        <User className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                        <input
+                                            type="text"
+                                            value={user.name || ''}
+                                            onChange={(e) => setUser({ ...user, name: e.target.value })}
+                                            className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:border-purevit-primary transition-all outline-none font-medium text-purevit-dark"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-purevit-dark/40 ml-1">Email (Permanent)</label>
+                                    <div className="relative">
+                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-300" size={18} />
+                                        <input
+                                            type="email"
+                                            value={user.email || ''}
+                                            disabled
+                                            className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-100 rounded-2xl text-gray-400 cursor-not-allowed font-medium"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-[10px] font-black uppercase tracking-widest text-purevit-dark/40 ml-1">Phone Number</label>
+                                    <div className="relative">
+                                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                                        <input
+                                            type="text"
+                                            value={user.phone || ''}
+                                            onChange={(e) => setUser({ ...user, phone: e.target.value })}
+                                            className="w-full pl-12 pr-4 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:border-purevit-primary transition-all outline-none font-medium text-purevit-dark"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="pt-10 border-t border-gray-100">
+                                <div className="flex items-center gap-4 mb-8">
+                                    <div className="w-10 h-10 rounded-xl bg-purevit-cream flex items-center justify-center text-purevit-dark">
+                                        <MapPin size={18} />
+                                    </div>
+                                    <h3 className="text-xl font-serif text-purevit-dark">Shipping Address</h3>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                    <div className="md:col-span-2 space-y-2">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-purevit-dark/40 ml-1">Street Address</label>
+                                        <input
+                                            type="text"
+                                            value={user.address?.street || ''}
+                                            onChange={(e) => setUser({ ...user, address: { ...user.address, street: e.target.value } })}
+                                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:border-purevit-primary transition-all outline-none font-medium text-purevit-dark text-sm"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-purevit-dark/40 ml-1">City</label>
+                                        <input
+                                            type="text"
+                                            value={user.address?.city || ''}
+                                            onChange={(e) => setUser({ ...user, address: { ...user.address, city: e.target.value } })}
+                                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:border-purevit-primary transition-all outline-none font-medium text-purevit-dark text-sm"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-purevit-dark/40 ml-1">State</label>
+                                        <input
+                                            type="text"
+                                            value={user.address?.state || ''}
+                                            onChange={(e) => setUser({ ...user, address: { ...user.address, state: e.target.value } })}
+                                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:border-purevit-primary transition-all outline-none font-medium text-purevit-dark text-sm"
+                                        />
+                                    </div>
+                                    <div className="space-y-2 flex-grow">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-purevit-dark/40 ml-1">ZIP / Postal</label>
+                                        <input
+                                            type="text"
+                                            value={user.address?.zip || ''}
+                                            onChange={(e) => setUser({ ...user, address: { ...user.address, zip: e.target.value } })}
+                                            className="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-2xl focus:bg-white focus:border-purevit-primary transition-all outline-none font-medium text-purevit-dark text-sm"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-end pt-4">
+                                <button
+                                    type="submit"
+                                    className="group relative px-12 py-4 bg-purevit-dark hover:bg-black text-white rounded-2xl font-bold overflow-hidden transition-all duration-300 shadow-xl"
+                                >
+                                    <span className="relative z-10">Update Profile</span>
+                                    <div className="absolute inset-0 bg-purevit-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {activeTab === 'orders' && (
+                <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="flex items-center justify-between mb-2 px-4">
+                        <h2 className="text-3xl font-serif text-purevit-dark">Order History</h2>
+                        <div className="text-xs font-black uppercase tracking-widest text-gray-400">
+                            Total Orders: {orders.length}
+                        </div>
+                    </div>
+
+                    {orders.length === 0 ? (
+                        <div className="bg-white rounded-[2.5rem] p-20 text-center shadow-lg border border-purevit-primary/5">
+                            <div className="w-20 h-20 bg-purevit-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400">
+                                <ShoppingBag size={32} />
+                            </div>
+                            <h3 className="text-2xl font-serif text-purevit-dark mb-2">No orders yet</h3>
+                            <p className="text-gray-400 mb-8 max-w-xs mx-auto">Start your health journey by exploring our pure collections.</p>
+                            <Link to="/products" className="inline-flex items-center gap-2 px-8 py-4 bg-purevit-primary text-black font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-purevit-dark hover:text-white transition-all shadow-lg">
+                                Shop Now <ChevronRight size={14} />
+                            </Link>
+                        </div>
+                    ) : (
+                        <div className="space-y-6">
+                            {orders.map((order) => (
+                                <div key={order._id} className="bg-white rounded-[2.5rem] shadow-xl border border-purevit-primary/5 overflow-hidden transition-all duration-500 hover:shadow-2xl">
+                                    <div className="p-8 border-b border-gray-50 bg-purevit-cream/20 flex flex-col md:flex-row justify-between md:items-center gap-6">
+                                        <div>
+                                            <div className="flex items-center gap-3 mb-1">
+                                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400">Order ID:</span>
+                                                <span className="text-xs font-mono font-bold text-purevit-dark">#{order._id.slice(-8).toUpperCase()}</span>
+                                            </div>
+                                            <div className="text-sm font-bold text-purevit-dark">Planted on {new Date(order.createdAt).toLocaleDateString(undefined, { month: 'long', day: 'numeric', year: 'numeric' })}</div>
+                                        </div>
+                                        <div className="flex items-center gap-6">
+                                            <div className="text-right">
+                                                <span className="block text-[10px] font-black uppercase tracking-widest text-gray-400">Total</span>
+                                                <span className="text-2xl font-bold text-purevit-dark">â‚¹{order.totalAmount}</span>
+                                            </div>
+                                            <div className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm border
+                                            ${order.status === 'Delivered' ? 'bg-green-50 text-green-600 border-green-100' :
+                                                    order.status === 'Processing' ? 'bg-blue-50 text-blue-600 border-blue-100' :
+                                                        'bg-amber-50 text-amber-600 border-amber-100'}`}>
+                                                {order.status}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-8 pb-4">
+                                        <div className="flex flex-wrap gap-4">
+                                            {order.items.map((item, idx) => (
+                                                <div key={idx} className="flex-1 min-w-[200px] p-4 rounded-2xl bg-purevit-secondary/30 flex items-center gap-4 group transition-colors hover:bg-purevit-secondary/50">
+                                                    <div className="w-16 h-16 rounded-xl bg-white overflow-hidden shadow-sm shrink-0">
+                                                        <img src={item.product?.image || item.image || "https://images.unsplash.com/photo-1512152272829-e3139592d56f?auto=format&fit=crop&q=80"} alt="" className="w-full h-full object-cover" />
+                                                    </div>
+                                                    <div className="min-w-0">
+                                                        <h4 className="text-sm font-bold text-purevit-dark truncate">{item.product?.name || item.name}</h4>
+                                                        <p className="text-xs text-gray-400 font-medium">Qty: {item.quantity} Â· â‚¹{item.price}</p>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+
+                                    <div className="p-8 pt-4 flex justify-between items-center bg-gray-50/30">
+                                        <div className="flex -space-x-2">
+                                            <div className="w-8 h-8 rounded-full bg-purevit-primary flex items-center justify-center text-black border-2 border-white shadow-sm ring-1 ring-purevit-primary/20">
+                                                <Truck size={14} />
+                                            </div>
+                                            <span className="pl-4 text-[10px] font-black uppercase tracking-widest text-gray-400 self-center">Standard Logistics</span>
+                                        </div>
+                                        <button className="text-xs font-black uppercase tracking-widest text-purevit-primary hover:text-purevit-dark transition-colors">Track Order Details</button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {activeTab === 'wishlist' && (
+                <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                        <div className="flex items-center justify-between px-2 md:px-4 mb-3 md:mb-0">
+                            <h2 className="text-lg md:text-3xl font-serif text-purevit-dark">Your Wishlist</h2>
+                            <div className="text-[10px] md:text-xs font-black uppercase tracking-widest text-gray-400">
+                                {wishlist.length} Items Saved
+                            </div>
+                        </div>
+
+                    {wishlist.length === 0 ? (
+                        <div className="bg-white rounded-[2.5rem] p-20 text-center shadow-lg border border-purevit-primary/5">
+                            <div className="w-20 h-20 bg-purevit-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400">
+                                <Heart size={32} />
+                            </div>
+                            <h3 className="text-2xl font-serif text-purevit-dark mb-2">No favorites yet</h3>
+                            <p className="text-gray-400 mb-8 max-w-xs mx-auto">Items you like will grow here, ready for your next checkout.</p>
+                            <Link to="/products" className="inline-flex items-center gap-2 px-8 py-4 bg-purevit-primary text-black font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-purevit-dark hover:text-white transition-all shadow-lg">
+                                Discover Products <ChevronRight size={14} />
+                            </Link>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+                            {wishlist.map((item) => (
+                                <div key={item._id} className="group bg-white rounded-xl md:rounded-[2rem] overflow-hidden shadow-md md:shadow-lg border border-purevit-primary/5 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 md:hover:-translate-y-2">
+                                    <div className="aspect-[4/5] bg-purevit-secondary relative overflow-hidden">
+                                        <img
+                                            src={item.images?.[0] || item.image || "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80"}
+                                            alt={item.name}
+                                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                        />
+                                        <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                        <button
+                                            onClick={() => removeFromWishlist(item._id)}
+                                            className="absolute top-3 right-3 md:top-5 md:right-5 w-8 h-8 md:w-10 md:h-10 bg-white shadow-lg rounded-xl flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white transition-all transform hover:rotate-12"
+                                        >
+                                            <XCircle size={16} className="md:w-[18px] md:h-[18px]" />
+                                        </button>
+                                    </div>
+                                    <div className="p-4 md:p-6">
+                                        <h3 className="font-serif text-base md:text-xl text-purevit-dark mb-1 truncate">{item.name}</h3>
+                                        <p className="text-purevit-primary font-bold text-sm md:text-base mb-3 md:mb-4">â‚¹{item.price}</p>
+                                        <Link
+                                            to={`/products/${item._id}`}
+                                            className="w-full py-2.5 md:py-3 bg-purevit-dark rounded-xl text-white text-[10px] md:text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-purevit-primary transition-colors"
+                                        >
+                                            View Product
+                                        </Link>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
+            )}
+        </>
+    );
+
     return (
         <div className="min-h-screen bg-purevit-secondary py-24 px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
@@ -112,15 +372,16 @@ const UserDashboard = () => {
                     {/* Sidebar / Navigation */}
                     <div className="lg:col-span-3 space-y-6">
                         <div className="bg-white rounded-[2rem] p-8 shadow-xl border border-purevit-primary/5">
-                            <div className="flex flex-col items-center text-center mb-10">
-                                <div className="w-24 h-24 rounded-full bg-purevit-cream flex items-center justify-center text-purevit-primary mb-4 border-4 border-purevit-secondary shadow-inner">
-                                    <User size={40} />
+                            <div className={showMobileDetail ? 'hidden lg:block' : ''}>
+                                <div className="flex flex-col items-center text-center mb-10">
+                                    <div className="w-24 h-24 rounded-full bg-purevit-cream flex items-center justify-center text-purevit-primary mb-4 border-4 border-purevit-secondary shadow-inner">
+                                        <User size={40} />
+                                    </div>
+                                    <h2 className="text-xl font-serif font-bold text-purevit-dark">{user.name}</h2>
+                                    <p className="text-sm text-gray-400 font-medium">{user.email}</p>
                                 </div>
-                                <h2 className="text-xl font-serif font-bold text-purevit-dark">{user.name}</h2>
-                                <p className="text-sm text-gray-400 font-medium">{user.email}</p>
-                            </div>
 
-                            <nav className="space-y-2">
+                                <nav className="space-y-2">
                                 {[
                                     { id: 'profile', label: 'My Profile', icon: <User size={18} /> },
                                     { id: 'orders', label: 'My Orders', icon: <ShoppingBag size={18} /> },
@@ -128,7 +389,10 @@ const UserDashboard = () => {
                                 ].map((tab) => (
                                     <button
                                         key={tab.id}
-                                        onClick={() => setActiveTab(tab.id)}
+                                        onClick={() => {
+                                            setActiveTab(tab.id);
+                                            if (window.innerWidth < 1024) setShowMobileDetail(true);
+                                        }}
                                         className={`w-full flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-300 ${activeTab === tab.id
                                             ? 'bg-purevit-dark text-white shadow-lg translate-x-1'
                                             : 'text-gray-500 hover:bg-purevit-secondary hover:text-purevit-dark'
@@ -150,7 +414,23 @@ const UserDashboard = () => {
                                         <LogOut size={18} /> Logout
                                     </button>
                                 </div>
-                            </nav>
+                                </nav>
+                            </div>
+                            <div ref={tabContentRef} className="mt-8 lg:hidden">
+                                {showMobileDetail && (
+                                    <div className="flex justify-end mb-3">
+                                        <button
+                                            type="button"
+                                            onClick={() => setShowMobileDetail(false)}
+                                            className="w-9 h-9 rounded-full bg-white border border-purevit-primary/10 shadow-sm flex items-center justify-center text-purevit-dark hover:bg-purevit-secondary transition-colors"
+                                            aria-label="Close details"
+                                        >
+                                            <X size={16} />
+                                        </button>
+                                    </div>
+                                )}
+                                {showMobileDetail && tabContent}
+                            </div>
                         </div>
 
                         {/* Help Desk Card */}
@@ -163,7 +443,7 @@ const UserDashboard = () => {
                     </div>
 
                     {/* Main Content Area */}
-                    <div className="lg:col-span-9">
+                    <div className="lg:col-span-9 hidden lg:block">
 
                         {activeTab === 'profile' && (
                             <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
