@@ -331,7 +331,21 @@ const Navbar = () => {
                             <Link to="/contact" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Contact</Link>
                             {userInfo && <Link to="/cart" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Cart</Link>}
                             {userInfo && <Link to="/dashboard" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Profile</Link>}
-                            <Link to="/login" className="text-sm text-purevit-primary" onClick={() => setIsOpen(false)}>{userInfo ? 'Logout' : 'Login'}</Link>
+                            {userInfo ? (
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        localStorage.removeItem('userInfo');
+                                        setIsOpen(false);
+                                        window.dispatchEvent(new Event('userLogin'));
+                                    }}
+                                    className="text-sm text-purevit-primary"
+                                >
+                                    Logout
+                                </button>
+                            ) : (
+                                <Link to="/login" className="text-sm text-purevit-primary" onClick={() => setIsOpen(false)}>Login</Link>
+                            )}
                         </div>
                     </motion.div>
                 )}

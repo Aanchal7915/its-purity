@@ -316,45 +316,45 @@ const UserDashboard = () => {
                             </div>
                         </div>
 
-                    {wishlist.length === 0 ? (
-                        <div className="bg-white rounded-[2.5rem] p-20 text-center shadow-lg border border-purevit-primary/5">
-                            <div className="w-20 h-20 bg-purevit-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400">
-                                <Heart size={32} />
-                            </div>
-                            <h3 className="text-2xl font-serif text-purevit-dark mb-2">No favorites yet</h3>
+                        {wishlist.length === 0 ? (
+                            <div className="bg-transparent md:bg-white rounded-none md:rounded-[2.5rem] p-0 md:p-20 text-center shadow-none md:shadow-lg border-0 md:border md:border-purevit-primary/5">
+                                <div className="w-20 h-20 bg-purevit-secondary rounded-full flex items-center justify-center mx-auto mb-6 text-gray-400">
+                                    <Heart size={32} />
+                                </div>
+                                <h3 className="text-2xl font-serif text-purevit-dark mb-2">No favorites yet</h3>
                             <p className="text-gray-400 mb-8 max-w-xs mx-auto">Items you like will grow here, ready for your next checkout.</p>
                             <Link to="/products" className="inline-flex items-center gap-2 px-8 py-4 bg-purevit-primary text-black font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-purevit-dark hover:text-white transition-all shadow-lg">
                                 Discover Products <ChevronRight size={14} />
                             </Link>
                         </div>
                     ) : (
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
-                            {wishlist.map((item) => (
-                                <div key={item._id} className="group bg-white rounded-xl md:rounded-[2rem] overflow-hidden shadow-md md:shadow-lg border border-purevit-primary/5 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 md:hover:-translate-y-2">
-                                    <div className="aspect-[4/5] bg-purevit-secondary relative overflow-hidden">
-                                        <img
-                                            src={item.images?.[0] || item.image || "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80"}
-                                            alt={item.name}
-                                            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                                        />
+                                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8">
+                                        {wishlist.map((item) => (
+                                            <div key={item._id} className="group bg-white rounded-xl md:rounded-[2rem] overflow-hidden shadow-md md:shadow-lg border border-purevit-primary/5 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1 md:hover:-translate-y-2">
+                                                <div className="aspect-[1/1] md:aspect-[4/5] bg-purevit-secondary relative overflow-hidden">
+                                                    <img
+                                                        src={item.images?.[0] || item.image || "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80"}
+                                                        alt={item.name}
+                                                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                                                    />
                                         <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
                                         <button
                                             onClick={() => removeFromWishlist(item._id)}
-                                            className="absolute top-3 right-3 md:top-5 md:right-5 w-8 h-8 md:w-10 md:h-10 bg-white shadow-lg rounded-xl flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white transition-all transform hover:rotate-12"
+                                            className="absolute top-2 right-2 md:top-5 md:right-5 w-7 h-7 md:w-10 md:h-10 bg-white shadow-lg rounded-lg md:rounded-xl flex items-center justify-center text-red-400 hover:bg-red-500 hover:text-white transition-all transform hover:rotate-12"
                                         >
-                                            <XCircle size={16} className="md:w-[18px] md:h-[18px]" />
+                                            <XCircle size={14} className="md:w-[18px] md:h-[18px]" />
                                         </button>
                                     </div>
-                                    <div className="p-4 md:p-6">
-                                        <h3 className="font-serif text-base md:text-xl text-purevit-dark mb-1 truncate">{item.name}</h3>
-                                        <p className="text-purevit-primary font-bold text-sm md:text-base mb-3 md:mb-4">â‚¹{item.price}</p>
+                                    <div className="p-3 md:p-6">
+                                        <h3 className="font-serif text-[11px] md:text-xl text-purevit-dark mb-1 truncate">{item.name}</h3>
+                                        <p className="text-purevit-primary font-bold text-[11px] md:text-base mb-2 md:mb-4">₹{item.price}</p>
                                         <Link
-                                            to={`/products/${item._id}`}
-                                            className="w-full py-2.5 md:py-3 bg-purevit-dark rounded-xl text-white text-[10px] md:text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-purevit-primary transition-colors"
-                                        >
-                                            View Product
-                                        </Link>
-                                    </div>
+                                                        to={`/products/${item._id}`}
+                                                        className="w-full py-2 md:py-3 bg-purevit-dark rounded-xl text-white text-[9px] md:text-xs font-black uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-purevit-primary transition-colors"
+                                                    >
+                                                        View Product
+                                                    </Link>
+                                                </div>
                                 </div>
                             ))}
                         </div>
@@ -365,13 +365,13 @@ const UserDashboard = () => {
     );
 
     return (
-        <div className="min-h-screen bg-purevit-secondary py-24 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen bg-purevit-secondary py-12 md:py-24 px-3 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
                     {/* Sidebar / Navigation */}
                     <div className="lg:col-span-3 space-y-6">
-                        <div className="bg-white rounded-[2rem] p-8 shadow-xl border border-purevit-primary/5">
+                        <div className="bg-white rounded-[2rem] p-5 md:p-8 shadow-xl border border-purevit-primary/5">
                             <div className={showMobileDetail ? 'hidden lg:block' : ''}>
                                 <div className="flex flex-col items-center text-center mb-10">
                                     <div className="w-24 h-24 rounded-full bg-purevit-cream flex items-center justify-center text-purevit-primary mb-4 border-4 border-purevit-secondary shadow-inner">
@@ -659,7 +659,7 @@ const UserDashboard = () => {
                                         </Link>
                                     </div>
                                 ) : (
-                                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
                                         {wishlist.map((item) => (
                                             <div key={item._id} className="group bg-white rounded-[2rem] overflow-hidden shadow-lg border border-purevit-primary/5 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2">
                                                 <div className="aspect-[4/5] bg-purevit-secondary relative overflow-hidden">
