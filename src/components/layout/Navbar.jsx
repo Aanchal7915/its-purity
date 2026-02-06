@@ -330,6 +330,7 @@ const Navbar = () => {
                             <Link to="/about" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Our Story</Link>
                             <Link to="/contact" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Contact</Link>
                             {userInfo && <Link to="/cart" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Cart</Link>}
+                            {userInfo && <Link to="/dashboard" className="text-sm text-gray-500 hover:text-purevit-primary" onClick={() => setIsOpen(false)}>Profile</Link>}
                             <Link to="/login" className="text-sm text-purevit-primary" onClick={() => setIsOpen(false)}>{userInfo ? 'Logout' : 'Login'}</Link>
                         </div>
                     </motion.div>
