@@ -15,8 +15,17 @@ const LoginPage = () => {
     const redirect = searchParams.get('redirect') ? `/${searchParams.get('redirect').replace(/^\//, '')}` : '/';
 
     useEffect(() => {
-        if (localStorage.getItem('userInfo')) {
-            navigate(redirect);
+        const stored = localStorage.getItem('userInfo');
+        if (stored) {
+            const info = JSON.parse(stored);
+            const isMobile = window.innerWidth < 1024;
+            if (info?.role === 'admin') {
+                navigate('/admin/dashboard');
+            } else if (isMobile) {
+                navigate('/dashboard');
+            } else {
+                navigate(redirect);
+            }
         }
     }, [navigate, redirect]);
 
@@ -27,9 +36,13 @@ const LoginPage = () => {
         try {
             const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/auth/login`, { email, password });
             localStorage.setItem('userInfo', JSON.stringify(data));
+            window.dispatchEvent(new Event('userLogin'));
 
+            const isMobile = window.innerWidth < 1024;
             if (data.role === 'admin') {
                 navigate('/admin/dashboard');
+            } else if (isMobile) {
+                navigate('/dashboard');
             } else {
                 navigate(redirect);
             }
