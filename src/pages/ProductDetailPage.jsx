@@ -31,7 +31,7 @@ const ProductDetailPage = () => {
                 const filteredImages = (data.images || []).filter(Boolean);
                 setValidImages(filteredImages);
                 setMainImage(filteredImages[0] || '');
-                setShowVideo(data.primaryMedia === 'video' && !!data.videoUrl);
+                setShowVideo(!!data.videoUrl);
                 if (data.variants && data.variants.length > 0) {
                     setSelectedSize(data.variants[0]);
                 } else {
@@ -190,6 +190,25 @@ const ProductDetailPage = () => {
                                             <img src={img} alt="" className="w-full h-full object-contain mix-blend-multiply" />
                                         </button>
                                     ))}
+                                    {product.videoUrl && (
+                                        <button
+                                            onClick={() => setShowVideo(true)}
+                                            className={`w-16 h-16 md:w-20 md:h-20 rounded-xl border-2 transition-all p-2 bg-white flex-shrink-0 ${showVideo ? 'border-purevit-primary ring-2 ring-purevit-primary/10' : 'border-gray-100'}`}
+                                        >
+                                            <div className="w-full h-full relative">
+                                                <video
+                                                    src={product.videoUrl}
+                                                    className="w-full h-full object-cover rounded-md"
+                                                    muted
+                                                    playsInline
+                                                    preload="metadata"
+                                                />
+                                                <div className="absolute inset-0 flex items-center justify-center text-gray-400">
+                                                    <Play size={20} />
+                                                </div>
+                                            </div>
+                                        </button>
+                                    )}
                                 </div>
                             </div>
                         </div>
