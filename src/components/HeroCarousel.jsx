@@ -257,7 +257,7 @@ const HeroCarousel = () => {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.6 }}
-                                        className="flex flex-row w-full md:w-auto gap-3 md:gap-6 justify-center lg:justify-start "
+                                        className="flex flex-row flex-wrap w-full md:w-auto gap-3 md:gap-6 justify-center lg:justify-start "
                                     >
                                         <Link to="/products" className="flex-1 md:flex-none text-center px-4 py-3 md:px-10 md:py-5 bg-purevit-dark hover:bg-black text-white font-bold rounded-md transition-all text-[10px] md:text-xs tracking-widest uppercase shadow-xl whitespace-nowrap">
                                             Shop Collection

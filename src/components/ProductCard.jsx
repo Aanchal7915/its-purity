@@ -20,7 +20,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
         const badges = {
             bestseller: {
                 condition: product.isBestSeller,
-                label: 'Bestseller',
+                label: 'Best seller',
                 color: 'bg-[#f59e0b]'
             },
             featured: {
@@ -44,7 +44,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
         if (activeBadge && badges[activeBadge]?.condition) {
             const b = badges[activeBadge];
             return (
-                <div className={`px-2 py-0.5 md:px-4 md:py-1.5 ${b.color} text-white text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-1 md:gap-1.5`}>
+                <div className={`font-medium px-2 py-0.5 md:px-4 md:py-1 ${b.color} text-white text-[5px] md:text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-1 md:gap-1.5`}>
                     <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full animate-pulse" />
                     {b.label}
                 </div>
@@ -58,7 +58,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
             if (badges[key].condition) {
                 const b = badges[key];
                 return (
-                    <div className={`px-2 py-0.5 md:px-4 md:py-1.5 ${b.color} text-white text-[8px] md:text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-1 md:gap-1.5`}>
+                    <div className={`px-1 py-0.5 md:px-4 md:py-1.5 ${b.color} text-white text-5px md:text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-1 md:gap-1.5`}>
                         <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full animate-pulse" />
                         {b.label}
                     </div>
@@ -106,14 +106,14 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
 
     return (
         <motion.div
-            className="group relative bg-white rounded-[2rem] border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 snap-start w-full"
+            className="group relative bg-white rounded border border-gray-100 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 snap-start w-full"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
         >
             {/* Image Section */}
-            <div className="aspect-[5/4] bg-[#f8f9fb] relative overflow-hidden p-4 group-hover:p-3 transition-all duration-500">
+            <div className="aspect-[5/4] bg-[#f8f9fb] relative overflow-hidden p-0 group-hover:p-3 transition-all duration-500">
                 <Link to={`/products/${product._id}`}>
                     {(product.primaryMedia === 'video' || (!product.primaryMedia && !product.images?.[0] && product.videoUrl)) && product.videoUrl ? (
                         <video
@@ -135,12 +135,12 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
                 </Link>
 
                 {/* Badges Overlay */}
-                <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
+                <div className="absolute top-1 left-1 flex flex-col gap-1.5 z-10">
                     {renderBadge()}
                 </div>
 
                 {/* Rating Badge */}
-                <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-md px-2 py-1 rounded-full shadow-sm border border-gray-100 flex items-center gap-1">
+                <div className="absolute bottom-1 left-1 bg-white/90 backdrop-blur-md px-2 py-1 rounded-full shadow-sm border border-gray-100 flex items-center gap-1">
                     <span className="text-[11px] font-bold text-gray-900">{displayRating}</span>
                     <Star size={10} className="fill-purevit-primary text-purevit-primary" />
                     <div className="w-[1px] h-2 bg-gray-200 mx-0.5" />
@@ -148,18 +148,18 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
                 </div>
 
                 {/* Quick Action Bar (Wishlist & Share) - Always Visible */}
-                <div className="absolute top-3 right-3 flex flex-col gap-2 z-10 transition-transform duration-500">
+                <div className="absolute top-1 right-1 flex flex-col gap-2 z-10 transition-transform duration-500">
                     <button
                         onClick={handleWishlistClick}
-                        className={`p-2.5 bg-white/80 backdrop-blur-md rounded-full shadow-sm transition active:scale-95 border border-gray-100 ${isWishlisted ? 'text-red-500' : 'text-gray-400 hover:text-rose-500 hover:scale-110'}`}
+                        className={`p-1.5 bg-white/80 backdrop-blur-md rounded-full shadow-sm transition active:scale-95 border border-gray-100 ${isWishlisted ? 'text-red-500' : 'text-gray-400 hover:text-rose-500 hover:scale-110'}`}
                     >
-                        <Heart size={18} className={isWishlisted ? "fill-current" : ""} />
+                        <Heart size={15} className={isWishlisted ? "fill-current" : ""} />
                     </button>
                     <button
                         onClick={handleShare}
-                        className="p-2.5 bg-white/80 backdrop-blur-md rounded-full shadow-sm text-gray-400 hover:text-purevit-primary hover:scale-110 transition active:scale-95 border border-gray-100"
+                        className="p-1.5 bg-white/80 backdrop-blur-md rounded-full shadow-sm text-gray-400 hover:text-purevit-primary hover:scale-110 transition active:scale-95 border border-gray-100"
                     >
-                        <Share2 size={18} />
+                        <Share2 size={15} />
                     </button>
                 </div>
             </div>
