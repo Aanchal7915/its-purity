@@ -58,7 +58,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, activeBadge }) => 
             if (badges[key].condition) {
                 const b = badges[key];
                 return (
-                    <div className={`px-1 py-0.5 md:px-4 md:py-1.5 ${b.color} text-white text-5px md:text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-1 md:gap-1.5`}>
+                    <div className={`px-1 py-0.5 md:px-4 md:py-1.5 ${b.color} text-white text-[5px] md:text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg flex items-center gap-1 md:gap-1.5`}>
                         <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-white rounded-full animate-pulse" />
                         {b.label}
                     </div>

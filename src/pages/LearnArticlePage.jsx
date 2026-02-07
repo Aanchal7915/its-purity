@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+﻿import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, BookOpen, ShieldCheck, Zap, Heart, Brain, Share2, Bookmark, ArrowRight, Star, Mail } from 'lucide-react';
@@ -17,7 +17,7 @@ const articles = {
             },
             {
                 type: "paragraph",
-                text: "Not all supplements are created equal. The most expensive vitamin in the world is the one your body can't absorb. Bio-availability refers to the proportion of a nutrient that is digested, absorbed, and metabolized through normal pathways. At Purevit, we've spent years engineering formulas that don't just 'contain' nutrients—they deliver them."
+                text: "Not all supplements are created equal. The most expensive vitamin in the world is the one your body can't absorb. Bio-availability refers to the proportion of a nutrient that is digested, absorbed, and metabolized through normal pathways. At Purevit, we've spent years engineering formulas that don't just 'contain' nutrientsâ€”they deliver them."
             },
             {
                 type: "pullquote",
@@ -72,7 +72,7 @@ const articles = {
         category: "Quality",
         content: [
             { type: "header", text: "Purity Is a Process" },
-            { type: "paragraph", text: "Purity is not a single testâ€”itâ€™s a system. Every ingredient is verified for identity, tested for contaminants, and evaluated for potency before it enters production." },
+            { type: "paragraph", text: "Purity is not a single testÃ¢â‚¬â€itÃ¢â‚¬â„¢s a system. Every ingredient is verified for identity, tested for contaminants, and evaluated for potency before it enters production." },
             { type: "pullquote", text: "We test what we make, and we test what we ship." },
             { type: "paragraph", text: "Our suppliers are audited for GMP compliance, and each lot is screened for heavy metals, microbial activity, pesticides, and allergens. Only batches that meet our internal thresholds move forward." },
             { type: "feature", icon: <ShieldCheck className="text-purevit-primary" />, title: "Triple-Check Protocol", text: "Incoming raw materials, in-process blends, and finished products are each tested independently to ensure consistent purity and label accuracy." },
@@ -234,74 +234,6 @@ const LearnArticlePage = () => {
 
                         {/* Sidebar Column */}
                         <aside className="lg:col-span-4 space-y-8 md:space-y-16">
-                            {/* Featured Products - Elegant Cards */}
-                            <div className="space-y-4 md:space-y-8">
-                                <div className="flex items-center gap-2 md:gap-3 px-4">
-                                    <div className="h-px flex-1 bg-gradient-to-r from-transparent to-purevit-primary/20"></div>
-                                    <h5 className="font-serif text-base md:text-xl text-purevit-dark italic">Featured Products</h5>
-                                    <div className="h-px flex-1 bg-gradient-to-l from-transparent to-purevit-primary/20"></div>
-                                </div>
-
-                                <div className="space-y-6">
-                                    {article.relatedProducts?.map(product => (
-                                        <Link
-                                            key={product.id}
-                                            to={`/products/${product.id}`}
-                                            className="block bg-white rounded-[2rem] overflow-hidden border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 group"
-                                        >
-                                            <div className="aspect-square overflow-hidden bg-[#fcfbf9]">
-                                                <img
-                                                    src={product.image}
-                                                    alt={product.name}
-                                                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                                                />
-                                            </div>
-                                            <div className="p-6 space-y-3">
-                                                <h6 className="font-serif text-xl text-purevit-dark group-hover:text-purevit-primary transition-colors leading-tight">
-                                                    {product.name}
-                                                </h6>
-                                                <div className="flex items-center justify-between">
-                                                    <span className="text-2xl font-serif text-purevit-primary">₹{product.price}</span>
-                                                    <div className="w-10 h-10 rounded-full bg-purevit-dark text-white flex items-center justify-center group-hover:bg-purevit-primary transition-colors">
-                                                        <ArrowRight size={18} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div>
-
-                                <Link
-                                    to="/products"
-                                    className="block w-full py-5 bg-gradient-to-r from-purevit-dark to-black text-white rounded-2xl text-center text-[10px] font-black uppercase tracking-widest hover:shadow-2xl hover:shadow-purevit-primary/20 transition-all"
-                                >
-                                    Explore Full Collection
-                                </Link>
-
-                                {/* Newsletter - Refined */}
-                                <div className="bg-gradient-to-br from-purevit-primary/5 to-transparent p-8 rounded-[2rem] border border-purevit-primary/10 space-y-5">
-                                    <div className="flex items-start gap-3">
-                                        <div className="w-10 h-10 rounded-xl bg-purevit-primary/10 flex items-center justify-center shrink-0">
-                                            <Mail size={18} className="text-purevit-primary" />
-                                        </div>
-                                        <div>
-                                            <h6 className="font-serif text-lg text-purevit-dark mb-1">Science Weekly</h6>
-                                            <p className="text-xs text-gray-500 leading-relaxed">Join 20,000+ readers for exclusive pharmaceutical insights.</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex h-12 rounded-xl overflow-hidden border border-gray-200 bg-white">
-                                        <input
-                                            type="email"
-                                            placeholder="Your email"
-                                            className="flex-1 px-4 text-sm focus:outline-none bg-transparent"
-                                        />
-                                        <button className="px-5 bg-purevit-primary hover:bg-purevit-dark text-white transition-colors">
-                                            <ArrowRight size={18} />
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
                             {/* Related Reading */}
                             <div className="space-y-8 px-4">
                                 <h5 className="font-serif text-2xl text-purevit-dark">Continue Reading</h5>
@@ -325,3 +257,4 @@ const LearnArticlePage = () => {
 };
 
 export default LearnArticlePage;
+
