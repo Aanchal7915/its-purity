@@ -9,7 +9,7 @@ const slides = [
         title: "Back Your Strength with Proven Science.",
         subtitle: "Vitality Men - Total Wellness",
         description: "Experience the synergy of pharmaceutical-grade nutrients specifically formulated for men. Our unique blend optimizes metabolic health, cognitive function, and physical resilience, ensuring you stay at the peak of your performance every single day. Scientifically backed and purity-guaranteed.",
-        image: "/src/assets/images/hero1.png",
+        image: "/images/hero1.png",
         video: "/video.mp4",
         stats: [
             { label: "Energy", value: "30%", icon: <Zap size={20} /> },
@@ -23,7 +23,7 @@ const slides = [
         title: "Purity You Can Feel, Results You Can See.",
         subtitle: "Aurum Omega - Pure Fish Oil",
         description: "Harness the power of the deep sea with our high-potency Omega-3 complex. By utilizing cold-water, wild-caught fish and advanced molecular distillation, we provide the cleanest EPA and DHA to support your cardiovascular health, inflammatory response, and neurological clarity. Pure. Potent. Proven.",
-        image: "/src/assets/images/hero2.png",
+        image: "/images/hero2.png",
         stats: [
             { label: "Heart", value: "Premium", icon: <Heart size={20} /> },
             { label: "Brain", value: "Power", icon: <Brain size={20} /> },
