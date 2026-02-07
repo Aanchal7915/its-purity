@@ -10,6 +10,7 @@ const slides = [
         subtitle: "Vitality Men - Total Wellness",
         description: "Experience the synergy of pharmaceutical-grade nutrients specifically formulated for men. Our unique blend optimizes metabolic health, cognitive function, and physical resilience, ensuring you stay at the peak of your performance every single day. Scientifically backed and purity-guaranteed.",
         image: "/src/assets/images/hero1.png",
+        video: "/video.mp4",
         stats: [
             { label: "Energy", value: "30%", icon: <Zap size={20} /> },
             { label: "Immunity", value: "25%", icon: <Shield size={20} /> },
@@ -100,6 +101,7 @@ const slides = [
 const HeroCarousel = () => {
     const [current, setCurrent] = useState(0);
     const [direction, setDirection] = useState(0);
+    const [isMdUp, setIsMdUp] = useState(false);
 
     const slideVariants = {
         enter: (direction) => ({
@@ -135,8 +137,20 @@ const HeroCarousel = () => {
         return () => clearInterval(timer);
     }, [current]);
 
+    useEffect(() => {
+        const mq = window.matchMedia('(min-width: 768px)');
+        const handleChange = (e) => setIsMdUp(e.matches);
+        setIsMdUp(mq.matches);
+        if (mq.addEventListener) {
+            mq.addEventListener('change', handleChange);
+            return () => mq.removeEventListener('change', handleChange);
+        }
+        mq.addListener(handleChange);
+        return () => mq.removeListener(handleChange);
+    }, []);
+
     return (
-        <section className="relative min-h-[560px] md:min-h-[700px] w-full overflow-hidden bg-purevit-secondary pt-16 md:pt-0">
+        <section className="relative min-h-[calc(100vh-72px)] sm:min-h-[calc(100vh-80px)] md:min-h-[700px] w-full overflow-visible overflow-x-hidden md:overflow-hidden bg-purevit-secondary pt-4 sm:pt-6 md:pt-0">
             <AnimatePresence initial={false} custom={direction}>
                 <motion.div
                     key={current}
@@ -149,10 +163,11 @@ const HeroCarousel = () => {
                         x: { type: "spring", stiffness: 300, damping: 30 },
                         opacity: { duration: 0.5 }
                     }}
-                    drag="x"
-                    dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={1}
+                    drag={isMdUp ? "x" : false}
+                    dragConstraints={isMdUp ? { left: 0, right: 0 } : undefined}
+                    dragElastic={isMdUp ? 1 : 0}
                     onDragEnd={(e, { offset, velocity }) => {
+                        if (!isMdUp) return;
                         const swipe = swipePower(offset.x, velocity.x);
 
                         if (swipe < -swipeConfidenceThreshold) {
@@ -161,11 +176,33 @@ const HeroCarousel = () => {
                             paginate(-1);
                         }
                     }}
-                    className="absolute inset-0 w-full h-full"
+                    className="relative w-full h-full overflow-hidden md:absolute md:inset-0"
                 >
-                    <div className="relative w-full h-full flex items-center py-20 md:pt-20 md:pb-28">
+                    <div className="relative w-full h-full flex items-center py-8 sm:py-10 md:pt-20 md:pb-28">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                                {/* Mobile Media */}
+                                <div className="lg:hidden relative">
+                                    <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
+                                        {slides[current].video ? (
+                                            <video
+                                                src={slides[current].video}
+                                                className="w-full h-full object-cover object-center scale-[1.08] origin-center"
+                                                autoPlay
+                                                muted
+                                                loop
+                                                playsInline
+                                            />
+                                        ) : (
+                                            <img
+                                                src={slides[current].image}
+                                                alt={slides[current].subtitle}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        )}
+                                        <div className="absolute inset-0 bg-purevit-dark/5"></div>
+                                    </div>
+                                </div>
                                 {/* Text Content */}
                                 <div className="lg:col-span-7 space-y-2 md:space-y-8 z-10 text-center lg:text-left pt-2 md:pt-0">
                                     <motion.div
@@ -184,7 +221,7 @@ const HeroCarousel = () => {
                                         initial={{ opacity: 0, y: 30 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.3 }}
-                                        className="text-3xl md:text-6xl lg:text-7xl font-serif text-purevit-dark leading-tight"
+                                        className="text-3xl md:text-6xl lg:text-6xl font-serif text-purevit-dark leading-tight"
                                     >
                                         {slides[current].title}
                                     </motion.h1>
@@ -239,11 +276,22 @@ const HeroCarousel = () => {
                                         transition={{ delay: 0.4, duration: 0.8 }}
                                         className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl"
                                     >
-                                        <img
-                                            src={slides[current].image}
-                                            alt={slides[current].subtitle}
-                                            className="w-full h-full object-cover"
-                                        />
+                                        {slides[current].video ? (
+                                            <video
+                                                src={slides[current].video}
+                                                className="w-full h-full object-cover object-center scale-[1.08] origin-center"
+                                                autoPlay
+                                                muted
+                                                loop
+                                                playsInline
+                                            />
+                                        ) : (
+                                            <img
+                                                src={slides[current].image}
+                                                alt={slides[current].subtitle}
+                                                className="w-full h-full object-cover"
+                                            />
+                                        )}
                                         <div className="absolute inset-0 bg-purevit-dark/5"></div>
                                     </motion.div>
                                 </div>
@@ -255,7 +303,7 @@ const HeroCarousel = () => {
 
             {/* Navigation Controls */}
             {/* Centered Dots */}
-            <div className="absolute inset-x-0 bottom-8 md:bottom-6 flex justify-center items-center z-30 pointer-events-none">
+            <div className="w-full hidden md:flex absolute inset-x-0 bottom-8 md:bottom-6 flex justify-center items-center z-30 pointer-events-none">
                 <div className="flex gap-3 px-6 py-3 rounded-full backdrop-blur-md bg-white/10 border border-white/10 shadow-lg">
                     {slides.map((_, idx) => (
                         <button
