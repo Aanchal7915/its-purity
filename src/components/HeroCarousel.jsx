@@ -180,7 +180,7 @@ const HeroCarousel = () => {
                 >
                     <div className="relative w-full h-full flex items-center py-8 sm:py-10 md:pt-20 md:pb-28">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-4 gap-x-12 lg:gap-12 items-center">
                                 {/* Mobile only: subtitle + title at top */}
                                 <div className="lg:hidden order-1 space-y-2 text-center z-10">
                                     <motion.div
@@ -241,18 +241,18 @@ const HeroCarousel = () => {
                                     </div>
                                 </div>
                                 {/* Mobile only: description below image */}
-                                <div className="lg:hidden order-3 text-center z-10">
+                                <div className="lg:hidden order-3 text-center z-10 mb-0">
                                     <motion.p
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.3 }}
-                                        className="text-gray-500 text-xs leading-relaxed font-medium"
+                                        className="text-gray-500 text-xs leading-relaxed font-medium mb-0"
                                     >
                                         {slides[current].description}
                                     </motion.p>
                                 </div>
                                 {/* Text Content - on mobile order-4 (stats + buttons); on lg full content */}
-                                <div className="lg:col-span-7 space-y-2 md:space-y-8 z-10 text-center lg:text-left pt-2 md:pt-0 order-4 lg:order-none">
+                                <div className="lg:col-span-7 space-y-2 md:space-y-8 z-10 text-center lg:text-left pt-0 md:pt-0 order-4 lg:order-none -mt-2 lg:mt-0">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
@@ -307,10 +307,10 @@ const HeroCarousel = () => {
                                         transition={{ delay: 0.6 }}
                                         className="flex flex-row flex-wrap w-full md:w-auto gap-3 md:gap-6 justify-center lg:justify-start "
                                     >
-                                        <Link to="/products" className="flex-1 md:flex-none text-center px-4 py-3 md:px-10 md:py-5 bg-purevit-dark hover:bg-black text-white font-bold rounded-md transition-all text-[10px] md:text-xs tracking-widest uppercase shadow-xl whitespace-nowrap">
+                                        <Link to="/products" className="flex-none text-center px-3 py-2 md:px-6 md:py-3 bg-purevit-primary hover:bg-purevit-dark text-white font-bold rounded-md transition-all text-[10px] md:text-xs tracking-widest uppercase shadow-xl whitespace-nowrap">
                                             Shop Collection
                                         </Link>
-                                        <Link to="/about" className="flex-1 md:flex-none text-center px-4 py-3 md:px-10 md:py-5 border border-purevit-dark/10 hover:bg-gray-50 text-purevit-dark font-bold rounded-md transition-all text-[10px] md:text-xs tracking-widest uppercase whitespace-nowrap">
+                                        <Link to="/about" className="flex-none text-center px-3 py-2 md:px-6 md:py-3 bg-black hover:bg-gray-800 text-white font-bold rounded-md transition-all text-[10px] md:text-xs tracking-widest uppercase whitespace-nowrap">
                                             Learn More
                                         </Link>
                                     </motion.div>
