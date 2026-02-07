@@ -342,21 +342,21 @@ const AdminCategoryPage = () => {
                             + Create New Category
                         </button>
                     </form>
-                </div>
+                        </div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-                    <div>
+                        <div>
                         <h4 className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 px-2 mb-3 flex items-center gap-2">
                             <div className="w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-purple-500" />
-                            Audience Types
-                        </h4>
+                                Audience Types
+                            </h4>
                         <div className="grid grid-cols-2 lg:grid-cols-2 gap-2 md:gap-3">
-                            {audienceCategories.map(cat => (
+                                {audienceCategories.map(cat => (
                                 <div key={cat._id} className="bg-white border border-purevit-primary/10 rounded-xl p-2.5 md:p-3 flex items-center justify-between group hover:border-purple-400 transition-all shadow-sm">
                                     <div className="flex items-center gap-2 md:gap-3 min-w-0">
                                         <Tag size={12} className="text-purple-500 flex-shrink-0" />
                                         <span className="font-bold text-[11px] md:text-sm text-purevit-dark truncate">{cat.name}</span>
-                                    </div>
+                                        </div>
                                     <div className="flex items-center gap-1">
                                         <button type="button" onClick={() => startEdit(cat)} className="text-gray-300 hover:text-purple-600 transition-colors p-1" title="Edit">
                                             <Edit2 size={12} className="md:w-3.5 md:h-3.5" />
@@ -365,11 +365,11 @@ const AdminCategoryPage = () => {
                                             <Trash2 size={12} className="md:w-3.5 md:h-3.5" />
                                         </button>
                                     </div>
-                                </div>
-                            ))}
+                                    </div>
+                                ))}
                         </div>
-                    </div>
-                    <div>
+                        </div>
+                        <div>
                         <h4 className="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-gray-400 px-2 mb-3 flex items-center gap-2">
                             <div className="w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-emerald-500" />
                             Product Types
@@ -387,11 +387,11 @@ const AdminCategoryPage = () => {
                                         </button>
                                         <button type="button" onClick={() => deleteHandler(cat._id)} className="text-gray-300 hover:text-red-500 transition-colors p-1" title="Delete">
                                             <Trash2 size={12} className="md:w-3.5 md:h-3.5" />
-                                        </button>
+                                                </button>
                                     </div>
                                 </div>
                             ))}
-                        </div>
+                            </div>
                     </div>
                 </div>
             </div>

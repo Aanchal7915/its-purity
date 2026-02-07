@@ -36,7 +36,7 @@ const slides = [
         title: "Naturally Radiant, Scientifically Shielded.",
         subtitle: "Pure Vit C - Immunity Boost",
         description: "Elevate your skin health and immune defenses with our Bio-Active Vitamin C. Infused with natural bioflavonoids to mirror nature's own delivery system, our formula ensures maximum cellular absorption and antioxidant protection against oxidative stress and environmental toxins.",
-        image: "https://images.unsplash.com/photo-1557800636-894a64c1696f?q=80&w=1000&auto=format&fit=crop",
+        image:"naturally-radient.png",
         stats: [
             { label: "Organic", value: "100%", icon: <Zap size={20} /> },
             { label: "Absorption", value: "Max", icon: <Activity size={20} /> },
@@ -49,7 +49,7 @@ const slides = [
         title: "Peak Performance, Pure Recovery.",
         subtitle: "Elite Lean Protein - Muscle Fuel",
         description: "Fuel your muscles with the world's cleanest whey isolate. Designed for athletes who demand purity without compromise, our protein delivers a full spectrum of amino acids to accelerate muscle protein synthesis and cut down recovery time, helping you build a stronger, leaner physique faster.",
-        image: "https://images.unsplash.com/photo-1514996937319-344454492b37?q=80&w=1000&auto=format&fit=crop",
+        image: "peak.png",
         stats: [
             { label: "Recovery", value: "Fast", icon: <Activity size={20} /> },
             { label: "Muscle", value: "Growth", icon: <Zap size={20} /> },
@@ -62,7 +62,7 @@ const slides = [
         title: "Deep Rest for a Brighter Tomorrow.",
         subtitle: "Sleep Support - Natural Rest",
         description: "Transform your nights and reclaim your days with our non-habit forming sleep aid. By harmonizing with your body's natural circadian rhythm using calming botanicals and targeted minerals, we help you achieve deep, restorative REM sleep so you wake up feeling completely refreshed and energized.",
-        image: "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?q=80&w=1000&auto=format&fit=crop",
+        image: "sleep.png",
         stats: [
             { label: "Deep", value: "Sleep", icon: <Activity size={20} /> },
             { label: "Natural", value: "Rest", icon: <Shield size={20} /> },
@@ -88,7 +88,7 @@ const slides = [
         title: "Guard Your Health with Nature's Best.",
         subtitle: "Immunity Shield - Advanced Defense",
         description: "Secure your wellness with our most advanced immunity defense system. We've combined the ancient wisdom of herbal medicine with cutting-edge clinical research to create a powerful shield against seasonal challenges, keeping your natural defense system alert, resilient, and ready for anything.",
-        image: "https://images.unsplash.com/photo-1471193945509-9ad0617afabf?q=80&w=1000&auto=format&fit=crop",
+        image: "guard.png",
         stats: [
             { label: "Defense", value: "Strong", icon: <Shield size={20} /> },
             { label: "Wellness", value: "Total", icon: <Heart size={20} /> },
@@ -181,9 +181,31 @@ const HeroCarousel = () => {
                     <div className="relative w-full h-full flex items-center py-8 sm:py-10 md:pt-20 md:pb-28">
                         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                                {/* Mobile Media */}
-                                <div className="lg:hidden relative">
-                                    <div className="relative aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
+                                {/* Mobile only: subtitle + title at top */}
+                                <div className="lg:hidden order-1 space-y-2 text-center z-10">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.2 }}
+                                        className="flex items-center gap-3 justify-center"
+                                    >
+                                        <span className="text-[6px] md:text-[10px] font-black uppercase tracking-[0.3em] text-purevit-primary">
+                                            {slides[current].subtitle}
+                                        </span>
+                                        <div className="h-px w-10 bg-gray-200"></div>
+                                    </motion.div>
+                                    <motion.h1
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.25 }}
+                                        className="text-3xl font-serif text-purevit-dark leading-tight"
+                                    >
+                                        {slides[current].title}
+                                    </motion.h1>
+                                </div>
+                                {/* Mobile Media - below title on mobile */}
+                                <div className="lg:hidden relative order-2">
+                                    <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl">
                                         {slides[current].video ? (
                                             <video
                                                 src={slides[current].video}
@@ -202,14 +224,40 @@ const HeroCarousel = () => {
                                         )}
                                         <div className="absolute inset-0 bg-purevit-dark/5"></div>
                                     </div>
+                                    {/* Mobile: arrows centered to image height */}
+                                    <div className="lg:hidden absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between items-center px-2 pointer-events-none z-20">
+                                        <button
+                                            onClick={() => paginate(-1)}
+                                            className="w-8 h-8 rounded-full border border-purevit-dark/10 flex items-center justify-center text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all group backdrop-blur-md bg-white/30 pointer-events-auto shadow-xl"
+                                        >
+                                            <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
+                                        </button>
+                                        <button
+                                            onClick={() => paginate(1)}
+                                            className="w-8 h-8 rounded-full border border-purevit-dark/10 flex items-center justify-center text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all group backdrop-blur-md bg-white/30 pointer-events-auto shadow-xl"
+                                        >
+                                            <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                                        </button>
+                                    </div>
                                 </div>
-                                {/* Text Content */}
-                                <div className="lg:col-span-7 space-y-2 md:space-y-8 z-10 text-center lg:text-left pt-2 md:pt-0">
+                                {/* Mobile only: description below image */}
+                                <div className="lg:hidden order-3 text-center z-10">
+                                    <motion.p
+                                        initial={{ opacity: 0, y: 20 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.3 }}
+                                        className="text-gray-500 text-xs leading-relaxed font-medium"
+                                    >
+                                        {slides[current].description}
+                                    </motion.p>
+                                </div>
+                                {/* Text Content - on mobile order-4 (stats + buttons); on lg full content */}
+                                <div className="lg:col-span-7 space-y-2 md:space-y-8 z-10 text-center lg:text-left pt-2 md:pt-0 order-4 lg:order-none">
                                     <motion.div
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.2 }}
-                                        className="flex items-center gap-3 justify-center lg:justify-start"
+                                        className="hidden lg:flex items-center gap-3 justify-center lg:justify-start"
                                     >
                                         <span className="text-[6px] md:text-[10px] font-black uppercase tracking-[0.3em] text-purevit-primary">
                                             {slides[current].subtitle}
@@ -221,7 +269,7 @@ const HeroCarousel = () => {
                                         initial={{ opacity: 0, y: 30 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.3 }}
-                                        className="text-3xl md:text-6xl lg:text-6xl font-serif text-purevit-dark leading-tight"
+                                        className="hidden lg:block text-3xl md:text-6xl lg:text-6xl font-serif text-purevit-dark leading-tight"
                                     >
                                         {slides[current].title}
                                     </motion.h1>
@@ -230,7 +278,7 @@ const HeroCarousel = () => {
                                         initial={{ opacity: 0, y: 20 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         transition={{ delay: 0.4 }}
-                                        className="text-gray-500 text-xs md:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium"
+                                        className="hidden lg:block text-gray-500 text-xs md:text-base lg:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium"
                                     >
                                         {slides[current].description}
                                     </motion.p>
@@ -318,8 +366,8 @@ const HeroCarousel = () => {
                 </div>
             </div>
 
-            {/* Side Arrows */}
-            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex justify-between items-center w-full px-2 md:px-8 pointer-events-none z-30">
+            {/* Side Arrows - desktop only; mobile arrows are inside image block */}
+            <div className="hidden lg:flex absolute inset-x-0 top-1/2 -translate-y-1/2 justify-between items-center w-full px-8 pointer-events-none z-30">
                 <button
                     onClick={() => paginate(-1)}
                     className="w-8 h-8 md:w-14 md:h-14 rounded-full border border-purevit-dark/10 flex items-center justify-center text-purevit-dark hover:bg-purevit-dark hover:text-white transition-all group backdrop-blur-md bg-white/30 pointer-events-auto shadow-xl"

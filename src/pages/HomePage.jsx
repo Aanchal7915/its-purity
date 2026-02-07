@@ -148,33 +148,24 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Shop by Audience */}
-            <section className="py-12 md:py-16 bg-white">
+            {/* Watch & Shop (Reels) */}
+            <section className="py-12 md:py-20 bg-purevit-cream border-y border-purevit-primary/10">
                 <div className="max-w-7xl mx-auto px-4 md:px-8">
-                    <div className="text-center mb-8">
-                        <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The Collections</span>
-                        <h2 className="text-3xl md:text-5xl font-serif text-purevit-dark font-medium">Shop by Category</h2>
-                        <div className="h-px w-24 bg-purevit-primary mx-auto mt-6 opacity-30"></div>
+                    <div className="mb-12">
+                        <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Community</span>
+                        <h2 className="text-3xl md:text-6xl font-serif text-purevit-dark font-medium">Watch & Shop</h2>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-3 md:gap-4 justify-items-center max-w-4xl mx-auto">
-                        {(audienceCats.length > 0 ? audienceCats : [
-                            { name: 'Women', _id: 'women', image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80' },
-                            { name: 'Men', _id: 'men', image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80' },
-                            { name: 'Kids', _id: 'kids', image: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80' },
-                            { name: 'Senior', _id: 'senior', image: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&q=80' }
-                        ]).map((cat) => (
-                            <Link key={cat._id} to={`/products?audience=${cat._id}`} className="group w-full max-w-sm">
-                                <div className="overflow-hidden rounded-2xl border border-purevit-primary/10 bg-white shadow-lg transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:border-purevit-primary">
-                                    <div className="aspect-[4/3] overflow-hidden bg-purevit-cream">
-                                        <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                                    </div>
-                                    <div className="px-4 py-3 text-center">
-                                        <span className="text-base md:text-xl font-serif text-purevit-dark font-medium">{cat.name}</span>
-                                    </div>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                        {reels.length > 0 ? reels.map((reel) => (
+                            <ReelCard key={reel._id} reel={reel} />
+                        )) : (
+                            [1, 2, 3, 4].map((_, idx) => (
+                                <div key={idx} className="aspect-[9/16] bg-white rounded-3xl flex items-center justify-center border border-purevit-primary/10">
+                                    <p className="text-purevit-muted text-[10px] uppercase tracking-widest font-bold">No Reels</p>
                                 </div>
-                            </Link>
-                        ))}
+                            ))
+                        )}
                     </div>
                 </div>
             </section>
@@ -229,24 +220,33 @@ const HomePage = () => {
                 </div>
             </section>
 
-            {/* Watch & Shop (Reels) */}
-            <section className="py-12 md:py-20 bg-purevit-cream border-y border-purevit-primary/10">
+            {/* Shop by Audience */}
+            <section className="py-12 md:py-16 bg-white">
                 <div className="max-w-7xl mx-auto px-4 md:px-8">
-                    <div className="mb-12">
-                        <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Community</span>
-                        <h2 className="text-3xl md:text-6xl font-serif text-purevit-dark font-medium">Watch & Shop</h2>
+                    <div className="text-center mb-8">
+                        <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The Collections</span>
+                        <h2 className="text-3xl md:text-5xl font-serif text-purevit-dark font-medium">Shop by Category</h2>
+                        <div className="h-px w-24 bg-purevit-primary mx-auto mt-6 opacity-30"></div>
                     </div>
 
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-                        {reels.length > 0 ? reels.map((reel) => (
-                            <ReelCard key={reel._id} reel={reel} />
-                        )) : (
-                            [1, 2, 3, 4].map((_, idx) => (
-                                <div key={idx} className="aspect-[9/16] bg-white rounded-3xl flex items-center justify-center border border-purevit-primary/10">
-                                    <p className="text-purevit-muted text-[10px] uppercase tracking-widest font-bold">No Reels</p>
+                    <div className="grid grid-cols-2 gap-3 md:gap-4 justify-items-center max-w-4xl mx-auto">
+                        {(audienceCats.length > 0 ? audienceCats : [
+                            { name: 'Women', _id: 'women', image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80' },
+                            { name: 'Men', _id: 'men', image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80' },
+                            { name: 'Kids', _id: 'kids', image: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80' },
+                            { name: 'Senior', _id: 'senior', image: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&q=80' }
+                        ]).map((cat) => (
+                            <Link key={cat._id} to={`/products?audience=${cat._id}`} className="group w-full max-w-sm">
+                                <div className="overflow-hidden rounded-2xl border border-purevit-primary/10 bg-white shadow-lg transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:border-purevit-primary">
+                                    <div className="aspect-[4/3] overflow-hidden bg-purevit-cream">
+                                        <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                    </div>
+                                    <div className="px-4 py-3 text-center">
+                                        <span className="text-base md:text-xl font-serif text-purevit-dark font-medium">{cat.name}</span>
+                                    </div>
                                 </div>
-                            ))
-                        )}
+                            </Link>
+                        ))}
                     </div>
                 </div>
             </section>

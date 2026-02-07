@@ -1,4 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminLayout from './components/admin/AdminLayout';
 import AdminDashboard from './pages/admin/AdminDashboard';
@@ -32,8 +33,20 @@ import ShippingAndRefund from './pages/legal/ShippingAndRefund';
 import PrivacyPolicy from './pages/legal/PrivacyPolicy';
 import Sitemap from './pages/legal/Sitemap';
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
 function App() {
   return (
+    <>
+      <ScrollToTop />
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<PublicLayout />}>
@@ -73,6 +86,7 @@ function App() {
         <Route path="categories" element={<AdminCategoryPage />} />
       </Route>
     </Routes>
+    </>
   );
 }
 
