@@ -123,37 +123,190 @@ const HomePage = () => {
 
 
             
-            {/* Product Sections (Featured, Best Seller, New, Saver) */}
-            {[
-                { title: "Featured Products", data: featuredProducts, badge: "featured" },
-                { title: "Best Sellers", data: bestSellers, badge: "bestseller", bg: "bg-[#f9fafb]" },
-                { title: "New Launches", data: newLaunches, badge: "newlaunch" },
-                { title: "Super Saver", data: superSavers, badge: "supersaver", bg: "bg-[#f9fafb]" }
-            ].map((section, sIdx) => (
-                <section key={sIdx} className={`py-12 md:py-20 ${section.bg || 'bg-white'}`}>
-                    <div className="max-w-7xl mx-auto px-4 md:px-8">
-                        <div className="text-center mb-12">
-                            <h2 className="text-3xl md:text-5xl font-serif font-bold text-black">{section.title}</h2>
-                        </div>
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-                            {section.data.length > 0 ? section.data.map((product) => (
-                                <ProductCard key={product._id} product={product} activeBadge={section.badge} onAddToCart={addToCart} onAddToWishlist={handleAddToWishlist} />
-                            )) : (
-                                [1, 2, 3, 4].map((i) => (
-                                    <div key={i} className="aspect-[3/4] bg-white rounded-3xl border border-dashed border-gray-200 flex items-center justify-center">
-                                        <p className="text-gray-400 text-xs">No Products</p>
-                                    </div>
-                                ))
-                            )}
-                        </div>
-                        <div className="mt-12 flex justify-center">
-                            <Link to="/products" className="inline-flex items-center gap-3 px-8 py-3 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
-                                View Collection <ArrowRight size={14} />
-                            </Link>
-                        </div>
+            {/* Featured Products */}
+            <section className="py-12 md:py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-5xl font-serif font-bold text-black">Featured Products</h2>
                     </div>
-                </section>
-            ))}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                        {featuredProducts.length > 0 ? featuredProducts.map((product) => (
+                            <ProductCard key={product._id} product={product} activeBadge="featured" onAddToCart={addToCart} onAddToWishlist={handleAddToWishlist} />
+                        )) : (
+                            [1, 2, 3, 4].map((i) => (
+                                <div key={i} className="aspect-[3/4] bg-white rounded-3xl border border-dashed border-gray-200 flex items-center justify-center">
+                                    <p className="text-gray-400 text-xs">No Products</p>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    <div className="mt-12 flex justify-center">
+                        <Link to="/products" className="inline-flex items-center gap-3 px-8 py-3 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
+                            View Collection <ArrowRight size={14} />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* Shop by Audience */}
+            <section className="py-12 md:py-16 bg-white">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    <div className="text-center mb-8">
+                        <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The Collections</span>
+                        <h2 className="text-3xl md:text-5xl font-serif text-purevit-dark font-medium">Shop by Category</h2>
+                        <div className="h-px w-24 bg-purevit-primary mx-auto mt-6 opacity-30"></div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3 md:gap-4 justify-items-center max-w-4xl mx-auto">
+                        {(audienceCats.length > 0 ? audienceCats : [
+                            { name: 'Women', _id: 'women', image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80' },
+                            { name: 'Men', _id: 'men', image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80' },
+                            { name: 'Kids', _id: 'kids', image: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80' },
+                            { name: 'Senior', _id: 'senior', image: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&q=80' }
+                        ]).map((cat) => (
+                            <Link key={cat._id} to={`/products?audience=${cat._id}`} className="group w-full max-w-sm">
+                                <div className="overflow-hidden rounded-2xl border border-purevit-primary/10 bg-white shadow-lg transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:border-purevit-primary">
+                                    <div className="aspect-[4/3] overflow-hidden bg-purevit-cream">
+                                        <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                                    </div>
+                                    <div className="px-4 py-3 text-center">
+                                        <span className="text-base md:text-xl font-serif text-purevit-dark font-medium">{cat.name}</span>
+                                    </div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Best Sellers */}
+            <section className="py-12 md:py-20 bg-[#f9fafb]">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-5xl font-serif font-bold text-black">Best Sellers</h2>
+                    </div>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                        {bestSellers.length > 0 ? bestSellers.map((product) => (
+                            <ProductCard key={product._id} product={product} activeBadge="bestseller" onAddToCart={addToCart} onAddToWishlist={handleAddToWishlist} />
+                        )) : (
+                            [1, 2, 3, 4].map((i) => (
+                                <div key={i} className="aspect-[3/4] bg-white rounded-3xl border border-dashed border-gray-200 flex items-center justify-center">
+                                    <p className="text-gray-400 text-xs">No Products</p>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    <div className="mt-12 flex justify-center">
+                        <Link to="/products" className="inline-flex items-center gap-3 px-8 py-3 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
+                            View Collection <ArrowRight size={14} />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* New Launches */}
+            <section className="py-12 md:py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-5xl font-serif font-bold text-black">New Launches</h2>
+                    </div>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                        {newLaunches.length > 0 ? newLaunches.map((product) => (
+                            <ProductCard key={product._id} product={product} activeBadge="newlaunch" onAddToCart={addToCart} onAddToWishlist={handleAddToWishlist} />
+                        )) : (
+                            [1, 2, 3, 4].map((i) => (
+                                <div key={i} className="aspect-[3/4] bg-white rounded-3xl border border-dashed border-gray-200 flex items-center justify-center">
+                                    <p className="text-gray-400 text-xs">No Products</p>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    <div className="mt-12 flex justify-center">
+                        <Link to="/products" className="inline-flex items-center gap-3 px-8 py-3 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
+                            View Collection <ArrowRight size={14} />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* Watch & Shop (Reels) */}
+            <section className="py-12 md:py-20 bg-purevit-cream border-y border-purevit-primary/10">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    <div className="mb-12">
+                        <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Community</span>
+                        <h2 className="text-3xl md:text-6xl font-serif text-purevit-dark font-medium">Watch & Shop</h2>
+                    </div>
+
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                        {reels.length > 0 ? reels.map((reel) => (
+                            <ReelCard key={reel._id} reel={reel} />
+                        )) : (
+                            [1, 2, 3, 4].map((_, idx) => (
+                                <div key={idx} className="aspect-[9/16] bg-white rounded-3xl flex items-center justify-center border border-purevit-primary/10">
+                                    <p className="text-purevit-muted text-[10px] uppercase tracking-widest font-bold">No Reels</p>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
+            </section>
+
+            {/* Super Saver */}
+            <section className="py-12 md:py-20 bg-[#f9fafb]">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-5xl font-serif font-bold text-black">Super Saver</h2>
+                    </div>
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                        {superSavers.length > 0 ? superSavers.map((product) => (
+                            <ProductCard key={product._id} product={product} activeBadge="supersaver" onAddToCart={addToCart} onAddToWishlist={handleAddToWishlist} />
+                        )) : (
+                            [1, 2, 3, 4].map((i) => (
+                                <div key={i} className="aspect-[3/4] bg-white rounded-3xl border border-dashed border-gray-200 flex items-center justify-center">
+                                    <p className="text-gray-400 text-xs">No Products</p>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                    <div className="mt-12 flex justify-center">
+                        <Link to="/products" className="inline-flex items-center gap-3 px-8 py-3 bg-black text-white rounded-full text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all shadow-lg">
+                            View Collection <ArrowRight size={14} />
+                        </Link>
+                    </div>
+                </div>
+            </section>
+
+            {/* Product Formats */}
+            <section className="py-12 md:py-20 bg-purevit-cream border-y border-purevit-primary/5">
+                <div className="max-w-7xl mx-auto px-4 md:px-8">
+                    <div className="mb-12">
+                        <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The Formulations</span>
+                        <h2 className="text-3xl md:text-6xl font-serif text-purevit-dark font-medium italic">Product Formats</h2>
+                    </div>
+
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
+                        {formCats.length > 0 ? formCats.map((cat, idx) => (
+                            <Link key={cat._id} to={`/products?productType=${cat._id}`} className="group">
+                                <div className="bg-white rounded-[2rem] overflow-hidden shadow-xl border border-purevit-primary/10">
+                                    <div className="aspect-[1/1] md:aspect-[16/10] overflow-hidden bg-white">
+                                        <img src={cat.image || `https://images.unsplash.com/photo-1594489428504-5c0c480a3202?auto=format&fit=crop&q=80&sig=${idx}`} alt={cat.name} className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-105" />
+                                    </div>
+                                    <div className="px-4 py-3 border-t border-purevit-primary/10">
+                                        <h3 className="text-[11px] md:text-base font-semibold text-purevit-dark">{cat.name}</h3>
+                                    </div>
+                                </div>
+                            </Link>
+                        )) : (
+                            [1, 2, 3, 4].map((_, idx) => (
+                                <div key={idx} className="aspect-[16/10] rounded-[2rem] bg-white border border-dashed border-purevit-primary/20 flex items-center justify-center">
+                                    <span className="text-purevit-muted text-[10px] font-black uppercase tracking-widest">0{idx + 1}</span>
+                                </div>
+                            ))
+                        )}
+                    </div>
+                </div>
+            </section>
+
 
             {/* Benefits Section */}
             <section className="py-12 md:py-20 bg-white relative overflow-hidden">
@@ -203,91 +356,6 @@ const HomePage = () => {
                     </div>
                 </div>
             </section>
-
-            {/* Watch & Shop (Reels) */}
-            <section className="py-12 md:py-20 bg-purevit-cream border-y border-purevit-primary/10">
-                <div className="max-w-7xl mx-auto px-4 md:px-8">
-                    <div className="mb-12">
-                        <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Community</span>
-                        <h2 className="text-3xl md:text-6xl font-serif text-purevit-dark font-medium">Watch & Shop</h2>
-                    </div>
-
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-                        {reels.length > 0 ? reels.map((reel) => (
-                            <ReelCard key={reel._id} reel={reel} />
-                        )) : (
-                            [1, 2, 3, 4].map((_, idx) => (
-                                <div key={idx} className="aspect-[9/16] bg-white rounded-3xl flex items-center justify-center border border-purevit-primary/10">
-                                    <p className="text-purevit-muted text-[10px] uppercase tracking-widest font-bold">No Reels</p>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                </div>
-            </section>
-
-            {/* Shop by Audience */}
-            <section className="py-12 md:py-16 bg-white">
-                <div className="max-w-7xl mx-auto px-4 md:px-8">
-                    <div className="text-center mb-8">
-                        <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The Collections</span>
-                        <h2 className="text-3xl md:text-5xl font-serif text-purevit-dark font-medium">Shop by Category</h2>
-                        <div className="h-px w-24 bg-purevit-primary mx-auto mt-6 opacity-30"></div>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-3 md:gap-4 justify-items-center max-w-4xl mx-auto">
-                        {(audienceCats.length > 0 ? audienceCats : [
-                            { name: 'Women', _id: 'women', image: 'https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80' },
-                            { name: 'Men', _id: 'men', image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&q=80' },
-                            { name: 'Kids', _id: 'kids', image: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80' },
-                            { name: 'Senior', _id: 'senior', image: 'https://images.unsplash.com/photo-1581579438747-1dc8d17bbce4?auto=format&fit=crop&q=80' }
-                        ]).map((cat) => (
-                            <Link key={cat._id} to={`/products?audience=${cat._id}`} className="group w-full max-w-sm">
-                                <div className="overflow-hidden rounded-2xl border border-purevit-primary/10 bg-white shadow-lg transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:border-purevit-primary">
-                                    <div className="aspect-[4/3] overflow-hidden bg-purevit-cream">
-                                        <img src={cat.image} alt={cat.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
-                                    </div>
-                                    <div className="px-4 py-3 text-center">
-                                        <span className="text-base md:text-xl font-serif text-purevit-dark font-medium">{cat.name}</span>
-                                    </div>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Product Formats */}
-            <section className="py-12 md:py-20 bg-purevit-cream border-y border-purevit-primary/5">
-                <div className="max-w-7xl mx-auto px-4 md:px-8">
-                    <div className="mb-12">
-                        <span className="text-purevit-primary text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The Formulations</span>
-                        <h2 className="text-3xl md:text-6xl font-serif text-purevit-dark font-medium italic">Product Formats</h2>
-                    </div>
-
-                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
-                        {formCats.length > 0 ? formCats.map((cat, idx) => (
-                            <Link key={cat._id} to={`/products?productType=${cat._id}`} className="group">
-                                <div className="bg-white rounded-[2rem] overflow-hidden shadow-xl border border-purevit-primary/10">
-                                    <div className="aspect-[1/1] md:aspect-[16/10] overflow-hidden bg-white">
-                                        <img src={cat.image || `https://images.unsplash.com/photo-1594489428504-5c0c480a3202?auto=format&fit=crop&q=80&sig=${idx}`} alt={cat.name} className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-105" />
-                                    </div>
-                                    <div className="px-4 py-3 border-t border-purevit-primary/10">
-                                        <h3 className="text-[11px] md:text-base font-semibold text-purevit-dark">{cat.name}</h3>
-                                    </div>
-                                </div>
-                            </Link>
-                        )) : (
-                            [1, 2, 3, 4].map((_, idx) => (
-                                <div key={idx} className="aspect-[16/10] rounded-[2rem] bg-white border border-dashed border-purevit-primary/20 flex items-center justify-center">
-                                    <span className="text-purevit-muted text-[10px] font-black uppercase tracking-widest">0{idx + 1}</span>
-                                </div>
-                            ))
-                        )}
-                    </div>
-                </div>
-            </section>
-
 
             {/* Learn Section */}
             <section className="py-12 md:py-20 bg-[#fcfbf9] relative overflow-hidden">
