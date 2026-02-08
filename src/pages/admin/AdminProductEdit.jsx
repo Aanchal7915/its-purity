@@ -157,6 +157,13 @@ const AdminProductEdit = () => {
         setVariants(newVariants);
     };
 
+    const normalizeUploadUrl = (data) => {
+        if (!data) return '';
+        const url = typeof data === 'string' ? data : (data.secure_url || data.url || '');
+        if (!url) return '';
+        return url.startsWith('http') ? url : `${import.meta.env.VITE_API_BASE_URL}${url}`;
+    };
+
     const uploadFileHandler = async (e) => {
         const files = e.target.files;
         const formData = new FormData();
@@ -164,11 +171,8 @@ const AdminProductEdit = () => {
         if (files.length === 1) {
             formData.append('image', files[0]);
             try {
-                const config = {
-                    headers: { 'Content-Type': 'multipart/form-data' },
-                };
-                const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload`, formData, config);
-                const fullUrl = `${import.meta.env.VITE_API_BASE_URL}${data}`;
+                const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload`, formData);
+                const fullUrl = normalizeUploadUrl(data);
                 setImages([...images, fullUrl]);
                 if (!primaryMedia) setPrimaryMedia('image');
             } catch (error) {
@@ -180,11 +184,8 @@ const AdminProductEdit = () => {
                 formData.append('images', files[i]);
             }
             try {
-                const config = {
-                    headers: { 'Content-Type': 'multipart/form-data' },
-                };
-                const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload/multiple`, formData, config);
-                const fullUrls = data.map(path => `${import.meta.env.VITE_API_BASE_URL}${path}`);
+                const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload/multiple`, formData);
+                const fullUrls = data.map((url) => normalizeUploadUrl(url)).filter(Boolean);
                 setImages([...images, ...fullUrls]);
                 if (!primaryMedia) setPrimaryMedia('image');
             } catch (error) {
@@ -200,11 +201,8 @@ const AdminProductEdit = () => {
         const formData = new FormData();
         formData.append('video', file);
         try {
-            const config = {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            };
-            const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload/video`, formData, config);
-            const fullUrl = `${import.meta.env.VITE_API_BASE_URL}${data}`;
+            const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload/video`, formData);
+            const fullUrl = normalizeUploadUrl(data);
             setVideoUrl(fullUrl);
             if (!primaryMedia) setPrimaryMedia('video');
         } catch (error) {

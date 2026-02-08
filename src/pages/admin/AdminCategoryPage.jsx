@@ -123,18 +123,21 @@ const AdminCategoryPage = () => {
         }
     };
 
+    const normalizeUploadUrl = (data) => {
+        if (!data) return '';
+        const url = typeof data === 'string' ? data : (data.secure_url || data.url || '');
+        if (!url) return '';
+        return url.startsWith('http') ? url : `${import.meta.env.VITE_API_BASE_URL}${url}`;
+    };
+
     const uploadCategoryImage = async (e, setImage) => {
         const files = e.target.files;
         if (!files || files.length === 0) return;
         const formData = new FormData();
         formData.append('image', files[0]);
         try {
-            const config = {
-                headers: { 'Content-Type': 'multipart/form-data' },
-            };
-            const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload`, formData, config);
-            const fullUrl = `${import.meta.env.VITE_API_BASE_URL}${data}`;
-            setImage(fullUrl);
+            const { data } = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/upload`, formData);
+            setImage(normalizeUploadUrl(data));
         } catch (error) {
             console.error(error);
             alert(error.response?.data?.message || error.message || 'Image upload failed');
