@@ -49,7 +49,7 @@ const slides = [
         title: "Peak Performance, Pure Recovery.",
         subtitle: "Elite Lean Protein - Muscle Fuel",
         description: "Fuel your muscles with the world's cleanest whey isolate. Designed for athletes who demand purity without compromise, our protein delivers a full spectrum of amino acids to accelerate muscle protein synthesis and cut down recovery time, helping you build a stronger, leaner physique faster.",
-        image: "peak.png",
+        image: "peak1.png",
         stats: [
             { label: "Recovery", value: "Fast", icon: <Activity size={20} /> },
             { label: "Muscle", value: "Growth", icon: <Zap size={20} /> },
