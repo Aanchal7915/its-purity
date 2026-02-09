@@ -11,6 +11,7 @@ const slides = [
         description: "Experience the synergy of pharmaceutical-grade nutrients specifically formulated for men. Our unique blend optimizes metabolic health, cognitive function, and physical resilience, ensuring you stay at the peak of your performance every single day. Scientifically backed and purity-guaranteed.",
         image: "/images/hero1.png",
         video: "/video.mp4",
+        mobileVideo: "/mobile-view-video.mp4",
         stats: [
             { label: "Energy", value: "30%", icon: <Zap size={20} /> },
             { label: "Immunity", value: "25%", icon: <Shield size={20} /> },
@@ -208,8 +209,8 @@ const HeroCarousel = () => {
                                     <div className="relative aspect-[4/3] rounded-[2rem] overflow-hidden shadow-2xl">
                                         {slides[current].video ? (
                                             <video
-                                                src={slides[current].video}
-                                                className="w-full h-full object-cover object-center scale-[1.08] origin-center"
+                                                src={!isMdUp && slides[current].mobileVideo ? slides[current].mobileVideo : slides[current].video}
+                                                className={`w-full h-full object-cover object-center origin-center ${!isMdUp && slides[current].mobileVideo ? 'scale-[0.90]' : 'scale-[1.0]'}`}
                                                 autoPlay
                                                 muted
                                                 loop
